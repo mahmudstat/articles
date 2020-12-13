@@ -1,1 +1,1 @@
-# Tracks articles written for Kishor Alo.
+# Tracks articles written for various magazines.
