@@ -1,0 +1,24 @@
+HTML
+
+  <p class="noteBoxes"> <i class="fa fa-lightbulb-o" style="font-size:24px"></i>
+Text
+  </p>
+
+CSS
+/***** Code Box *****/
+.codebox {border-left: 15px solid #5F9EA0; border-top: 0px green; border-bottom: 0px green; border-right 0px; font: 14px/26px CONSOLAS, Georgia, Garamond, Serif; overflow: auto; padding-top: 6px; padding-bottom: 10px; padding-left: 5px; background-color: #F8F8FF; background-image: linear-gradient(to right, lightgrey, white);
+}
+
+/*****  Information Box *****/
+
+.noteBoxes
+{
+	border: 1px solid;
+  	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0;
+	width: 90%;
+	border-color: green;
+	background-image: linear-gradient(to right, #99ddff, #e6f7ff);
+	color: black; 
+}
