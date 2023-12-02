@@ -1,0 +1,117 @@
+\documentclass[a4paper,oneside, margin=1.4in]{book}
+
+\usepackage{lipsum}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titletoc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\titlecontents*{chapter}
+  [0pt]% <left>
+  {}
+  {\chaptername\ \thecontentslabel\quad}
+  {}
+  {\bfseries\hfill\contentspage}    
+
+\usepackage{bookmark}
+\usepackage{etoolbox}
+
+\makeatletter
+\newcommand*{\AddChapterPrefixInBookmarks}{%
+  \if@mainmatter
+    \ifnum\bookmarkget{level}=0 %
+      \preto\bookmark@text{\@chapapp\space}%
+    \fi
+  \fi
+}
+\makeatother
+
+\bookmarksetup{
+  numbered,
+  addtohook=\AddChapterPrefixInBookmarks,
+}
+
+% Workaround for numbered sections in unnumbered
+% chapter "Introduction" to avoid chapter number
+% zero.
+\renewcommand*{\thesection}{%
+  \ifcase\value{chapter}%
+  \else
+    \thechapter.%
+  \fi
+  \arabic{section}%
+}
+
+\title{My document}
+
+\begin{document}
+\frontmatter
+
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+            
+        \Huge
+        \textbf{The Ultimate Quiz Bank}
+            
+        \vspace{0.5cm}
+        \LARGE
+        Paper
+            
+        \vspace{1.5cm}
+            
+        \textbf{Abdullah Al Mahmud}
+            
+        \vfill
+            
+            
+        \vspace{0.8cm}
+            
+            
+        \Large
+        www.thinkermahmud.com\\
+            
+    \end{center}
+\end{titlepage}
+
+
+\tableofcontents
+
+
+\mainmatter
+\chapter{Easy Questions} 
+\section{Logic Puzzles}
+
+\begin{enumerate}
+
+\item 
+There is a combination lock with three digits. The clues are the following:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c|c}
+Digits & \begin{tabular}[c]{@{}c@{}}No. of \\ Correct\\ Digits\end{tabular} & Position \\ \hline
+964 & 2 & Wrong \\
+286 & 1 & Wrong \\
+147 & 1 & Wrong \\
+189 & 1 & Correct \\
+523 & 0 & NA
+\end{tabular}
+\end{table}
+
+What is the correct code?
+
+\end{enumerate}
+
+\section{Math Questions}
+
+
+\section{Paradox}
+
+\section{Short Questions}
+
+\backmatter
+\chapter{Conclusion}
+\lipsum[8]
+
+\tableofcontents
+\end{document}

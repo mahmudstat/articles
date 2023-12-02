@@ -1,0 +1,7 @@
+\contentsline {chapter}{\numberline {1}Easy Questions}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Logic Puzzles}{1}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Math Questions}{1}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Paradox}{1}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Short Questions}{1}{section.1.4}%
+\contentsline {chapter}{Conclusion}{2}{chapter*.2}%
+\contentsfinish 
