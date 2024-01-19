@@ -5,3 +5,6 @@ factfulness.pdf
 .~*
 *.log
 *.gz
+*.idx
+*.ind
+*.ilg

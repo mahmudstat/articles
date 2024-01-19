@@ -1,4 +1,4 @@
-\documentclass[13pt]{article}
+\documentclass[14pt]{article}
 \usepackage[a4paper,
             bindingoffset=0.2in,
             left=1.5cm,
@@ -6,7 +6,18 @@
             top=1cm,
             bottom=1cm,
             footskip=.25in]{geometry}
+\usepackage{imakeidx}
 \usepackage{hyperref}
+\hypersetup{hidelinks,
+backref=true,
+hyperindex=true,
+hypertexnames=true,
+colorlinks=false,
+bookmarks=true,
+bookmarksopen=false,
+pdftitle={Title},
+pdfauthor={Author}}
+
 \usepackage{lipsum}
 \usepackage{enumitem}
 \usepackage{ifthen}
@@ -65,7 +76,9 @@
     \csname S\romannumeral\thepcindex\endcsname
   }%
 }
+\makeindex
 \begin{document}
+
 
 % Source
 % https://tex.stackexchange.com/questions/175826/avoiding-multiple-label-refs-in-simply-formatted-documents
@@ -121,7 +134,7 @@
 \end{tabular}
 \end{table}
 
-There is a combination lock with three digits. The clues are the following:
+There is a combination lock \index{lock} with three digits. The clues are the following:
 
 \begin{table}[h]
 \centering
@@ -242,6 +255,8 @@ Look at all the products. We have 6*6*1 = 36*1*1 = 18*2*1 = 6*2*3 = 4*3*3 = 9*2*
 \hrule
 \vspace{6pt}
 
+ \index{door}  \index{guard}  \index{true-false}
+ 
 Imagine two identical doors: behind one is heaven, and behind the other is hell. Each door is guarded by a guardian. One of the guardians always tells the truth, while the other always lies. However, one cannot know which is which. By asking only one question to only one of the two guardians, how can one determine which door leads to heaven?
 
 }{
@@ -255,6 +270,7 @@ Imagine two identical doors: behind one is heaven, and behind the other is hell.
 \hrule
 \vspace{6pt}
 
+ \index{lock}
 \begin{center}
 \includegraphics[width=8cm]{img/lock2.png}
 \end{center}
@@ -285,6 +301,7 @@ Explanation
 \hrule
 \vspace{6pt}
 
+ \index{lock}
 \begin{center}
 \includegraphics[width=14cm]{img/lock4.jpg}
 \end{center}
@@ -311,6 +328,37 @@ Explanation
 }
 
 % PUZZLE END
+
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+“I only have sheep, goats and horses. In fact, at the moment they are all sheep bar three, all goats bar four and all horses bar five.” How many do I have of each animal?
+
+}{
+
+Three sheep, two goats and one horse
+
+}
+%END
+
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+ I add six to eleven, and get five. Why is this correct?
+
+}{
+
+When it is 11 a.m., adding six hours makes it 5 p.m. 
+
+}
+%END
+
 % MATH START
 
 \section{Mathematics Quizes}
@@ -349,6 +397,68 @@ Difference: 88880
 }
 %END
 
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+Using only addition, add eight 8s to get the number 1,000. \index{Math}
+
+}{
+
+888 + 88 + 8 + 8 + 8 = 1,000
+
+}
+%END
+
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+What single digit appears most frequently between and including the numbers 1 and 1,000?
+
+}{
+
+The most common digit is 1! Every number 1–9 appears exactly the same number of times in every ten numbers. But because we included the number 1,000, there’s an extra occurrence of the number 1. In total, the number 1 appears 301 times, and every other number appears 300 times.
+
+}
+%END
+
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+What is the smallest 2-digit number that is equal to seven times the sum of its digits?
+
+}{
+
+10a + b = 7(a + b), then 10a + b = 7a + 7b, and so 3a = 6b, or, more simply, a = 2b. That is, the second digit must be twice the first. The smallest such number is 21.
+
+}
+%END
+
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+What is the smallest number that increases by 12 when it is flipped and turned upside-down?
+
+}{
+
+The answer is 86. When it is turned upside-down and flipped, it becomes 98, which is 12 more than 86.
+
+}
+%END
+
 % Put new questions before this line
 \showProblemsThenSolutions
+
+\printindex
 \end{document}
