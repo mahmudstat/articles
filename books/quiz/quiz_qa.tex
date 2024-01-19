@@ -1,0 +1,254 @@
+\documentclass{article}
+\usepackage[a4paper,
+            bindingoffset=0.2in,
+            left=1.5cm,
+            right=1.5cm,
+            top=1cm,
+            bottom=1cm,
+            footskip=.25in]{geometry}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{enumitem}
+\usepackage{ifthen}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={blue!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+\makeatletter
+\newcommand{\mynameis}[1]{%
+  \phantomsection#1% Mark hyperlink
+  \renewcommand{\@currentlabel}{#1}%
+  \renewcommand{\@currentlabelname}{#1}}
+\makeatother
+\newcounter{probcount}
+\newcounter{pcindex}
+\newcommand\addProblemPlusSolution[2]{%
+  \stepcounter{probcount}
+  \expandafter\def\csname P\romannumeral\theprobcount\endcsname{#1}%
+  \expandafter\def\csname S\romannumeral\theprobcount\endcsname{#2}%
+}
+\newcommand\showProblemsThenSolutions{%
+
+      \begin{center}
+      \LARGE
+        \textbf{Problems}
+        \normalsize
+\end{center}
+  \setcounter{pcindex}{0}%
+  \whiledo{\thepcindex < \theprobcount}{%
+    \stepcounter{pcindex}%
+    \subsection*{\mynameis{Problem \thepcindex}%
+                 \label{LP\romannumeral\thepcindex}
+                 {\small\mdseries(See \ref{LS\romannumeral\thepcindex})}}
+
+    \csname P\romannumeral\thepcindex\endcsname
+  }%
+
+      \newpage
+      \begin{center}
+      \LARGE
+        \textbf{Solutions}
+        \normalsize
+\end{center}
+
+    \setcounter{pcindex}{0}%
+  \whiledo{\thepcindex < \theprobcount}{%
+    \stepcounter{pcindex}%
+    \subsection*{\mynameis{Solution \thepcindex}%
+                 \label{LS\romannumeral\thepcindex}
+                 {\small\mdseries(See \ref{LP\romannumeral\thepcindex})}}
+
+    \csname S\romannumeral\thepcindex\endcsname
+  }%
+}
+\begin{document}
+
+% Source
+% https://tex.stackexchange.com/questions/175826/avoiding-multiple-label-refs-in-simply-formatted-documents
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+            
+        \Huge
+        \textbf{The Great Quiz Book}
+            
+        \vspace{0.5cm}
+        \huge
+        Logic \& Math
+        
+        \includegraphics[width=8cm]{img/quiz.jpg}
+            
+        \vspace{1.5cm}
+            
+        \textbf{Abdullah Al Mahmud}
+
+     \vspace{1.5cm}
+
+	\Large 
+	Updated on: \today
+	
+	
+            
+        \vfill
+            
+
+            
+        \vspace{0.8cm}
+            
+
+            
+        \Large
+        www.statmania.info\\
+            
+    \end{center}
+\end{titlepage}
+
+
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+ &  &  \\ \hline
+\end{tabular}
+\end{table}
+
+There is a combination lock with three digits. The clues are the following:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|c|c}
+Digits & \begin{tabular}[c]{@{}c@{}}No. of \\ Correct\\ Digits\end{tabular} & Position \\ \hline
+964 & 2 & Wrong \\
+286 & 1 & Wrong \\
+147 & 1 & Wrong \\
+189 & 1 & Correct \\
+523 & 0 & NA
+\end{tabular}
+\end{table}
+
+What is the correct code?
+}{
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+6 & 7 & 9 \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Logic}
+
+\begin{enumerate}[label=(\alph*)]
+\item 523 are removed by clue no. 5
+\item 1 is removed by clue 3 \& 4 (can't be in right and wrong position simulatenously)
+\item 8 is removed by clue 2 \& 4 (can't be in right and wrong position simulatenously)
+\item 6 is correct digit by clue 2 (since 2 \& are worng)
+\item Position of 6 is 1st (by clue 1 \& 2, both worng position)
+\item 9 is the 3rd digit in solution by clue 4 (since 1 \& 8 are incorrect)
+\item 4 is removed by clue 1 (since two corret digits are 9 \& 6)
+\item The 2nd digit in solution is 7 (by clue 3 and since no other digit exists)
+\end{enumerate}
+
+
+}
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+A shepherd has to cross a river with a sheep, a wolf and a cabbage. Only two can go on the boat, for example, the shepherd and the sheep. How can they cross the river without the wolf eating the sheep and or the sheep eating the cabbage?
+
+}{
+
+1. Bring sheep \\
+2. Bring back nothing \\
+3. Bring wolf \\
+4. Bring back sheep \\
+5. Bring cabbage \\ 
+6. Bring back nothing \\ 
+7. Bring wolf \\
+
+}
+
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+A sweet seller receives three opaque boxes. One contains mint sweets, another aniseed sweets, another a mixture of mint and aniseed. The boxes have labels, Mint, Aniseed or Mixture but the seller is told that the labels are all wrongly labeled. What is the minimum number of sweets the man has to take out to verify the contents of the boxes?
+
+}{
+
+There are 6 permutations. If all are labeled wrong, then there are only 2 rotations left.
+Opening one box determines the order.
+
+}
+
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+Inside a hermetically sealed room, there is a light bulb and outside the room there are three switches. Only one of the switches lights the bulb. While the door is closed, one can press the switches as often as you want. But when the door is open, you have to say which of the 3 switches lights the bulb.
+
+}{
+
+Light one. Then turn it off. Then light the second one. Go into the room. If the light is
+off and cold, it was the third one.
+
+}
+
+
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+How can you time 9 minutes using two sand clocks, with one of 4 minutes and the other of 7 minutes?
+
+}{
+
+Start both sandclocks. Turn the 4 minute clock 4 times, giving 16 minutes. Start counting
+after the 7 minutes, when the first sand clock is finished
+
+}
+
+
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+A student ask his teacher: how old are your 3 daughters? Teacher: “if you multiply their ages, you get 36. If you add them, you get your house number.” The student protests that it can not be solved. The teacher: “You are right, the oldest plays the piano.” Now the student can answer the question. How old are the daughters?
+
+}{
+
+Look at all the products. We have 6*6*1 = 36*1*1 = 18*2*1 = 6*2*3 = 4*3*3 = 9*2*2 with sums 13,38,21,11,10,13. The sum is ambiguous for 6*6*1 and 9*2*2. The last information gives 9,2,2.
+
+}
+
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+Imagine two identical doors: behind one is heaven, and behind the other is hell. Each door is guarded by a guardian. One of the guardians always tells the truth, while the other always lies. However, one cannot know which is which. By asking only one question to only one of the two guardians, how can one determine which door leads to heaven?
+
+}{
+
+What would the other guardian say if I asked them if this is the door to hell?”
+
+}
+
+
+
+\showProblemsThenSolutions
+\end{document}

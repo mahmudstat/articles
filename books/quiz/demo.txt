@@ -1,0 +1,12 @@
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+Problem
+
+}{
+
+Solution
+
+}
