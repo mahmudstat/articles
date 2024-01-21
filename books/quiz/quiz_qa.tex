@@ -359,7 +359,86 @@ When it is 11 a.m., adding six hours makes it 5 p.m.
 }
 %END
 
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+Four people (Abid, Basit, Chisti, and Dawud) want to cross a river in a boat that can only carry 100kg. Abid weighs 90kg, Basit weighs 80kg, Chisti weighs 60kg and Dawud weighs 40kg, and they have 20kg of supplies. How do they get across?
+
+}{
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+Go & Return & Stay on Other Side & Stay on this Side \\ \hline
+60+40 & 40 & 60 & 20, 40, 80, 90 \\ \hline
+90 & 60 & 90 & 20, 40, 60, 80 \\ \hline
+60+40 & 40 & 60, 90 & 20, 40, 80 \\ \hline
+80+20 & 60 & 20, 80, 90 & 40, 60 \\ \hline
+40+60 & - & 20, 40, 60, 80, 90 & - \\ \hline
+\end{tabular}
+\end{table}
+
+}
+%END
+
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+There are two ducks in front of a duck, two ducks behind a duck and a duck in the middle. How many ducks are there?
+
+}{
+
+Three. Two ducks are in front of the last duck; the first duck has two ducks behind; one duck is between the other two.
+
+}
+%END
+
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+Five people were eating apples, A finished before B, but behind C. D finished before E, but behind B. What was the finishing order?
+
+}{
+
+\begin{center}
+CABDE
+\end{center}
+
+}
+%END
+
+%START
+\addProblemPlusSolution
+{
+\hrule
+\vspace{6pt}
+
+Problem
+
+}{
+
+\begin{center}
+Solution
+\end{center}
+
+
+}
+%END
+
+
 % MATH START
+
+
 
 \section{Mathematics Quizes}
 
@@ -462,3 +541,10 @@ The answer is 86. When it is turned upside-down and flipped, it becomes 98, whic
 
 \printindex
 \end{document}
+
+% Sources
+
+% https://www.rd.com/list/math-riddles/
+% BDMO
+% Easy short riddles: https://parade.com/947956/parade/riddles/
+% Logic puzzle: https://parade.com/970343/parade/logic-puzzles/

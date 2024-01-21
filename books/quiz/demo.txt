@@ -8,7 +8,10 @@ Problem
 
 }{
 
+\begin{center}
 Solution
+\end{center}
+
 
 }
 %END
