@@ -59,7 +59,7 @@ A study conducted in Indonesia [@ibr_ins] has shown that SMEs have proven as a s
 
 A study by @Kobe2018 shows that small business contributed $5.9 trillion to the $13.6 trillion in US private economy in 2014. Real GDP per employee was $103,000 for small business, while productivity payroll dollar was $2.44 for small businesses, while for large businesses, it was $2.20. The analysis also revealed Small Business GDP (SGDP) increased over the 1998 to 2014 period. As small businesses grow, they may change from a small businesses to large one or are acquired by a large enterprise.
 
-```{r sbgdp, echo=FALSE, fig.cap = " Small Business Nominal GDP (1998-2014) in US economy", fig.align = 'center', out.width = '50%'}
+```{r sbgdp, echo=FALSE, fig.cap = " Small Business Nominal GDP (1998-2014) in US economy", out.width = '50%'}
 knitr:: include_graphics("sb_gdp.png")
 ```
 
@@ -73,7 +73,7 @@ Most of these challenges can be overcome by means of innovation. Some scholars h
 
 ## Effective Marketing Strategies {-}
 
-```{r spotify, echo=FALSE, fig.cap = "Userbase of Spotify at 15 consist of Half a Million Subscribers. Source: Statista", fig.align = 'center', out.width = '70%'}
+```{r spotify, echo=FALSE, fig.cap = "Userbase of Spotify at 15 consist of Half a Million Subscribers. Source: Statista", out.width = '70%'}
 knitr:: include_graphics("spotify.jpeg")
 ```
 
