@@ -32,3 +32,9 @@ It’s a tough concept to swallow
 
 Rayleigh and Jeans had done nothing wrong
 রেলি ও জিন্স ভুল কিছু করেননি। 
+
+Distances and times smaller than the size of the loops no longer matter
+লুপের আকারের চেয়ে ছোট দূরত্ব ও সময়ের কোনো গুরুত্ব নেই।  
+
+For most people, four dimensions are one too many
+বেশিরভাগ মানুষের কাছে চারটি মাত্রাই বেশি।     
