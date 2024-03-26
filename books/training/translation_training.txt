@@ -38,3 +38,6 @@ Distances and times smaller than the size of the loops no longer matter
 
 For most people, four dimensions are one too many
 বেশিরভাগ মানুষের কাছে চারটি মাত্রাই বেশি।     
+
+But now we must return to Mach’s principle. If Newton’s bucket is stationary and the rest of the universe is spinning around it, what then causes the centrifugal force that drives the water up the inside?
+তবে মাখের নীতিটা আবার একটু দেখা যাক। ধরলাম নিউটনের বালতি স্থির। বাকি মহাবিশ্ব ঘুরছে এর চারপাশে। কিন্তু বালতির পানি তো ওপরে উঠছে। সেটা হওয়ার জন্য কেন্দ্রবিমুখী বলটা কোথা থেকে এল?
