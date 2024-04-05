@@ -9,3 +9,5 @@ factfulness.pdf
 *.ind
 *.ilg
 .Rproj.user
+*~*
+*swp
