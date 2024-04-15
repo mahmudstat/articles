@@ -10,13 +10,17 @@ Blaise Pascal ব্লেজ প্যাসকেল
 Bryce DeWitt ব্রাইস ডুইট
 Carl Friedrich Gauss কার্ল ফ্রিদরিচ গাউস 
 David Hilbert ডাভিট হিলবার্ট 
+David Politzer ডেভিড পোলিটসার
 Enrico Fermi এনরিকো ফের্মি
 Ernst Mach আর্নেস্ট মাখ
 Filippo Brunelleschi ফিলিপো ব্রুনেলেস্কি 
+Frank Wilczek ফ্র‍্যাংক উইলচেক
 Gaspard Monge গ্যাসপা মঞ্জ 
 Georg Ferdinand Ludwig Philipp Cantor জর্ক ফার্ডিনান্ট লুডভিচ ফিলিপ ক্যান্টর - জর্ক ক্যান্টর
 Georg Friedrich Bernhard Riemann জর্ক ফ্রিদরিচ বার্নাট রিমান 
+George Zweig জর্জ জোয়াইগ
 Gérard Desargues জিরার ডেজার্গ
+Gerard 't Hooft জেরার্ট এট হুফট
 Hans Bethe হ্যান্স বেটে
 Heinrich Hertz হাইনরিচ হার্ৎস  
 Hendrick Casimir হেনড্রিক কাজিমির 
@@ -29,6 +33,9 @@ Ludwig Boltzmann লুডভিচ বোলজম্যান
 René Descartes রেন ডেকার্ট 
 লিওনহার্ট অয়লার
 Leopold Kronecker লিওপোল্ড ক্রোনেকা 
+Martinus Veltman মার্টিনাস ভেল্টম্যান
+Murray Gell-Mann মারি জেল-ম্যান
+Steven Weinberg স্টিভেন ওয়াইনবার্গ
 Subrahmanyan Chandrasekhar সুব্রহ্মণ্যন চন্দ্রশেখর
 Werner Heisenberg ওয়ার্না? হাইজেনবার্ক
 Wolfgang Pauli ওলফগ্যাং পাউলি
