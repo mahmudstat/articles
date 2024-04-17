@@ -1,3 +1,4 @@
+Scientists
 
 গটফ্রিড উইলহেল্ম লাইবনিৎস
 গিয়ম ফ্রাসোয়া আতোঁয়া ডে লোপিটাল
@@ -9,6 +10,7 @@ Bernhard Riemann বার্নার্ট রিমান
 Blaise Pascal ব্লেজ প্যাসকেল
 Bryce DeWitt ব্রাইস ডুইট
 Carl Friedrich Gauss কার্ল ফ্রিদরিচ গাউস 
+Dante Alighieri দান্তে আলিগিয়েরি
 David Hilbert ডাভিট হিলবার্ট 
 David Politzer ডেভিড পোলিটসার
 Enrico Fermi এনরিকো ফের্মি
@@ -31,6 +33,7 @@ James Jeans জেমস জিন্স
 Jean-Victor Poncelet জঁ ভিক্টর পঁসলে
 Lord Rayleigh লর্ড রেলি 
 Ludwig Boltzmann লুডভিচ বোলজম্যান 
+Paul Ehrenfest পাউল এরেনফাস্ট
 René Descartes রেন ডেকার্ট 
 লিওনহার্ট অয়লার
 Leopold Kronecker লিওপোল্ড ক্রোনেকা 
@@ -42,3 +45,7 @@ Werner Heisenberg ওয়ার্না? হাইজেনবার্ক
 Wolfgang Pauli ওলফগ্যাং পাউলি
 
 
+Misc
+
+Paradiso পারাদিজো ইটালীয়
+Bologna বলোনিয়া ইটালীয়
