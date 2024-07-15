@@ -24,6 +24,8 @@ George Gamow জর্জ গ্যামোফ
 George Zweig জর্জ জোয়াইগ
 Gérard Desargues জিরার ডেজার্গ
 Gerard 't Hooft জেরার্ট এট হুফট
+Gottfried Wilhelm Leibniz গটফ্রিড উইলহেলম লিবনিজ
+Guido Grandi গুইডো গ্রান্ডি
 Hans Bethe হ্যান্স বেটে
 Heinrich Hertz হাইনরিচ হার্ৎস  
 Heinrich Leutwyler হাইনরিখ লুটওয়াইলার
@@ -46,6 +48,7 @@ Ralph Alpher রালফ অ্যালফার
 Robert Herman রবার্ট হারম্যান
 Steven Weinberg স্টিভেন ওয়াইনবার্গ
 Subrahmanyan Chandrasekhar সুব্রহ্মণ্যন চন্দ্রশেখর
+TOBIAS DANZIG টোবিয়াস ড্যান্টসিগ
 Vesto Slipher ভেস্টো স্লাইফার
 Werner Heisenberg ওয়ার্না? হাইজেনবার্ক
 Wolfgang Pauli ওলফগ্যাং পাউলি
