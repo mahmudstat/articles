@@ -31,6 +31,7 @@ Heinrich Hertz হাইনরিচ হার্ৎস
 Heinrich Leutwyler হাইনরিখ লুটওয়াইলার
 Hendrick Casimir হেনড্রিক কাজিমির 
 Hermann Minkowski হেরমান মিংকোফস্কি
+Hermann Weyl
 Jacques Charles জাক শার্ল 
 James Jeans জেমস জিন্স 
 Jean-Victor Poncelet জঁ ভিক্টর পঁসলে
@@ -46,6 +47,7 @@ Murray Gell-Mann মারি গেল-ম্যান
 Parmenides-পার্মেনিডিজ
 Ralph Alpher রালফ অ্যালফার
 Robert Herman রবার্ট হারম্যান
+Schrödinger শ্রোডিঙ্গার
 Steven Weinberg স্টিভেন ওয়াইনবার্গ
 Subrahmanyan Chandrasekhar সুব্রহ্মণ্যন চন্দ্রশেখর
 TOBIAS DANZIG টোবিয়াস ড্যান্টসিগ
