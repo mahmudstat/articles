@@ -15,6 +15,7 @@ David Hilbert ডাভিট হিলবার্ট
 David Politzer ডেভিড পোলিটসার
 Enrico Fermi এনরিকো ফের্মি
 Ernst Mach আর্নেস্ট মাখ
+Erwin Schrödinger এরভিন শ্রোডিঙ্গার
 Filippo Brunelleschi ফিলিপো ব্রুনেলেস্কি 
 Frank Wilczek ফ্র‍্যাংক উইলচেক
 Gaspard Monge গ্যাসপা মঞ্জ 
@@ -25,13 +26,15 @@ George Zweig জর্জ জোয়াইগ
 Gérard Desargues জিরার ডেজার্গ
 Gerard 't Hooft জেরার্ট এট হুফট
 Gottfried Wilhelm Leibniz গটফ্রিড উইলহেলম লিবনিজ
+Gregorio Ricci-Curbastro গ্রেগোরিও রিটচি কুরবাস্ট্রো
 Guido Grandi গুইডো গ্রান্ডি
 Hans Bethe হ্যান্স বেটে
 Heinrich Hertz হাইনরিচ হার্ৎস  
 Heinrich Leutwyler হাইনরিখ লুটওয়াইলার
 Hendrick Casimir হেনড্রিক কাজিমির 
 Hermann Minkowski হেরমান মিংকোফস্কি
-Hermann Weyl
+Hermann Weyl হেরমান ভাইল
+Howard Georgi
 Jacques Charles জাক শার্ল 
 James Jeans জেমস জিন্স 
 Jean-Victor Poncelet জঁ ভিক্টর পঁসলে
@@ -45,12 +48,16 @@ Leopold Kronecker লিওপোল্ড ক্রোনেকা
 Martinus Veltman মার্টিনাস ভেল্টম্যান
 Murray Gell-Mann মারি গেল-ম্যান
 Parmenides-পার্মেনিডিজ
+Peter van Nieuwenhuizen পিটার ভ্যান নিউয়াহুইজেন
+Peter Woit পিটার ওইট
 Ralph Alpher রালফ অ্যালফার
 Robert Herman রবার্ট হারম্যান
-Schrödinger শ্রোডিঙ্গার
+Sergio Ferrara সেরজো ফেরারা
+Stanley Deser স্ট্যানলি ডিসার?
 Steven Weinberg স্টিভেন ওয়াইনবার্গ
 Subrahmanyan Chandrasekhar সুব্রহ্মণ্যন চন্দ্রশেখর
 TOBIAS DANZIG টোবিয়াস ড্যান্টসিগ
+Tullio Levi-Civita টুলিয়ো লেভি চিভিটা
 Vesto Slipher ভেস্টো স্লাইফার
 Werner Heisenberg ওয়ার্না? হাইজেনবার্ক
 Wolfgang Pauli ওলফগ্যাং পাউলি
