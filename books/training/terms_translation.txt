@@ -1,4 +1,8 @@
 
 আদর্শ কোয়ান্টায়ন (canonical quantization)
 
+নবসূত্রায়ন (reformulation)
+
 বিকিরণজাত (radiative)
+
+স্থানিক (spatial)
