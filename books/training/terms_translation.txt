@@ -1,1 +1,4 @@
+
+আদর্শ কোয়ান্টায়ন (canonical quantization)
+
 বিকিরণজাত (radiative)
