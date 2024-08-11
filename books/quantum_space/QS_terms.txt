@@ -11,6 +11,8 @@
 
 অনুমান: assumption অনেকসময় prediction
 
+আদর্শ কোয়ান্টায়ন (canonical quantization)
+
 আধান:
 
 ইলেকট্রন
