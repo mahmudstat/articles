@@ -7,6 +7,7 @@ output:
   pdf_document: default
   html_document:
     fig_caption: true
+bibliography: references.bib 
 ---
 
 
@@ -29,7 +30,7 @@ We also introduce __these functions__.
 
 This paper revolves around plotting event time on a 24-hour clock, showing
 events along their corresponding timings. The existing method uses a line chart,
-also known as a time series graph or line graph. 
+also known as a time series graph or line graph sample ref [@R-base]
 
 
 # Methodology
