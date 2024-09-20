@@ -17,7 +17,7 @@ bibliography: references.bib
 It helps in describing the data as well as in choosing the appropriate method 
 of modeling and prediction. So far, however, there is no way to visualize event
 time data on a clock. In this paper we present a few novel ways to visualize 
-various event time data on chart we call 'Data Clock'. Given events occurring at
+various event time data on charts we call 'Clockplot'. Given events occurring at
 various times in a 24-hour day, we show the events on a clock corresponding to 
 the time of event. This makes it more useful to perceive exactly when the 
 events occurred. In addition, we can easily compare the time of the event with 
@@ -29,9 +29,28 @@ We also introduce __these functions__.
 # Introduction 
 
 This paper revolves around plotting event time on a 24-hour clock, showing
-events along their corresponding timings. The existing method uses a line chart,
-also known as a time series graph or line graph sample ref [@R-base]
+events along their corresponding timings. The existing method for the similar
+kind of data uses a line chart, also known as a time series graph or line 
+graph sample ref [@R-base]. A line chart is drawn for illustrating a time 
+series data, which is defined as a sequence of values at successive (usually 
+equally spaced) points in time. A line chart is very broad in scope; it can
+present time data sequenced by any unit of time, such as hour, day, week, month,
+or year, and so on and so forth. 
 
+Notationally, $Y$ is a time series data if it can be written as below:
+
+$\displaystyle Y = (Yt: t \in T$
+
+For most time series data encountered in practice, the Xi are equally spaced
+through time. [@GMDA] 
+
+The domains having the application of time series are numerous and include 
+weather meteorology, economics, electroencephalography, control engineering, astronomy, communications engineering, geology, among others. 
+
+One variation of a line chart is a run chart or run-sequence plot, which 
+usually shows the performance of a process. As far as this paper is concerned,
+they serve the same purpose and cannot serve what we are going to propose 
+in this paper. 
 
 # Methodology
 
@@ -338,3 +357,6 @@ clock_chart_qlt(hosp[1:100,], Entry_Time, Financial_Class)+
 
 
 Need cyclic
+
+
+`r if (knitr::is_html_output()) '# References {-}'`
