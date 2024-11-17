@@ -1,0 +1,22 @@
+---
+title: "Writing Sources"
+output: html_document
+date: "2024-11-14"
+---
+
+# Black Holes by Ethan Siegel
+
+[All Links here](https://bigthink.com/?s=Ethan+black+hole)
+
+1. [Ask Ethan: Can black holes really cause dark energy?](https://bigthink.com/starts-with-a-bang/black-holes-dark-energy/)
+2. [Why the black hole information paradox still hasn't been solved](https://bigthink.com/starts-with-a-bang/black-hole-information-paradox-solved/)
+3. [Ask Ethan: Did black holes form directly from the Big Bang?](https://bigthink.com/starts-with-a-bang/black-holes-direct-big-bang/)
+4. [The grand paradox at the heart of every black hole](https://bigthink.com/starts-with-a-bang/black-hole-paradox/)
+5. [Mystery of the first supermassive black holes solved at last!](https://bigthink.com/starts-with-a-bang/first-supermassive-black-holes/)
+6. [Strongest "missing link" in black hole physics discovered at last](https://bigthink.com/starts-with-a-bang/missing-link-black-hole-physics/)
+7. [Ask Ethan: Could gravitational waves collapse into a black hole?](https://bigthink.com/starts-with-a-bang/gravitational-waves-black-hole/)
+8. [Ask Ethan: Are singularities physically real?](https://bigthink.com/starts-with-a-bang/black-hole-singularities/)
+9. [Why didn't black holes exist right after the Big Bang?](https://bigthink.com/starts-with-a-bang/black-holes-after-big-bang/)
+10. [Ask Ethan: How does light escape from a black hole?](https://bigthink.com/starts-with-a-bang/light-escape-black-hole/)
+11. [What is a black hole's actual size?](https://bigthink.com/starts-with-a-bang/black-hole-size/)
+12. [Our best black hole image ever, inside and out](https://bigthink.com/starts-with-a-bang/best-black-hole-image/)
