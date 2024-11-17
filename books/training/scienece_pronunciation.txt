@@ -5,6 +5,7 @@ Scientists
 কলিন ম্যাকলরিন
 ডেনি ডিডেরো
 ব্রুক টেইলর
+André Neveu আন্দ্রে নেভা
 al-Khowarizmi আল-খোয়ারিজমি
 Bernhard Riemann বার্নার্ট রিমান
 Blaise Pascal ব্লেজ প্যাসকেল
@@ -40,7 +41,9 @@ Howard Georgi
 Jacques Charles জাক শার্ল 
 James Jeans জেমস জিন্স 
 Jean-Victor Poncelet জঁ ভিক্টর পঁসলে
+Joël Scherk জোয়েল শের্ক
 Julian Schwinger জুলিয়ান শুইঙ্গার
+Karl Schwarzschild কার্ল শোয়ার্জশিল্ড
 Léon Rosenfeld লিয়ন রোজেনফেল্ড
 Leonard Susskind লিওনার্দ সাসকিন্ড
 Lord Rayleigh লর্ড রেলি 
