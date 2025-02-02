@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{etoolbox}
+
+% Define a command for hints
+\newcommand{\hint}[1]{%
+    \par\noindent\textbf{Hint:} #1%
+    \par\vspace{\baselineskip}%
+}
+
+% Define a global token list to store solutions
+\newtoks\globalsolutions
+\globalsolutions{} % Initialize the token list
+
+% Command to add solutions to the global list
+\newcommand{\addtoglobalsolutions}[1]{%
+    \global\globalsolutions=\expandafter{\the\globalsolutions\item #1}%
+}
+
+% Remove trailing periods from section and subsection numbers
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+
+% Custom label format for questions
+\renewcommand{\labelenumi}{\textbf{Question \thesection.\thesubsection.\arabic{enumi}}}
+
+% Command to display all solutions at the end
+\newcommand{\printsolutions}{%
+    \section*{Solutions}%
+    \begin{enumerate}[label=\textbf{Solution \thesection.\thesubsection.\arabic*}]%
+        \the\globalsolutions% Expand the token list
+    \end{enumerate}%
+}
+
+\title{Questions and Solutions}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Mathematical Problems}
+\subsection{Velocity}
+
+\begin{enumerate}
+    \item A train leaves New York at 8:00 AM traveling west at 60 mph. Another train leaves Los Angeles at 6:00 AM traveling east at 70 mph on the same track. If the distance between New York and Los Angeles is 2,800 miles, at what time will the two trains meet?
+    \hint{Use the relative speed concept to determine the time when the two trains meet.}
+    \addtoglobalsolutions{The two trains will meet at 4:28 AM the next day.}
+    
+    \item Solve for \(x\) in the equation \(x^2 - 4 = 0\).
+    \hint{Factor the equation or use the quadratic formula.}
+    \addtoglobalsolutions{The solutions are \(x = 2\) and \(x = -2\).}
+\end{enumerate}
+
+\section{Topic}
+\subsection{Subtopic}
+
+\begin{enumerate}
+    \item What is the derivative of \(f(x) = x^3\)?
+    \hint{Use the power rule for differentiation.}
+    \addtoglobalsolutions{The derivative is \(f'(x) = 3x^2\).}
+    
+    \item Evaluate the integral \(\int x \, dx\).
+    \hint{Use the power rule for integration.}
+    \addtoglobalsolutions{The integral evaluates to \(\frac{x^2}{2} + C\).}
+\end{enumerate}
+
+\newpage
+
+% Print all solutions at the end
+\printsolutions
+
+\end{document}

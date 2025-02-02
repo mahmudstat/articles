@@ -1,0 +1,5 @@
+Can you give me a latex file having these options?
+It contains a series of questions with categories and subcategories. Questions are numbered as Question 1.1.1 ((section, subsection, question no.)) and followed by hint and solution, but in the rendered file, only questions and hints are shown together, while solutions are printed at the end of file, numbered likewise Solution 1.1.1. 
+
+Clickable table of contents are generated from categories and subcategories (section and subsection) for both Questions and Solutions. 
+
