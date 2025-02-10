@@ -6,7 +6,7 @@ output:
   pdf_document:
     toc: true
     toc_depth: 3
-    number_sections: false
+    number_sections: true
     extra_dependencies: ["enumitem"]
   word_document:
     toc: true
@@ -20,13 +20,65 @@ geometry: margin=2cm
 \begingroup
 \fontfamily{ppl}\fontsize{12}{16}\selectfont
 
+# Math Problems
+
+## Velocity 
+
+### NY and LA Train 
+
+A train leaves New York at 8:00 AM traveling west at 60 mph. Another train leaves Los Angeles at 6:00 AM traveling east at 70 mph on the same track. If the distance between New York and Los Angeles is 2,800 miles, at what time will the two trains meet?[^NYLA]
+
+[^NYLA]: The two trains will meet at 4:28 AM the next day. 
+    
+    **Distance** = $2800 - 70 \times 2 hours = 2660$ miles. $Time = \frac{2600}{60+70}$. 
+    
+    **Alternate method**: If they meet after `t` hours, $x = 60t$ and $2800-x = 70(t+2)$. Solve for t. 
+
+
+### Divisible by 11 and difference
+
+Let us call all numbers divisible by 11 'Beautiful Numbers'. What is the difference between the largest and smallest five-digit 'Beautiful Number'? [^divdiff]
+
+[^divdiff]: 
+
+    Largest: 99990, 
+Smallest: 11110, 
+Difference: 88880
+
+
+# Statistics
+
+## Basic Questions
+
+### Average with origin, scale changed
+
+The average of 10 numbers is 49. If each of the numbers is divided by 7 and the quotient is then added by 5, what is the changed average number?[^avgorsc]
+
+[^avgorsc]: 
+
+    $\frac{49}{7}+5 = 12$
+
 # Puzzles
+
+## Logic 
+
+A shepherd has to cross a river with a sheep, a wolf and a cabbage. Only two can go on the boat, for example, the shepherd and the sheep. How can they cross the river without the wolf eating the sheep and or the sheep eating the cabbage? [^shwocb]
+
+[^shwocb]: In the following order --
+
+    i. Bring sheep
+ii. Bring back nothing
+iii. Bring wolf
+iv. Bring back sheep
+v. Bring cabbage
+vi. Bring back nothing
+vii. Bring wolf
 
 ## Lock Puzzles
 
 ### Lock Puzzle 01
 
-There is a combination lock lock with three digits.[^1] The clues are the following:
+There is a combination lock lock with three digits.[^L1] The clues are the following:
 
 | Digits | No. of Correct Digits | Position |
 |:---:|:---:|:---:|
@@ -36,9 +88,9 @@ There is a combination lock lock with three digits.[^1] The clues are the follow
 | 189 | 1 | Correct |
 | 523 | 0 | NA |
 
-[^1]: 679
+[^L1]: 679
 
-\begin{enumerate}[label=(\alph*)]
+    \begin{enumerate}[label=(\alph*)]
 \item 523 are removed by clue no. 5
 \item 1 is removed by clue 3 \& 4 (can't be in right and wrong position simultaneously)
 \item 8 is removed by clue 2 \& 4 (can't be in right and wrong position simultaneously)

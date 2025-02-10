@@ -22,15 +22,23 @@
 
 % Remove trailing periods from section and subsection numbers
 \renewcommand{\thesection}{\arabic{section}}
-\renewcommand{\thesubsection}{\arabic{subsection}}
+\renewcommand{\thesubsection}{\arabic{section}.\arabic{subsection}}
 
 % Custom label format for questions
-\renewcommand{\labelenumi}{\textbf{Question \thesection.\thesubsection.\arabic{enumi}}}
+\renewcommand{\labelenumi}{\textbf{Question \thesection.\thesubsection.\arabic{enumi}.}}
+
+% Reset enumi counter at the start of each section and subsection
+\preto\section{%
+    \setcounter{enumi}{0}%
+}
+\preto\subsection{%
+    \setcounter{enumi}{0}%
+}
 
 % Command to display all solutions at the end
 \newcommand{\printsolutions}{%
     \section*{Solutions}%
-    \begin{enumerate}[label=\textbf{Solution \thesection.\thesubsection.\arabic*}]%
+    \begin{enumerate}[label=\textbf{Solution \thesection.\thesubsection.\arabic*.}]%
         \the\globalsolutions% Expand the token list
     \end{enumerate}%
 }
