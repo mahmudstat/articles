@@ -136,3 +136,7 @@
 Abbreviations
 
 কিউসি‌‌‌ডি (QCD) = Quantum Chromodynamics
+
+grain = খণ্ড
+relational = রিলেশনাল / সম্পর্কনির্ভর
+rigorous = নিবিড়/ নিখুঁত/সূক্ষ্ম >  ভাবে/ যত্নের সাথে
