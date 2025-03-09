@@ -1,3 +1,11 @@
+approximation = নমুনা/ আসন্ন মান
+derived = লব্ধ
+formulate = সূত্রায়িত করা / সূত্রবদ্ধ করা
+grain = খণ্ড
+intuition = স্বাভাবিক বুদ্ধি
+relational = রিলেশনাল / সম্পর্কনির্ভর
+rigorous = নিবিড়/ নিখুঁত/সূক্ষ্ম >  ভাবে/ যত্নের সাথে
+
 
 আদর্শ কোয়ান্টায়ন (canonical quantization)
 
