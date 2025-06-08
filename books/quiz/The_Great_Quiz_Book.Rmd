@@ -1,5 +1,5 @@
 ---
-title: "The_Great_Quiz_Book"
+title: "The Great Quiz Book"
 author: "Abdullah Al Mahmud"
 date: "`r Sys.Date()`"
 output:
@@ -33,7 +33,16 @@ A train leaves New York at 8:00 AM traveling west at 60 mph. Another train leave
     **Distance** = $2800 - 70 \times 2 hours = 2660$ miles. $Time = \frac{2600}{60+70}$. 
     
     **Alternate method**: If they meet after `t` hours, $x = 60t$ and $2800-x = 70(t+2)$. Solve for t. 
+    
+    ** Another method**: $\frac{x}{60} = \frac{2600-x}{70}$
+    
+### Fly flyhing between trains
 
+Two trains are on the same track a distance 100 km apart heading towards one another, each at a speed of 50 km/h. A fly starting out at the front of one train, flies towards the other at a speed of 75 km/h. Upon reaching the other train, the fly turns around and continues towards the first train. How many kilometers does the fly travel before getting squashed in the collision of the two trains? [^fly]
+
+[^fly]: The fly flies for as many hours as the trains take to meet. As the trains meet after 1 hour, in the middle, the fly flies 75 km in 1 hour.
+
+## Number Theory
 
 ### Divisible by 11 and difference
 
@@ -74,8 +83,6 @@ v. Bring cabbage
 vi. Bring back nothing
 vii. Bring wolf
 
-## Lock Puzzles
-
 ### Lock Puzzle 01
 
 There is a combination lock lock with three digits.[^L1] The clues are the following:
@@ -101,5 +108,18 @@ There is a combination lock lock with three digits.[^L1] The clues are the follo
 \item The 2nd digit in solution is 7 (by clue 3 and since no other digit exists)
 \end{enumerate}
 
+### Shepherd dilemma
+
+A shepherd has to cross a river with a sheep, a wolf and a cabbage. Only two can go on the boat, for example, the shepherd and the sheep. How can they cross the river without the wolf eating the sheep and or the sheep eating the cabbage?[^shp]
+
+[^shp]: 
+
+i. Bring sheep
+ii. Bring back nothing
+iii. Bring wolf
+iv. Bring back sheep
+v. Bring cabbage
+vi. Bring back nothing
+vii. Bring wolf
 
 \endgroup
