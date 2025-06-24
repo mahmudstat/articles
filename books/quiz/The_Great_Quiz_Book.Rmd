@@ -71,18 +71,6 @@ The average of 10 numbers is 49. If each of the numbers is divided by 7 and the 
 
 ## Logic 
 
-A shepherd has to cross a river with a sheep, a wolf and a cabbage. Only two can go on the boat, for example, the shepherd and the sheep. How can they cross the river without the wolf eating the sheep and or the sheep eating the cabbage? [^shwocb]
-
-[^shwocb]: In the following order --
-
-    i. Bring sheep
-ii. Bring back nothing
-iii. Bring wolf
-iv. Bring back sheep
-v. Bring cabbage
-vi. Bring back nothing
-vii. Bring wolf
-
 ### Lock Puzzle 01
 
 There is a combination lock lock with three digits.[^L1] The clues are the following:
@@ -95,26 +83,26 @@ There is a combination lock lock with three digits.[^L1] The clues are the follo
 | 189 | 1 | Correct |
 | 523 | 0 | NA |
 
-[^L1]: 679
+[^L1]: The answer is 679
 
-    \begin{enumerate}[label=(\alph*)]
-\item 523 are removed by clue no. 5
-\item 1 is removed by clue 3 \& 4 (can't be in right and wrong position simultaneously)
-\item 8 is removed by clue 2 \& 4 (can't be in right and wrong position simultaneously)
-\item 6 is correct digit by clue 2 (since 2 \& are wrong)
-\item Position of 6 is 1st (by clue 1 \& 2, both wrong position)
-\item 9 is the 3rd digit in solution by clue 4 (since 1 \& 8 are incorrect)
-\item 4 is removed by clue 1 (since two correct digits are 9 \& 6)
-\item The 2nd digit in solution is 7 (by clue 3 and since no other digit exists)
-\end{enumerate}
+    **Explanation** 
+    
+    i. 523 are removed by clue no. 5
+ii. 1 is removed by clue 3 & 4 (can't be in right and wrong position simultaneously)
+iii. 8 is removed by clue 2 & 4 (can't be in right and wrong position simultaneously)
+iv. 6 is correct digit by clue 2 (since 2 & are wrong)
+v. Position of 6 is 1st (by clue 1 & 2, both wrong position)
+vi. 9 is the 3rd digit in solution by clue 4 (since 1 & 8 are incorrect)
+vii. 4 is removed by clue 1 (since two correct digits are 9 & 6)
+viii. The 2nd digit in solution is 7 (by clue 3 and since no other digit exists)
 
 ### Shepherd dilemma
 
 A shepherd has to cross a river with a sheep, a wolf and a cabbage. Only two can go on the boat, for example, the shepherd and the sheep. How can they cross the river without the wolf eating the sheep and or the sheep eating the cabbage?[^shp]
 
-[^shp]: 
+[^shp]: Follow this order
 
-i. Bring sheep
+    i. Bring sheep
 ii. Bring back nothing
 iii. Bring wolf
 iv. Bring back sheep
