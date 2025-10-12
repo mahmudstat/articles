@@ -1,30 +1,27 @@
 ---
-title: "A novel way to visulaize event time data"
+title: "clockplot:A Novel Way to Visulaize Event Time Data"
 author:
 - name: Abdullah Al Mahmud
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
   html_document:
     fig_caption: true
+  pdf_document: default
 bibliography: references.bib 
 ---
+
+# Structure
+
+- Abstract
+- Intro
+- Methods
+- Usage (functions, applications & interpretations, pattern detection)
+- - Add faceted plots
 
 
 # Abstract
 
-  Visualization is immensely important in statistical analysis and prediction. 
-It helps in describing the data as well as in choosing the appropriate method 
-of modeling and prediction. So far, however, there is no way to visualize event
-time data on a clock. In this paper we present a few novel ways to visualize 
-various event time data on charts we call 'Clockplot'. Given events occurring at
-various times in a 24-hour day, we show the events on a clock corresponding to 
-the time of event. This makes it more useful to perceive exactly when the 
-events occurred. In addition, we can easily compare the time of the event with 
-other events. Time of events plotted on a clock chart is substantially more 
-revealing than a bar chart or a pie chart. It can demonstrate around which 
-time events are less or more frequent as well the gap between the events. 
-We also introduce __these functions__.
+  Visualization is a fundamental component of statistical analysis and prediction, enabling clear data description and informed model selection. While various methods exist for visualizing event data, there is a notable gap in representing events on a clock face. In this paper, we introduce clockplot, an R package for plotting timestamped events on a 24-hour circular clock face. This approach offers a powerful way to perceive the precise timing of events and facilitates intuitive comparisons with other events. The clockplot is particularly useful for analyzing daily patterns, event clustering, and temporal gaps. For event times, it is significantly more revealing than conventional visualizations like bar or pie charts. This package also generalizes the clockplot approach to create cyclic charts for other time frames, including weekly and monthly cycles. This functionality enables effective event planning and pattern analysis across multiple periods, providing a new and insightful tool for temporal data analysis.
 
 # Introduction 
 
@@ -51,6 +48,118 @@ One variation of a line chart is a run chart or run-sequence plot, which
 usually shows the performance of a process. As far as this paper is concerned,
 they serve the same purpose and cannot serve what we are going to propose 
 in this paper. 
+
+
+
+## Clock Skeleton
+
+## Plotting Times on the Clock
+
+Let us explore US Accidents data. Although the main focus of these data 
+seem to be on accident times, we can employ it to visualize the comparison 
+between the existing line chart and our proposed clock chart. 
+
+```{r}
+library(clockplot)
+library(ggplot2)
+acdt <- read.csv("https://raw.githubusercontent.com/mahmudstat/open-analysis/main/data/usacc.csv")
+acdt <- acdt[,c(9:12)]
+head(acdt)
+```
+
+Let us plot temperature against time.
+
+```{r lnct, fig.cap="CAP", echo=FALSE}
+p <- ggplot2::ggplot(acdt, ggplot2::aes(Time, Temperature.F.))+
+  ggplot2::geom_col(width = 0.2)+
+  labs(title = "A traditional Line Chart Showing Accidents by Time", 
+       y = "Temperature (°F)")
+p + ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+We have no idea which temperature belongs to which time, although we have 
+changed X- axis labels at right angles (i.e., vertically). 
+
+Now let us take a look into a clock plot. 
+
+```{r cl1f, ig.cap="CAP", echo=FALSE}
+clock_chart(data = acdt, time = Time)
+```
+
+Although this is the simplest kind of clock chart that we propose, this still
+makes a lot more sense. We clearly see a huge gap between around 9 PM to 
+around 4:30 AM, during which period no reading of temperature was made (in
+other example, this would mean no event occurred, which is actually relevant to
+this data set as well, which records times of accidents. Why no accidents 
+occurred during this period is subject to further discussion; perhaps, 
+the traffic was less during this time.)
+
+We can easily observe that most incidents occurred from 5 AM to 9 AM. Between 
+other hours, roughly two accidents occurred. 
+
+
+Let us try plotting 20 values only.
+
+
+```{r lnt2, fig.cap="CAP", echo=FALSE}
+p <- ggplot2::ggplot(acdt[36:55,], 
+                     ggplot2::aes(factor(Time, levels = Time), 
+                                  Temperature.F.))+
+  ggplot2::geom_col(width = 0.2)+
+  labs(title = "A traditional Line Chart Showing Accidents by Time", 
+       x = "Time",
+       y = "Temperature (°F)")
+L2 <- p + ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+L2
+```
+
+When a small number of values are plotted, the line chart becomes much better
+than its previous counterpart. There are, however, several limitations compared
+to its clockplot counterpart.
+
+a. It is hard to discern exactly when an event occurred (or recorded). What we
+observe is just the trend of the temperature.  
+b. It gives us an idea that recordings are placed at equal intervals. Actually,
+the time gap between the first and the second recordings is around 8 hours, while
+the next gap is worth 36 minutes only. Thus, any trend, either visual or analytical,
+would be extremely faulty. 
+c. Unlike the clockplot, we cannot single out the duration when there are
+no, less, or large number of occurrences. Occurrences, as we have seen in
+the previous clockplot, may be rare during night and early morning. We, however,
+cannot extract that information from the line chart. 
+d. When we plot other periods (day, month, year, and so on), they are not 
+necessarily cyclic. We get a continuous flow of time, going ahead linearly: 
+year 2015, year 2016, year 2017 etc; no year is repeated. Time data are, 
+however, cyclic; after 24 hours, each hour starts repeating itself. A linear
+line chart fails to reveal this cyclic behavior. As an example, the first and
+second value might represent the end of a day (a cycle) and the start of a 
+new day. A legend may help see this; clockplot still serves the purpose better.
+In short, the line chart cannot reveal the gap between the last and first. 
+
+  In the hospital data, for example, all the admissions take place between 2 Am
+  and 1 PM. A line chart will just plot the events between this period, without
+  revealing there were no admissions between 1 PM and 2 AM.
+  
+e. The line chart fails to show that the events are actually clustered around 
+5 AM to 7 AM, as seen in the Figure \@ref{fig:acdt20}.
+f. If we have no values against times, for example, we only have timings
+of events, such as when patients were admitted in a hospital, we cannot
+present this on a line chart. To circumvent the problem, we may choose
+an arbirary value against each time, but this does not allow us to focus
+on the timings of the events.
+
+```{r acdt20, fig.cap="CAP", echo=FALSE}
+clock_chart(data = acdt[36:55,], time = Time)
+```
+
+```{r hospad, fig.cap="CAP", echo=FALSE}
+hosp <- read.csv("https://raw.githubusercontent.com/mahmudstat/open-analysis/main/data/hospital.csv")
+clock_chart_qlt(hosp[1:100,], Entry_Time, Financial_Class)+
+  labs(color = "Patient Type")
+```
+
+
+Need cyclic
 
 # Methodology
 
@@ -245,118 +354,6 @@ ifelse(.data$minute<10, .data$minute * 5/30, .data$minute * 5/300)
 ////MAY DEPEND ON OLD TIME FORMAT HHMM hrs/////
 
 
-
-## Clock Skeleton
-
-## Plotting Times on the Clock
-
-# Discussion 
-
-Let us explore US Accidents data. Although the main focus of these data 
-seem to be on accident times, we cna employ it to visualize the comparison 
-between the existing line chart and our proposed clock chart. 
-
-```{r}
-library(clockplot)
-library(ggplot2)
-acdt <- read.csv("https://raw.githubusercontent.com/mahmudstat/open-analysis/main/data/usacc.csv")
-acdt <- acdt[,c(9:12)]
-head(acdt)
-```
-
-Let us plot temperature against time.
-
-```{r lnct, fig.cap="CAP", echo=FALSE}
-p <- ggplot2::ggplot(acdt, ggplot2::aes(Time, Temperature.F.))+
-  ggplot2::geom_col(width = 0.2)+
-  labs(title = "A traditional Line Chart Showing Accidents by Time", 
-       y = "Temperature (°F)")
-p + ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-```
-
-We have no idea which temperature belongs to which time, although we have 
-changed X- axis labels at right angles (i.e., vertically). 
-
-Now let us take a look into a clock plot. 
-
-```{r cl1f, ig.cap="CAP", echo=FALSE}
-clock_chart(data = acdt, time = Time)
-```
-
-Although this is the simplest kind of clock chart that we propose, this still
-makes a lot more sense. We clearly see a huge gap between around 9 PM to 
-around 4:30 AM, during which period no reading of temperature was made (in
-other example, this would mean no event occurred, which is actually relevant to
-this data set as well, which records times of accidents. Why no accidents 
-occurred during this period is subject to further discussion; perhaps, 
-the traffic was less during this time.)
-
-We can easily observe that most incidents occurred from 5 AM to 9 AM. Between 
-other hours, roughly two accidents occurred. 
-
-
-Let us try plotting 20 values only.
-
-
-```{r lnt2, fig.cap="CAP", echo=FALSE}
-p <- ggplot2::ggplot(acdt[36:55,], 
-                     ggplot2::aes(factor(Time, levels = Time), 
-                                  Temperature.F.))+
-  ggplot2::geom_col(width = 0.2)+
-  labs(title = "A traditional Line Chart Showing Accidents by Time", 
-       x = "Time",
-       y = "Temperature (°F)")
-L2 <- p + ggplot2::theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-L2
-```
-
-When a small number of values are plotted, the line chart becomes much better
-than its previous counterpart. There are, however, several limitations compared
-to its clockplot counterpart.
-
-a. It is hard to discern exactly when an event occurred (or recorded). What we
-observe is just the trend of the temperature.  
-b. It gives us an idea that recordings are placed at equal intervals. Actually,
-the time gap between the first and the second recordings is around 8 hours, while
-the next gap is worth 36 minutes only. Thus, any trend, either visual or analytical,
-would be extremely faulty. 
-c. Unlike the clockplot, we cannot single out the duration when there are
-no, less, or large number of occurrences. Occurrences, as we have seen in
-the previous clockplot, may be rare during night and early morning. We, however,
-cannot extract that information from the line chart. 
-d. When we plot other periods (day, month, year, and so on), they are not 
-necessarily cyclic. We get a continuous flow of time, going ahead linearly: 
-year 2015, year 2016, year 2017 etc; no year is repeated. Time data are, 
-however, cyclic; after 24 hours, each hour starts repeating itself. A linear
-line chart fails to reveal this cyclic behavior. As an example, the first and
-second value might represent the end of a day (a cycle) and the start of a 
-new day. A legend may help see this; clockplot still serves the purpose better.
-In short, the line chart cannot reveal the gap between the last and first. 
-
-  In the hospital data, for example, all the admissions take place between 2 Am
-  and 1 PM. A line chart will just plot the events between this period, without
-  revealing there were no admissions between 1 PM and 2 AM.
-  
-e. The line chart fails to show that the events are actually clustered around 
-5 AM to 7 AM, as seen in the Figure \@ref{fig:acdt20}.
-f. If we have no values against times, for example, we only have timings
-of events, such as when patients were admitted in a hospital, we cannot
-present this on a line chart. To circumvent the problem, we may choose
-an arbirary value against each time, but this does not allow us to focus
-on the timings of the events.
-
-```{r acdt20, fig.cap="CAP", echo=FALSE}
-clock_chart(data = acdt[36:55,], time = Time)
-```
-
-```{r hospad, fig.cap="CAP", echo=FALSE}
-hosp <- read.csv("https://raw.githubusercontent.com/mahmudstat/open-analysis/main/data/hospital.csv")
-clock_chart_qlt(hosp[1:100,], Entry_Time, Financial_Class)+
-  labs(color = "Patient Type")
-```
-
-
-Need cyclic
 
 
 `r if (knitr::is_html_output()) '# References {-}'`

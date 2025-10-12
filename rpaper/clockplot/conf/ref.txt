@@ -1,0 +1,8 @@
+Friendly, M. (2008). The golden age of statistical graphics. Statistical Science, *23*(4), 502–535.
+Pearson, K. (1895). Contributions to the mathematical theory of evolution. II. Skew variation in homogeneous material. Philosophical Transactions of the Royal Society of London. A, *186*, 343–414.
+Playfair, W. (1786). The commercial and political atlas. London: Corry.
+Playfair, W. (1801). The statistical breviary. London: Wallis.
+Priestley, J. (1765). A chart of biography. London: J. Johnson.
+Tukey, J. W. (1977). Exploratory data analysis. Addison-Wesley.
+Unwin, A. (2020). Why is data visualization so important in data science? Statistical Modelling, *20*(4), 355–370.
+Wickham, H., & Grolemund, G. (2017). R for data science. O'Reilly Media.
