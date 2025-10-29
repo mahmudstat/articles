@@ -359,6 +359,12 @@ display: none;
 
 <div id="abstract" class="section level2">
 <h2>Abstract</h2>
+<p>Advantages</p>
+<ul>
+<li>Can be used for raw to raw and raw to and from central</li>
+<li>always additions of positive quantities</li>
+<li>Memorizing complex formulae is not required</li>
+</ul>
 <p>Changing</p>
 <ul>
 <li>from one raw moment to another</li>
@@ -777,6 +783,86 @@ n^2p^2\)</span></p>
 \end{align*}
 \]</span></p>
 <p>We again obtain the correct moment.</p>
+</div>
+</div>
+<div id="normal-distribution" class="section level3">
+<h3>Normal Distribution</h3>
+<p>First four central and raw moments about zero are</p>
+<table style="width:100%;">
+<colgroup>
+<col width="15%" />
+<col width="47%" />
+<col width="20%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Raw Moments</th>
+<th align="center"></th>
+<th align="center">Central Moments</th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Notation</td>
+<td align="center">Value</td>
+<td align="center">Notation</td>
+<td align="center">Value</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\mu_1&#39;\)</span></td>
+<td align="center"><span class="math inline">\(\mu\)</span></td>
+<td align="center"><span class="math inline">\(\mu_1\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\mu_2&#39;\)</span></td>
+<td align="center"><span class="math inline">\(\mu^2 +
+\sigma^2\)</span></td>
+<td align="center"><span class="math inline">\(\mu_2\)</span></td>
+<td align="center"><span class="math inline">\(\sigma^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\mu_3&#39;\)</span></td>
+<td align="center"><span class="math inline">\(\mu^3 + 3\mu
+\sigma^2\)</span></td>
+<td align="center"><span class="math inline">\(\mu_3\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(\mu_4&#39;\)</span></td>
+<td align="center"><span class="math inline">\(\mu^4 + 6\mu^2 \sigma^2 +
+3 \sigma^4\)</span></td>
+<td align="center"><span class="math inline">\(\mu_4\)</span></td>
+<td align="center"><span class="math inline">\(3 \sigma^4\)</span></td>
+</tr>
+</tbody>
+</table>
+<div id="using-the-novel-approach" class="section level4">
+<h4>Using the Novel Approach</h4>
+<p><span class="math inline">\(b = a- k = 0 - \mu = -\mu\)</span></p>
+<p><span class="math inline">\(\mu_1 = a + b = \mu_1&#39; + b = \mu -
+\mu = 0\)</span></p>
+<p><span class="math display">\[
+\begin{align*}
+\mu_2 &amp;= a^2 + 2ab + b^2 \\
+&amp;= \mu_2&#39; + 2\mu_1&#39;b + b^2 \\
+&amp;= (\mu^2 + \sigma^2) + 2\mu(-\mu) + \mu^2 \\
+&amp;= \mu^2 + \sigma^2 - 2\mu^2 + \mu^2 \\
+&amp;= \sigma^2
+\end{align*}
+\]</span></p>
+<p>Similarly the third central moment</p>
+<p><span class="math display">\[
+\begin{align*}
+\mu_3 &amp;= a^3 + 3a^2b + 3ab^2 + b^3 \\
+&amp;= \mu_3&#39; + 3\mu_2&#39;b  3\mu_1&#39;b^2 + b^3 \\
+&amp;= (\mu^3 + 3\mu \sigma^2) + 3(\mu^2+\sigma^2) (-\mu) + 3\mu(-\mu)^2
++  + (-\mu)^3 \\
+&amp;= 0
+\end{align*}
+\]</span></p>
 </div>
 </div>
 </div>
