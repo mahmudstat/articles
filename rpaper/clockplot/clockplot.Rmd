@@ -16,6 +16,7 @@ bibliography: references.bib
 - Methods
 - Usage (functions, applications & interpretations, pattern detection)
 - - Add faceted plots
+- package use (*qnt and circluar)
 
 
 # Abstract
@@ -109,10 +110,9 @@ hour <- exp(1i * 2 * pi * (k:1) / k)
 plot(hour, pch = 19, xlab = "", ylab = "")
 ```
 
-Now, to implement the entire concept, we rely on the `R` package `ggplot2` to produce better graphics and control. We need to create an `R` data frame for plotting ggplots. We also mark some 
-points for minutes. 
+Now, to implement the entire concept, we rely on the `R` package `ggplot2` to produce better graphics and achieve greater control. We need to create an `R` data frame for plotting ggplots. We also mark some points for minutes. 
 
-First, let us create the required data frame
+First, we create the required data frame
 
 ```{r, fig.height=4, fig.width=4, fig.align='center'}
 k <- 24 # Hours
@@ -141,7 +141,7 @@ difference will be seen shortly). But the clock moves clockwise.
 At 0 degree, we have 3 on a 12-hour clock and 6 on a 24-hours clock.
 
 Similarly, the code `SubT = exp(1i * 2 * pi * (subk:1) / subk)` gives us the
-angles corresponding to the fraction of an hour. As we have already mentioned, 
+angles corresponding to a quarter of an hour. As we have already mentioned, 
 the clock hand rotates clock-wise, starting from the $0^o$ angle, so we name 
 the labels 6 PM to 11 PM, then we have 12 PM to 11 PM, followed by 12 AM to 
 5 AM. 
@@ -149,9 +149,11 @@ the labels 6 PM to 11 PM, then we have 12 PM to 11 PM, followed by 12 AM to
 The code `c(rep(" AM",6), rep(" PM",12), rep(" AM",6))` ensures this sequence. 
 
 We then place the data into two data frames `subtimes` and `dfclock`, since
-they are unequal dimensions. 
+they are unequal dimensions. The points corresponding to the hours are labelled 
+AM or PM using the `geom_text()` function. We do not need the axis labels and 
+ticks. Let us remove them:
 
-```{r clock24, fig.height=4, fig.width=4, fig.align='center', fig.cap="The Clock Skeleton"}
+```{r clock24, fig.height=6, fig.width=6, fig.align='center', fig.cap="The Clock Skeleton"}
 library(ggplot2) # Load the package ggplot2
 p1 <- dfclock %>% ggplot()+
   geom_path(data = subtimes, aes(Re(SubT), Im(SubT)))+
@@ -161,31 +163,26 @@ p1 <- dfclock %>% ggplot()+
   geom_text(data = dfclock, aes(Re(time)*1.1, Im(time)*1.1, label = label))+
   geom_point(data = subtimes, 
              aes(Re(SubT), Im(SubT)), shape = 19, color = "black", size = 0.6)+
-  geom_point(aes(Re(time), Im(time)), color = "black", size = 1.8)
+  geom_point(aes(Re(time), Im(time)), color = "black", size = 1.8)+
+  labs(x="", y = "")
 p1
 ```
 
 Next, we plot the lines using the `ggplot2` package. The functions `geom_path()`
 does the job, while `geom_line()` is used to fill the gap between the first and 
-the last point. `aspect.ratio = 1` is set to ensure the chart size do not 
-depend on resizing of `Rstudio` Viewer size.
-
-The points corresponding to the hours are labelled AM or PM using the 
-`geom_text()` function. We do not need the axis labels and ticks. Let us 
-remove them:
+the last point. `aspect.ratio = 1` is set to ensure the chart size is not affected by the IDE. 
 
 ```{r skeleton_clean, fig.height=4, fig.width=4, fig.align='center'}
 p1 + theme(axis.text.x=element_blank(), 
         axis.ticks.x=element_blank(), 
         axis.text.y=element_blank(),  
-        axis.ticks.y=element_blank())+
-  labs(x = "", y = "")
+        axis.ticks.y=element_blank())
 ```
 
-This completes our first part of the plot; we get the skeleton of the clock. 
+This completes our first part of the plot; we obtain the skeleton of the clock. 
 
-The second and final part of the task involves plotting event times on the
-appropriate points. Now, this task has several variations. In the simplest 
+The second and final part of the task involves plotting timestamped events on the
+appropriate points. Now, this task has can be implemented in many ways. In the simplest 
 form, we just have a chart, so called `clock_chart`, which plots the event
 times on the 24-hour clock. An optional argument `Col` can be used to change
 the color of the clock hands. The other variations will be discussed later, when
