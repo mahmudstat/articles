@@ -1,0 +1,637 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Moments Conversion Algorithm},
+  pdfauthor={Abdullah Al Al Mahmud},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Moments Conversion Algorithm}
+\author{Abdullah Al Al Mahmud}
+\date{2023-11-23}
+
+\begin{document}
+\maketitle
+
+\subsection{Abstract}\label{abstract}
+
+Advantages
+
+\begin{itemize}
+\tightlist
+\item
+  Can be used for raw to raw and raw to and from central
+\item
+  always additions of positive quantities
+\item
+  Memorizing complex formulae is not required
+\end{itemize}
+
+Changing
+
+\begin{itemize}
+\tightlist
+\item
+  from one raw moment to another
+\item
+  raw to central
+\item
+  Central to Raw
+\item
+  R function to convert
+\item
+  Changing from function
+\end{itemize}
+
+\subsection{Introduction}\label{introduction}
+
+We are going to employ the new method in four types of distribution.
+
+\begin{itemize}
+\tightlist
+\item
+  Raw data, for example (\(20, 25, 29, \cdots\))
+\item
+  Tabular distribution (value and corresponding probability)
+\item
+  PMF
+\item
+  PDF
+\end{itemize}
+
+\subsection{The Traditional Approach of Converting
+Moments}\label{the-traditional-approach-of-converting-moments}
+
+\subsubsection{Raw Moments to Other Raw
+Moments}\label{raw-moments-to-other-raw-moments}
+
+Let us revisit the traditiona method with the help of an example.
+
+\textbf{Problem:} Let us suppose first three moments about 2 are -1, 7
+\& 39. We have to find them about 5.
+
+\textbf{Traditional Solution:}
+
+Given
+
+\begin{itemize}
+\tightlist
+\item
+  \(\mu_1'(2) = -1\)
+\item
+  \(\mu_2'(2) = 7\) \&
+\item
+  \(\mu_3'(2) = 39\)
+\end{itemize}
+
+Now we have to find \(\mu_1'(5), \mu_3'(5), \text{ and } \mu_3'(5)\)
+
+\paragraph{Conversion of First Moment}\label{conversion-of-first-moment}
+
+We have: \[
+\mu_1'(2) = \frac{1}{n} \sum_{i=1}^n (x_i - 2) = -1
+\]
+
+To find the first moment about 5, we rewrite the expression as: \[
+\begin{aligned}
+\mu_1'(5) &= \frac{1}{n} \sum_{i=1}^n (x_i - 5) \\
+         &= \frac{1}{n} \sum_{i=1}^n \left[(x_i - 2) - 3\right] \\
+         &= \frac{1}{n} \left( \sum_{i=1}^n (x_i - 2) - 3n \right) \\
+         &= \mu_1'(2) - 3 = -1 - 3 = -4
+\end{aligned}
+\]
+
+Thus, the first moment about 5 is \(\mu_1'(5) = -4\).
+
+\subsubsection{Conversion of Second
+Moment}\label{conversion-of-second-moment}
+
+We are given: \[
+\mu_2'(2) = \frac{1}{n} \sum_{i=1}^n (x_i - 2)^2 = 7
+\]
+
+To find the second moment about 5, we proceed as follows:
+\begin{equation}
+\begin{aligned}
+\mu_2'(5) &= \frac{1}{n} \sum_{i=1}^n (x_i - 5)^2 \\
+          &= \frac{1}{n} \sum_{i=1}^n \left[(x_i - 2) - 3\right]^2 \\
+          &= \frac{1}{n} \sum_{i=1}^n \left[(x_i - 2)^2 - 6(x_i - 2) + 9\right] \\
+          &= \frac{1}{n} \sum_{i=1}^n (x_i - 2)^2 - 6 \cdot \frac{1}{n} \sum_{i=1}^n (x_i - 2) + 9 \\
+          &= \mu_2'(2) - 6\mu_1'(2) + 9 \\
+          &= 7 - 6(-1) + 9 = 22
+\end{aligned}
+\end{equation}
+
+Thus, the second moment about 5 is \(\mu_2'(5) = 22\).
+
+\subsubsection{Conversion of Third
+Moment}\label{conversion-of-third-moment}
+
+We are given: \[
+\mu_3'(2) = \frac{1}{n} \sum_{i=1}^n (x_i - 2)^3 = 39
+\]
+
+To compute the third moment about 5, we use the binomial expansion:
+\begin{equation}
+\begin{aligned}
+\mu_3'(5) &= \frac{1}{n} \sum_{i=1}^n (x_i - 5)^3 \\
+          &= \frac{1}{n} \sum_{i=1}^n \left[(x_i - 2) - 3\right]^3 \\
+          &= \frac{1}{n} \sum_{i=1}^n \left[(x_i - 2)^3 - 9(x_i - 2)^2 + 27(x_i - 2) - 27\right] \\
+          &= \frac{1}{n} \sum_{i=1}^n (x_i - 2)^3 
+             - 9 \cdot \frac{1}{n} \sum_{i=1}^n (x_i - 2)^2 
+             + 27 \cdot \frac{1}{n} \sum_{i=1}^n (x_i - 2) 
+             - 27 \\
+          &= \mu_3'(2) - 9\mu_2'(2) + 27\mu_1'(2) - 27 \\
+          &= 39 - 9 \cdot 7 + 27 \cdot (-1) - 27 \\
+          &= -78
+\end{aligned}
+\end{equation}
+
+Therefore, the third moment about 5 is \(\mu_3'(5) = -78\).
+
+Other higher order moments are converted in the same fashion, and the
+calculation keeps getting more difficult.
+
+\subsubsection{Raw to Central Moments}\label{raw-to-central-moments}
+
+The following formulas are used:
+
+\[
+\begin{aligned}
+\mu_1 &= 0 \\[6pt]
+\mu_2 &= \mu_2'(a) - \left[\mu_1'(a)\right]^2 \\[6pt]
+\mu_3 &= \mu_3'(a) - 3\mu_2'(a)\mu_1'(a) + 2\left[\mu_1'(a)\right]^3 \\[6pt]
+\mu_4 &= \mu_4'(a) - 4\mu_3'(a)\mu_1'(a) + 6\mu_2'(a)\left[\mu_1'(a)\right]^2 - 3\left[\mu_1'(a)\right]^4 \\[6pt]
+\mu_5 &= \mu_5'(a) - 5\mu_4'(a)\mu_1'(a) + 10\mu_3'(a)\left[\mu_1'(a)\right]^2
+        - 10\mu_2'(a)\left[\mu_1'(a)\right]^3 + 4\left[\mu_1'(a)\right]^5
+\end{aligned}
+\]
+
+\noindent Here, \(\mu_r'(a)\) denotes the \(r^{\text{th}}\) raw moment
+about point \(a\) (an arbitrary number), and \(\mu_r\) denotes the
+\(r^{\text{th}}\) central moment.
+
+The traditional methods for transforming moments---either from one
+arbitrary origin to another, or from raw to central moments---are often
+tedious and procedurally distinct. While central moments can, in
+principle, be derived by treating the arithmetic mean as a new origin,
+this approach is computationally intensive, while computing central
+moments using these formulas also poses a significant challenge, as it
+requires careful handling of various combinations of raw moments of
+differing orders. {[}REVIEW\ldots{]}
+
+\subsubsection{Derivation of the novel
+approach}\label{derivation-of-the-novel-approach}
+
+Let,
+
+Initial origin = \(a\)
+
+Final origin = \(k\)
+
+\paragraph{First moment}\label{first-moment}
+
+First moment around \(a = \mu_1'(a)\)
+
+First moment around \(k = \mu_1'(k)\)
+
+\begin{equation} 
+\begin{split}
+\mu_1'(a) & =\frac{\sum(x_i-a)}{n} \\
+\mu_1'(k) & = \frac{\sum(x_i-k)}{n}\\
+          & = \frac{\sum(x_i-a-k+a)}{n}\\
+          & = \frac{x_i-a}{n} + a - k\\
+          & = \mu_1'(a) + (a - k)
+\end{split}
+\end{equation}
+
+\paragraph{Second moment}\label{second-moment}
+
+Second moment around \(a = \mu_2'(a)\)
+
+Second moment around \(k = \mu_2'(k)\)
+
+\begin{equation} 
+\begin{split}
+\mu_2'(a) & =\frac{\sum(x_i-a)^2}{n} \\
+\mu_2'(k) & = \frac{\sum(x_i-k)^n}{n}\\
+          & = \frac{\{\sum(x_i-a-k+a)^2+2(a-k)(x_I-a)+(a-k)^2\}}{n}\\
+          & = \frac{(x_i-a)^2}{n} + 2(a - k)\frac{\sum(x_i-a)}{n}+(a-k)^2\\
+          & = \mu_2'(a) + 2(a - k)\mu_1'(a)+(a-k)^2
+\end{split}
+\end{equation}
+
+Other moments are dealt with in the same fashion.
+
+To generalize the process, let
+
+\begin{itemize}
+\tightlist
+\item
+  \(b = a - k\) (for a reason to be obvious soon),
+\item
+  \(\mu_r'(a) =\) \(r^{\text{th}}\) raw moment about \(a\) and
+\item
+  \(\mu_r'(k) =\) \(r^{\text{th}}\) raw moment about \(k\)
+\end{itemize}
+
+So we have:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\mu_1'(k) = \mu_1'(a)+b\)
+\item
+  \(\mu_2(k)= \mu_2'(a) + 2b \space \mu_1'(a)+b^2\)
+\item
+  \(\mu_3'(k) = \mu_3'(a) + 3b \space \mu_2'(a) + 3b^2 \space \mu_1'(a)  + b^3\)
+\item
+  \(\mu_4'(k) = \mu_4'(a) + 4b \space \mu_3'(a) + 6b^2 \space \mu_2'(a)  +4b^3 \space \mu_1'(a) + b^4\)
+\end{itemize}
+
+The formulae look a lot like binomial expansions (which is natural due
+to the formula of the moments themselves). One modification will make
+them look (also serving our purpose) perfectly like binomial expansions.
+
+We let \(\mu_r'(a) = a^r\)
+
+Which simply means whatever the power of \(a\), we are dealing with that
+particular moment.
+
+Thus letting the terms of binomial expansion \(a\) and \(b\), then for
+converting the first moment, we use the formula of \((a+b)^1 = a + b\).
+The table below shows the formulae required to convert the first four
+moments:
+
+\begin{longtable}[]{@{}cc@{}}
+\toprule\noalign{}
+Moment & Formula \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+First & \(a+b\) \\
+Second & \(a^2+2ab+b^2\) \\
+Third & \(a^3+3a^2b+3ab^2+b^3\) \\
+Forth & \(a^4+4a^3b+6a^2b^2+4ab^3+b^4\) \\
+\end{longtable}
+
+Observe the coefficients. They are essentially the binomial
+coefficients. The coefficients can be obtained from the Pascal's
+triangle, which is a triangular array of the binomial coefficients.
+
+\[
+{\begin{array}{c}
+1 \\
+1 \quad 1 \\
+1 \quad 2 \quad 1 \\
+1 \quad 3 \quad 3 \quad 1 \\
+1 \quad 4 \quad 6 \quad 4 \quad 1 \\
+1 \quad 5 \quad 10 \quad 10 \quad 5 \quad 1 \\
+1 \quad 6 \quad 15 \quad 20 \quad 15 \quad 6 \quad 1 \\
+1 \quad 7 \quad 21 \quad 35 \quad 35 \quad 21 \quad 7 \quad 1 \\
+\end{array}}
+\]
+
+The first row is 1. Each entry of each subsequent row is constructed by
+adding the number above and to the left with the number above and to the
+right, treating blank entries as 0. For example, the initial number of
+row 1 (or any other row) is 1 (the sum of 0 and 1), whereas the numbers
+1 and 3 in row 3 are added to produce the number 4 in row 4.
+
+\subsubsection{Testing a conversion}\label{testing-a-conversion}
+
+From the previous problem,
+
+\(b = a-k = 2-5=-3\)
+
+\subsubsection{First Moment}\label{first-moment-1}
+
+We need to find \(\mu_1'(5)\)
+
+\[
+\begin{align*}
+\mu_1'(5) &= a + b \\
+&= \mu_1'(2) + b \\
+&= -1 + (-3) \\
+&= -4
+\end{align*}
+\]
+
+\subsubsection{Second Moment}\label{second-moment-1}
+
+\[
+\begin{align*}
+\mu_2'(5) &= a^2 + 2ab + b^2 \\
+&= \mu_2'(2) + 2\mu_1'(2)b + b^2 \\
+&= 7 + 2(-1)(-3) + 9 \\
+&= 7 + 6 + 9 \\
+&= 22
+\end{align*}
+\]
+
+\subsubsection{Third Moment}\label{third-moment}
+
+\(\mu_3'(5) = 39 + 3(-3)\times 7 + 3 (-3)^2(-1) + (-3)^3 = -78\)
+
+\subsubsection{Centrtal Moments from Raw
+Moments}\label{centrtal-moments-from-raw-moments}
+
+We know, the central moments are nothing but moments around arithmetic
+mean (\(\bar X\))
+
+The rth central moment is \(\mu_r = \frac{\sum (x_i-\bar x)^r}{n}\)
+
+The central moments (\(\mu_r\)) can be derived from the raw moments. The
+conventional, formulae, however, look esoteric and difficult to
+remember.
+
+\begin{itemize}
+\tightlist
+\item
+  \(\mu_1 = 0\)
+\item
+  \(\mu_2 = \mu_2'- a\)
+\item
+  \(\mu3 = \mu_3'- 3 \mu_2' \mu_1' + 2 \mu_1'^3\)
+\item
+  \(\mu4 = \mu_4' - 4 \mu_3' \mu_1' + 6 \mu_2' \mu_1'^2 - 3 \mu_1'^4\)
+\end{itemize}
+
+But we can derive them quickly and easily by means of binomial theorem,
+and we can get the coefficient from Pascal's triangle.
+
+\subsubsection{Moments of Binomial
+Distribution}\label{moments-of-binomial-distribution}
+
+Let \(X \sim \text{Bin}(n, p)\). The moment generating function (MGF) is
+defined as:
+
+\[
+M_X(t) = \mathbb{E}[e^{tX}] = \sum_{x=0}^{n} e^{tx} \binom{n}{x} p^x (1-p)^{n-x}
+\]
+
+Factor out \(e^{tx}\):
+
+\[
+M_X(t) = \sum_{x=0}^{n} \binom{n}{x} (p e^t)^x (1-p)^{n-x}
+\]
+
+This is a binomial expansion of:
+
+\[
+M_X(t) = \left( (1 - p) + p e^t \right)^n
+\]
+
+\paragraph{First Moment from MGF (about origin or
+Zero)}\label{first-moment-from-mgf-about-origin-or-zero}
+
+Differentiate the MGF with respect to \(t\):
+
+\[
+M'_X(t) = \frac{d}{dt} \left[ (1 - p + p e^t)^n \right]
+= n (1 - p + p e^t)^{n-1} \cdot p e^t
+\]
+
+Evaluate at \(t = 0\) to get the first moment around zero (\(\mu_1\) or
+mean):
+
+\[
+M'_X(0) = n (1 - p + p)^{n - 1} \cdot p = n p
+\]
+
+\textbf{Therefore, the first moment (mean) is:}
+
+\[
+\boxed{\mathbb{E}[X] = n p}
+\]
+
+\paragraph{First Central Moment of Binomial
+Distribution}\label{first-central-moment-of-binomial-distribution}
+
+\[
+M_{X - \mu}(t) = e^{- \mu t} \cdot M_X(t)
+\]
+
+Substituting \(\mu = np\):
+
+\[
+M_{X - \mu}(t) = e^{-np t} \cdot \left( (1 - p) + p e^t \right)^n
+\]
+
+To find the \textbf{first central moment}, we differentiate this and
+evaluate at \(t = 0\):
+
+\[
+\mu_1 = \left. \frac{d}{dt} M_{X - \mu}(t) \right|_{t = 0}
+\]
+
+Let:
+
+\[
+A(t) = e^{-np t}, \quad B(t) = \left( (1 - p) + p e^t \right)^n
+\]
+
+Then:
+
+\[
+M_{X - \mu}(t) = A(t) \cdot B(t)
+\]
+
+Differentiate using the product rule:
+
+\[
+\frac{d}{dt}(A(t)B(t)) = A'(t)B(t) + A(t)B'(t)
+\]
+
+Now evaluate each part at \(t = 0\):
+
+\begin{itemize}
+\tightlist
+\item
+  \(A(0) = 1\),\\
+\item
+  \(A'(t) = -np e^{-np t} \Rightarrow A'(0) = -np\),\\
+\item
+  \(B(0) = \left( (1 - p) + p \cdot 1 \right)^n = 1\),\\
+\item
+  \(B'(t) = n \left( (1 - p) + p e^t \right)^{n - 1} \cdot p e^t \Rightarrow B'(0) = n p\)
+\end{itemize}
+
+So:
+
+\[
+\left. \frac{d}{dt}(A(t)B(t)) \right|_{t = 0}
+= A'(0) B(0) + A(0) B'(0) = (-np)(1) + (1)(np) = 0
+\]
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+The \textbf{first central moment} of the Binomial distribution is
+\textbf{zero}, as expected, although we had to go through a tedious
+process. Using the novel method, however, we can find the same quickly
+and more easily.
+
+The first central moment (\(\mu_1\)) can also be written as
+\(\mu_1'(\mu)\) for clarity for the purpose of using the new technique.
+
+Thus we have
+
+\[
+\begin{align*}
+\text{Initial origin:} \quad & a =  \\
+\text{New origin:} \quad & k = \mu = np \\
+\text{Shift:} \quad & b = a - k =  - np = -np \\
+\text{First central moment:} \quad & \mu_1 = \mu_1'(a) + b = \mu_1'() + (-np) = np - np = 
+\end{align*}
+\]
+
+Which gave us the expected value (0, literally as well) with ease.
+
+Similarly we can find the second central moment.
+
+We know the second raw moment of Binomial distribution about zero is
+\(\mu_2'(0) = np - np^2 + n^2p^2\)
+
+\[
+\begin{align*}
+\mu_2 &= \mu_2'(np) = \mu_2'(\mu) \\
+&= a^2 + 2ab + b^2 \\
+&= \mu_2'(0) + 2\mu_1'(0)b + b^2 \\
+&= np + n^2p^2 - np^2 + 2(np)(-np) + (-np)^2 \\
+&= np + n^2p^2 - np^2 - 2n^2p^2 + n^2p^2 \\
+&= np - np^2 \\
+&= np(1-p)
+\end{align*}
+\]
+
+We again obtain the correct moment.
+
+\subsubsection{Normal Distribution}\label{normal-distribution}
+
+First four central and raw moments about zero are
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1548}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4762}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2024}}
+  >{\centering\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1667}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\centering
+Raw Moments
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Central Moments
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Notation & Value & Notation & Value \\
+\(\mu_1'\) & \(\mu\) & \(\mu_1\) & \(0\) \\
+\(\mu_2'\) & \(\mu^2 + \sigma^2\) & \(\mu_2\) & \(\sigma^2\) \\
+\(\mu_3'\) & \(\mu^3 + 3\mu \sigma^2\) & \(\mu_3\) & \(0\) \\
+\(\mu_4'\) & \(\mu^4 + 6\mu^2 \sigma^2 + 3 \sigma^4\) & \(\mu_4\) &
+\(3 \sigma^4\) \\
+\end{longtable}
+
+\paragraph{Using the Novel Approach}\label{using-the-novel-approach}
+
+\(b = a- k = 0 - \mu = -\mu\)
+
+\(\mu_1 = a + b = \mu_1' + b = \mu - \mu = 0\)
+
+\[
+\begin{align*}
+\mu_2 &= a^2 + 2ab + b^2 \\
+&= \mu_2' + 2\mu_1'b + b^2 \\
+&= (\mu^2 + \sigma^2) + 2\mu(-\mu) + \mu^2 \\
+&= \mu^2 + \sigma^2 - 2\mu^2 + \mu^2 \\
+&= \sigma^2
+\end{align*}
+\]
+
+Similarly the third central moment
+
+\[
+\begin{align*}
+\mu_3 &= a^3 + 3a^2b + 3ab^2 + b^3 \\
+&= \mu_3' + 3\mu_2'b  3\mu_1'b^2 + b^3 \\
+&= (\mu^3 + 3\mu \sigma^2) + 3(\mu^2+\sigma^2) (-\mu) + 3\mu(-\mu)^2 +  + (-\mu)^3 \\
+&= 0
+\end{align*}
+\]
+
+We get 0 as expected, since all odd central moments of the normal
+distribution is zero.
+
+\end{document}
