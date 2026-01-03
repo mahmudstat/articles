@@ -9,6 +9,8 @@ output:
 bibliography: references.bib 
 ---
 
+<!--ALSO refer to the JOSS paper -->
+
 # Structure
 
 - Abstract
