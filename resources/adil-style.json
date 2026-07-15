@@ -1,0 +1,18 @@
+[
+    {
+        "input": "In essence, all comets are clumps of ice and dust.",
+        "output": "ধূমকেতুরা মূলত ধুলি ও বরফ দিয়ে গড়া।"
+    },
+    {
+        "input": "We classify different types of comets based on their flight path through space.",
+        "output": "মহাকাশে চলার পথের ওপর নির্ভর করে ধূমকেতুকে বিভিন্ন ভাগে ভাগ করা হয়।"
+    },
+    {
+        "input": "Comets with a period less than 20 years are typically called Jupiter-family comets",
+        "output": "পর্যায়কাল ২০ বছরের কম হলে তাদেরকে বলে বৃহস্পতি-পরিবারের ধূমকেতু।"
+    }
+    {
+        "input": "Comets with a period less than 20 years are typically called Jupiter-family comets",
+        "output": "পর্যায়কাল ২০ বছরের কম হলে তাদেরকে বলে বৃহস্পতি-পরিবারের ধূমকেতু।"
+    }
+]

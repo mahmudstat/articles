@@ -1,0 +1,70 @@
+[
+  {
+    "input": "Comets with a period less than 20 years are typically called Jupiter-family comets",
+    "output": "পর্যায়কাল ২০ বছরের কম হলে তাদেরকে বলে বৃহস্পতি-পরিবারের ধূমকেতু।"
+  },
+  {
+    "input": "In essence, all comets are clumps of ice and dust.",
+    "output": "ধূমকেতুরা মূলত ধুলি ও বরফ দিয়ে গড়া।"
+  },
+  {
+    "input": "Different types of comets are classified based on their flight path through space.",
+    "output": "মহাকাশে চলার পথের ওপর নির্ভর করে ধূমকেতুকে বিভিন্ন ভাগে ভাগ করা হয়।"
+  },
+  {
+    "input": "Comets with a period less than 20 years are typically called Jupiter-family comets.",
+    "output": "পর্যায়কাল ২০ বছরের কম হলে তাদেরকে বলে বৃহস্পতি-পরিবারের ধূমকেতু।"
+  },
+  {
+    "input": "Saturn’s relatively fast rotation period of 10 hours and 40 minutes makes the planet’s diameter at the poles 11,800 km shorter than at the equator. Just translate",
+    "output": "শনি গ্রহের ঘূর্ণন গতি তুলনামূলকভাবে বেশ দ্রুত। এটি মাত্র ১০ ঘণ্টা ৪০ মিনিটে একবার নিজের অক্ষের সাপেক্ষে আবর্তন করে। এই দ্রুত ঘূর্ণনের কারণে গ্রহটির মেরু অঞ্চলের ব্যাস বিষুবীয় অঞ্চলের (equator) ব্যাসের চেয়ে ১১,৮০০ কিলোমিটার কম।"
+  },
+  {
+    "input": "The first-ever image of a black hole revealed in 2019 shows the features caused by a super massive black hole at the centre of galaxy M87. The black hole itself has a mass of approximately 6.5 billion times that of the Sun.",
+    "output": "২০১৯ সালে ইতিহাসে প্রথমবারের মতো একটি ব্ল্যাক হোল বা কৃষ্ণগহ্বরের ছবি প্রকাশ করা হয়। এই ছবিতে এম৮৭ (M87) ছায়াপথের কেন্দ্রে থাকা একটি সুপারম্যাসিভ বা অতিভারী ব্ল্যাক হোলের বৈশিষ্ট্যগুলো দেখানো হয়। ব্ল্যাক হোলটির ভর আমাদের সূর্যের ভরের চেয়ে প্রায় ৬৫০ কোটি গুণ বেশি।"
+  },
+  {
+    "input": "$4.3 billion ",
+    "output": "৪৩০ কোটি ডলার"
+  },
+  {
+    "input": "exoplanet",
+    "output": "বহির্গ্রহ"
+  },
+  {
+    "input": "This wo;; conduct a comprehensive survey of exoplanets",
+    "output": "এর পাশাপাশি এটি বহির্গ্রহ সম্পর্কে পূর্ণাঙ্গ তথ্য সংগ্রহ করবে। "
+  },
+  {
+    "input": "Coronagraph technology is used on the Nancy Grace Roman Space Telescope. The first space telescope to use actively deformable mirrors and wavefront control to suppress starlight.",
+    "output": ""
+  },
+  {
+    "input": "From Earth, the belt sounded like a deadly zone",
+    "output": "পৃথিবী থেকে এই বেল্টকে মারাত্মক এক বিপজ্জনক এলাকা মনে হতো।"
+  },
+  {
+    "input": "If that region was crowded enough, one tiny impact could have ended the mission long before Voyager saw its first planet.",
+    "output": "এই অঞ্চলটি অনেক বেশি ঘন হলে গ্রহাণুর একটি ছোট আঘাতই ভয়েজারকে শেষ করে দিতে পারত। কোনো গ্রহ দেখার অনেক আগেই সমাপ্তি ঘটত অভিযানের।"
+  },
+  {
+    "input": "Our familiar 24-hour day and 365-day year are not inherent properties of Earth",
+    "output": "পৃথিবীর ২৪ ঘণ্টার দিনের সাথেই আমরা অভ্যস্ত। বছর ঘুরে ৩৬৫ দিনে। কিন্তু এর কোনোটিই পৃথিবীর নিজস্ব কোনো স্থায়ী বৈশিষ্ট্য নয়।"
+  },
+  {
+    "input": "A single rotation—one day—lasted a mere 6 to 8 hours.",
+    "output": "একটি ঘূর্ণন অর্থাৎ একদিন পূর্ণ হতে সময় লাগত মাত্র ৬ থেকে ৮ ঘণ্টা।"
+  },
+  {
+    "input": "Neutron stars form when massive stars collapse under their own gravity.",
+    "output": "ভারী নক্ষত্ররা নিজস্ব মহাকর্ষ বলের কারণে সংকুচিত হয়ে নিউট্রন তারা তৈরি করে।"
+  },
+  {
+    "input": " stellar remnant",
+    "output": "নাক্ষত্রিক ধ্বংসাবশেষ "
+  },
+  {
+    "input": "But now we must return to Mach’s principle. If Newton’s bucket is stationary and the rest of the universe is spinning around it, what then causes the centrifugal force that drives the water up the inside?",
+    "output": "তবে মাখের নীতিটা আবার একটু দেখা যাক। ধরলাম নিউটনের বালতি স্থির। বাকি মহাবিশ্ব ঘুরছে এর চারপাশে। কিন্তু বালতির পানি তো ওপরে উঠছে। সেটা হওয়ার জন্য কেন্দ্রবিমুখী বলটা কোথা থেকে এল?"
+  }
+]
