@@ -1,70 +1,174 @@
 [
   {
-    "input": "Comets with a period less than 20 years are typically called Jupiter-family comets",
-    "output": "পর্যায়কাল ২০ বছরের কম হলে তাদেরকে বলে বৃহস্পতি-পরিবারের ধূমকেতু।"
+    "English": "Comets with a period less than 20 years are typically called Jupiter-family comets",
+    "Bangla": "পর্যায়কাল ২০ বছরের কম হলে তাদেরকে বলে বৃহস্পতি-পরিবারের ধূমকেতু।"
   },
   {
-    "input": "In essence, all comets are clumps of ice and dust.",
-    "output": "ধূমকেতুরা মূলত ধুলি ও বরফ দিয়ে গড়া।"
+    "English": "In essence, all comets are clumps of ice and dust.",
+    "Bangla": "ধূমকেতুরা মূলত ধুলি ও বরফ দিয়ে গড়া।"
   },
   {
-    "input": "Different types of comets are classified based on their flight path through space.",
-    "output": "মহাকাশে চলার পথের ওপর নির্ভর করে ধূমকেতুকে বিভিন্ন ভাগে ভাগ করা হয়।"
+    "English": "Different types of comets are classified based on their flight path through space.",
+    "Bangla": "মহাকাশে চলার পথের ওপর নির্ভর করে ধূমকেতুকে বিভিন্ন ভাগে ভাগ করা হয়।"
   },
   {
-    "input": "Comets with a period less than 20 years are typically called Jupiter-family comets.",
-    "output": "পর্যায়কাল ২০ বছরের কম হলে তাদেরকে বলে বৃহস্পতি-পরিবারের ধূমকেতু।"
+    "English": "Comets with a period less than 20 years are typically called Jupiter-family comets.",
+    "Bangla": "পর্যায়কাল ২০ বছরের কম হলে তাদেরকে বলে বৃহস্পতি-পরিবারের ধূমকেতু।"
   },
   {
-    "input": "Saturn’s relatively fast rotation period of 10 hours and 40 minutes makes the planet’s diameter at the poles 11,800 km shorter than at the equator. Just translate",
-    "output": "শনি গ্রহের ঘূর্ণন গতি তুলনামূলকভাবে বেশ দ্রুত। এটি মাত্র ১০ ঘণ্টা ৪০ মিনিটে একবার নিজের অক্ষের সাপেক্ষে আবর্তন করে। এই দ্রুত ঘূর্ণনের কারণে গ্রহটির মেরু অঞ্চলের ব্যাস বিষুবীয় অঞ্চলের (equator) ব্যাসের চেয়ে ১১,৮০০ কিলোমিটার কম।"
+    "English": "Saturn’s relatively fast rotation period of 10 hours and 40 minutes makes the planet’s diameter at the poles 11,800 km shorter than at the equator. Just translate",
+    "Bangla": "শনি গ্রহের ঘূর্ণন গতি তুলনামূলকভাবে বেশ দ্রুত। এটি মাত্র ১০ ঘণ্টা ৪০ মিনিটে একবার নিজের অক্ষের সাপেক্ষে আবর্তন করে। এই দ্রুত ঘূর্ণনের কারণে গ্রহটির মেরু অঞ্চলের ব্যাস বিষুবীয় অঞ্চলের (equator) ব্যাসের চেয়ে ১১,৮০০ কিলোমিটার কম।"
   },
   {
-    "input": "The first-ever image of a black hole revealed in 2019 shows the features caused by a super massive black hole at the centre of galaxy M87. The black hole itself has a mass of approximately 6.5 billion times that of the Sun.",
-    "output": "২০১৯ সালে ইতিহাসে প্রথমবারের মতো একটি ব্ল্যাক হোল বা কৃষ্ণগহ্বরের ছবি প্রকাশ করা হয়। এই ছবিতে এম৮৭ (M87) ছায়াপথের কেন্দ্রে থাকা একটি সুপারম্যাসিভ বা অতিভারী ব্ল্যাক হোলের বৈশিষ্ট্যগুলো দেখানো হয়। ব্ল্যাক হোলটির ভর আমাদের সূর্যের ভরের চেয়ে প্রায় ৬৫০ কোটি গুণ বেশি।"
+    "English": "The first-ever image of a black hole revealed in 2019 shows the features caused by a super massive black hole at the centre of galaxy M87. The black hole itself has a mass of approximately 6.5 billion times that of the Sun.",
+    "Bangla": "২০১৯ সালে ইতিহাসে প্রথমবারের মতো একটি ব্ল্যাক হোল বা কৃষ্ণগহ্বরের ছবি প্রকাশ করা হয়। এই ছবিতে এম৮৭ (M87) ছায়াপথের কেন্দ্রে থাকা একটি সুপারম্যাসিভ বা অতিভারী ব্ল্যাক হোলের বৈশিষ্ট্যগুলো দেখানো হয়। ব্ল্যাক হোলটির ভর আমাদের সূর্যের ভরের চেয়ে প্রায় ৬৫০ কোটি গুণ বেশি।"
   },
   {
-    "input": "$4.3 billion ",
-    "output": "৪৩০ কোটি ডলার"
+    "English": "$4.3 billion",
+    "Bangla": "৪৩০ কোটি ডলার"
   },
   {
-    "input": "exoplanet",
-    "output": "বহির্গ্রহ"
+    "English": "exoplanet",
+    "Bangla": "বহির্গ্রহ"
   },
   {
-    "input": "This wo;; conduct a comprehensive survey of exoplanets",
-    "output": "এর পাশাপাশি এটি বহির্গ্রহ সম্পর্কে পূর্ণাঙ্গ তথ্য সংগ্রহ করবে। "
+    "English": "This wo;; conduct a comprehensive survey of exoplanets",
+    "Bangla": "এর পাশাপাশি এটি বহির্গ্রহ সম্পর্কে পূর্ণাঙ্গ তথ্য সংগ্রহ করবে।"
   },
   {
-    "input": "Coronagraph technology is used on the Nancy Grace Roman Space Telescope. The first space telescope to use actively deformable mirrors and wavefront control to suppress starlight.",
-    "output": ""
+    "English": "Coronagraph technology is used on the Nancy Grace Roman Space Telescope. The first space telescope to use actively deformable mirrors and wavefront control to suppress starlight.",
+    "Bangla": ""
   },
   {
-    "input": "From Earth, the belt sounded like a deadly zone",
-    "output": "পৃথিবী থেকে এই বেল্টকে মারাত্মক এক বিপজ্জনক এলাকা মনে হতো।"
+    "English": "From Earth, the belt sounded like a deadly zone",
+    "Bangla": "পৃথিবী থেকে এই বেল্টকে মারাত্মক এক বিপজ্জনক এলাকা মনে হতো।"
   },
   {
-    "input": "If that region was crowded enough, one tiny impact could have ended the mission long before Voyager saw its first planet.",
-    "output": "এই অঞ্চলটি অনেক বেশি ঘন হলে গ্রহাণুর একটি ছোট আঘাতই ভয়েজারকে শেষ করে দিতে পারত। কোনো গ্রহ দেখার অনেক আগেই সমাপ্তি ঘটত অভিযানের।"
+    "English": "If that region was crowded enough, one tiny impact could have ended the mission long before Voyager saw its first planet.",
+    "Bangla": "এই অঞ্চলটি অনেক বেশি ঘন হলে গ্রহাণুর একটি ছোট আঘাতই ভয়েজারকে শেষ করে দিতে পারত। কোনো গ্রহ দেখার অনেক আগেই সমাপ্তি ঘটত অভিযানের।"
   },
   {
-    "input": "Our familiar 24-hour day and 365-day year are not inherent properties of Earth",
-    "output": "পৃথিবীর ২৪ ঘণ্টার দিনের সাথেই আমরা অভ্যস্ত। বছর ঘুরে ৩৬৫ দিনে। কিন্তু এর কোনোটিই পৃথিবীর নিজস্ব কোনো স্থায়ী বৈশিষ্ট্য নয়।"
+    "English": "Our familiar 24-hour day and 365-day year are not inherent properties of Earth",
+    "Bangla": "পৃথিবীর ২৪ ঘণ্টার দিনের সাথেই আমরা অভ্যস্ত। বছর ঘুরে ৩৬৫ দিনে। কিন্তু এর কোনোটিই পৃথিবীর নিজস্ব কোনো স্থায়ী বৈশিষ্ট্য নয়।"
   },
   {
-    "input": "A single rotation—one day—lasted a mere 6 to 8 hours.",
-    "output": "একটি ঘূর্ণন অর্থাৎ একদিন পূর্ণ হতে সময় লাগত মাত্র ৬ থেকে ৮ ঘণ্টা।"
+    "English": "A single rotation—one day—lasted a mere 6 to 8 hours.",
+    "Bangla": "একটি ঘূর্ণন অর্থাৎ একদিন পূর্ণ হতে সময় লাগত মাত্র ৬ থেকে ৮ ঘণ্টা।"
   },
   {
-    "input": "Neutron stars form when massive stars collapse under their own gravity.",
-    "output": "ভারী নক্ষত্ররা নিজস্ব মহাকর্ষ বলের কারণে সংকুচিত হয়ে নিউট্রন তারা তৈরি করে।"
+    "English": "Neutron stars form when massive stars collapse under their own gravity.",
+    "Bangla": "ভারী নক্ষত্ররা নিজস্ব মহাকর্ষ বলের কারণে সংকুচিত হয়ে নিউট্রন তারা তৈরি করে।"
   },
   {
-    "input": " stellar remnant",
-    "output": "নাক্ষত্রিক ধ্বংসাবশেষ "
+    "English": "stellar remnant",
+    "Bangla": "নাক্ষত্রিক ধ্বংসাবশেষ"
   },
   {
-    "input": "But now we must return to Mach’s principle. If Newton’s bucket is stationary and the rest of the universe is spinning around it, what then causes the centrifugal force that drives the water up the inside?",
-    "output": "তবে মাখের নীতিটা আবার একটু দেখা যাক। ধরলাম নিউটনের বালতি স্থির। বাকি মহাবিশ্ব ঘুরছে এর চারপাশে। কিন্তু বালতির পানি তো ওপরে উঠছে। সেটা হওয়ার জন্য কেন্দ্রবিমুখী বলটা কোথা থেকে এল?"
+    "English": "But now we must return to Mach’s principle. If Newton’s bucket is stationary and the rest of the universe is spinning around it, what then causes the centrifugal force that drives the water up the inside?",
+    "Bangla": "তবে মাখের নীতিটা আবার একটু দেখা যাক। ধরলাম নিউটনের বালতি স্থির। বাকি মহাবিশ্ব ঘুরছে এর চারপাশে। কিন্তু বালতির পানি তো ওপরে উঠছে। সেটা হওয়ার জন্য কেন্দ্রবিমুখী বলটা কোথা থেকে এল?"
+  },
+  {
+    "English": "interstellar space",
+    "Bangla": "আন্তঃনক্ষত্র স্থান"
+  },
+  {
+    "English": "Voyager 1 is now over 25 BILLION kilometers away from Earth",
+    "Bangla": "ভয়েজার ১ বর্তমানে পৃথিবী থেকে আড়াই হাজার কিলোমিটারেরও বেশি দূরে অবস্থান করছে।"
+  },
+  {
+    "English": "the farthest any human-made object has ever traveled",
+    "Bangla": ""
+  },
+  {
+    "English": "Launched way back in 1977",
+    "Bangla": "১৯৭৭ সালে উৎক্ষেপিত"
+  },
+  {
+    "English": "this tiny spacecraft has been flying non-stop for nearly 49 years",
+    "Bangla": "এই ছোট মহাকাশযানটি প্রায় ৪৯ বছর যাবত অবিরাম ওড়ছে"
+  },
+  {
+    "English": "It has already left our solar system's protective bubble, entering true interstellar space.",
+    "Bangla": "এটি ইতিমধ্যেই আমাদের সৌরজগতের সুরক্ষাবলয় পেরিয়ে সত্যিকারের আন্তঃনাক্ষত্রিক স্থানে প্রবেশ করেছে।"
+  },
+  {
+    "English": "a radio signal from Earth, traveling at the speed of light, takes over 23 HOURS just to reach it.",
+    "Bangla": "পৃথিবী থেকে আলোর গতিতে চলা একটি বেতার সংকেত ভয়েজার ১-এ পৌঁছাতেই ২৩ ঘণ্টার বেশি সময় লাগে।"
+  },
+  {
+    "English": "That means every single command NASA sends takes almost a full day to arrive.",
+    "Bangla": "এর মানে হলো, নাসা থেকে পাঠানো প্রতিটি কমান্ড সেখানে পৌঁছাতে প্রায় পুরো একটা দিন লেগে যায়।"
+  },
+  {
+    "English": "Its mass, temperature, and present orbit all point toward a turbulent past.",
+    "Bangla": "এর ভর, তাপমাত্রা এবং বর্তমান কক্ষপথ—সবকিছুই এক অশান্ত অতীতের ইঙ্গিত দেয়।"
+  },
+  {
+    "English": "The mystery deepens further because the planet appears to be more than seven times the mass of Jupiter while remaining similar in size.",
+    "Bangla": "রহস্যটি আরও ঘনীভূত হয় আরেকটি কারণে। গ্রহটির আকার প্রায় বৃহস্পতি গ্রহের মতো হলেও এর ভর বৃহস্পতির সাত গুণেরও বেশি।"
+  },
+  {
+    "English": "the process where a planet or moon is repeatedly stretched and squeezed by the gravitational pull of a larger body",
+    "Bangla": "এ প্রক্রিয়ায় অন্য বড় বস্তুর প্রভাবে গ্রহ বা চাঁদ বারবার সংকুচিত ও প্রসারিত হতে থাকে।"
+  },
+  {
+    "English": "the death of a star does not necessarily mark the end of its planets",
+    "Bangla": "মৃত্যু মানেই নক্ষত্রের জীবনের সম্পাতি নয়।"
+  },
+  {
+    "English": "They had also learned a few new things along the way. The ori-\nginal spinfoam model developed by Barrett and Crane was found\nto be in need of modification, leading to the introduction of a\nnew parameter. This is called the Immirzi or Barbero–Immirzi\nparameter, usually given the symbol γ and named for Italian the-\norist Giorgio Immirzi and Spanish theorist Fernando Barbero.\nWe will meet this parameter again in our discussion of black hole\nentropy in Chapter 15, so I won’t say too much about it here. The\nparameter modifies the expression for the spectrum of area, and\nso changes the size of the quantum of area somewhat.",
+    "Bangla": "এটা করতে গিয়ে তাঁরা শিখলেন আরও কিছু জিনিস। দেখা গেল, ব্যারেট ও ক্রেনের বানানো প্রাথমিক স্পিনফোম মডেলে পরবির্তন আনা প্রয়োজন। ফলে নিয়ে আসতে হলো নতুন আরেকটি প্যারামিটার।  এর নাম ইমিরজি বা বারবেরো-ইমিরজি প্যারামিটার। সাধারণত একে গামা (γ) চিহ্ন দিয়ে প্রকাশ করা হয়। ইতালীয় তাত্ত্বিক জিওরজিও ইমিরৎসি ও স্পেনের ফার্নান্দো বারবেরোর নামে এই নাম। ১৫শ অধ্যায়ে ব্ল্যাকহোল এনট্রপি আলোচনা করতে গিয়ে আমরা আবারও এ প্যারামিটার নিয়ে আলাপ করব। এই প্যারামিটার ক্ষেত্রফলের বর্ণালীর সূত্র পাল্টে দেয়। ফলে কোয়ান্টাম ক্ষেত্রফলের আকারও কিছুটা বদলে যায়।"
+  },
+  {
+    "English": "the theorists had demonstrated the possibility\nof doing particle physics in a theory without spacetime.",
+    "Bangla": "তাত্ত্বিকরা দেখিয়েছেন, স্থানকাল ছাড়াও কণাপদার্থ নিয়ে কাজ করা সম্ভব।"
+  },
+  {
+    "English": "He did not consider quantum mechanics to be ‘a problem'",
+    "Bangla": "তাঁর কাছে কোয়ান্টাম মেকানিকসকে কোনো সমস্যা মনে হয়নি।"
+  },
+  {
+    "English": "We’re perfectly at liberty to do this.",
+    "Bangla": "এটা করার পূর্ণ স্বাধীনতা আমাদের আছে।"
+  },
+  {
+    "English": "because we can build up a waveform from any set of\nsuitable components, provided we follow the rules and add the\ncomponents together in the right proportions.",
+    "Bangla": "এর কারণ হলো, যেকোনো এক গুচ্ছ উপযুক্ত উপাদান থেকে আমরা তরঙ্গচিত্র তৈরি করে নিতে পারি। শুধু দুটি শর্ত মেনে চলতে হবে। এক: সূত্র মেনে চলতে হবে। দুই: উপাদানগুলোকে সঠিক অনুপাতে যোগ করতে হবে।"
+  },
+  {
+    "English": "taken for granted",
+    "Bangla": "বিনা বাক্যে মেনে নেওয়া"
+  },
+  {
+    "English": "The void had weakened Aristotle’s philosophy",
+    "Bangla": "শূন্য এরিস্টটলের দর্শনকে দুর্বল করে দিয়েছিল"
+  },
+  {
+    "English": "Zero is not the only number that was rejected by mathematicians for centuries",
+    "Bangla": "বহু শতক ধরে গণিতবিদদের অবহেলার পাত্র শূন্য একা হয়নি।"
+  },
+  {
+    "English": "infinity is just a point on the sphere like any other point",
+    "Bangla": "গোলকের ওপরের আর দশটা বিন্দুর মতোই অসীমও একটি বিন্দু"
+  },
+  {
+    "English": "infinity was no longer something to be feared",
+    "Bangla": "অসীমকে ভয় পাওয়ার দিন শেষ।"
+  },
+  {
+    "English": "It’s a tough concept to swallow",
+    "Bangla": "কথাটা মেনে নেওয়া কঠিন"
+  },
+  {
+    "English": "Distances and times smaller than the size of the loops no longer matter",
+    "Bangla": "লুপের আকারের চেয়ে ছোট দূরত্ব ও সময়ের কোনো গুরুত্ব নেই।"
+  },
+  {
+    "English": "For most people, four dimensions are one too many",
+    "Bangla": "বেশিরভাগ মানুষের কাছে চারটি মাত্রাই বেশি।"
+  },
+  {
+    "English": "But now we must return to Mach’s principle. If Newton’s bucket is stationary and the rest of the universe is spinning around it, what then causes the centrifugal force that drives the water up the inside?",
+    "Bangla": "তবে মাখের নীতিটা আবার একটু দেখা যাক। ধরলাম নিউটনের বালতি স্থির। বাকি মহাবিশ্ব ঘুরছে এর চারপাশে। কিন্তু বালতির পানি তো ওপরে উঠছে। সেটা হওয়ার জন্য কেন্দ্রবিমুখী বলটা কোথা থেকে এল?"
   }
 ]
