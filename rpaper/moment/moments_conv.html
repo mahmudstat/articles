@@ -1916,10 +1916,14 @@ e^t)^n\)</span>, requiring nested applications of the product rule:
 <div id="generalized-binomial-approach" class="section level4" number="5.1.2">
 <h4><span class="header-section-number">5.1.2</span> Generalized
 Binomial Approach</h4>
-<p>Using our framework: - Initial origin <span class="math inline">\(a =
-0\)</span>. - Target origin <span class="math inline">\(k = \mu =
-np\)</span>. - Origin shift <span class="math inline">\(b = a - k = 0 -
-np = -np\)</span>.</p>
+<p>Using our framework:</p>
+<ul>
+<li>Initial origin <span class="math inline">\(a = 0\)</span>.</li>
+<li>Target origin <span class="math inline">\(k = \mu =
+np\)</span>.</li>
+<li>Origin shift <span class="math inline">\(b = a - k = 0 - np =
+-np\)</span>.</li>
+</ul>
 <ol style="list-style-type: decimal">
 <li><strong>First Central Moment (<span class="math inline">\(\mu_1\)</span>):</strong> <span class="math display">\[
 \mu_1 = \mu_1&#39;(0) + b = np + (-np) = 0.
@@ -2059,76 +2063,84 @@ Derivation (<span class="math inline">\(b = \mu - 0 = \mu\)</span>)</h4>
 <div id="computational-implementation-in-r-and-benchmarking" class="section level2" number="6">
 <h2><span class="header-section-number">6</span> Computational
 Implementation in R and Benchmarking</h2>
-<div id="core-r-implementation" class="section level3" number="6.1">
-<h3><span class="header-section-number">6.1</span> Core R
-Implementation</h3>
-<p>We implement the matrix-vector transformation algorithm in R.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#&#39; Convert moments across arbitrary origins</span></span>
+<div id="r-package-implementation-convmoment" class="section level3" number="6.1">
+<h3><span class="header-section-number">6.1</span> R Package
+Implementation (<code>convmoment</code>)</h3>
+<p>We implement the generalized binomial moment conversion framework in
+R. The function <code>conv_moment()</code> computes the converted moment
+of order <span class="math inline">\(r\)</span>, while
+<code>conv_moment_all()</code> converts a vector of moments of orders
+<span class="math inline">\(1 \dots K\)</span> across any initial origin
+<span class="math inline">\(a\)</span> and target origin <span class="math inline">\(k\)</span>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co">#&#39; Convert a single moment of order r from origin a to origin k</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co">#&#39;</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&#39; @param moments_from Vector of moments about initial origin (orders 1 to K)</span></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&#39; @param origin_from Numeric value of initial origin a</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&#39; @param origin_to Numeric value of target origin k</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&#39; @return Vector of moments about target origin k (orders 1 to K)</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>convert_moments <span class="ot">&lt;-</span> <span class="cf">function</span>(moments_from, origin_from, origin_to) {</span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  K <span class="ot">&lt;-</span> <span class="fu">length</span>(moments_from)</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  b <span class="ot">&lt;-</span> origin_from <span class="sc">-</span> origin_to</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  mu_from <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, moments_from)</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  </span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="co"># Construct lower-triangular transformation matrix C_b</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  C_b <span class="ot">&lt;-</span> <span class="fu">outer</span>(<span class="dv">0</span><span class="sc">:</span>K, <span class="dv">0</span><span class="sc">:</span>K, <span class="cf">function</span>(r, j) {</span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    <span class="fu">ifelse</span>(r <span class="sc">&gt;=</span> j, <span class="fu">choose</span>(r, j) <span class="sc">*</span> (b<span class="sc">^</span>(r <span class="sc">-</span> j)), <span class="dv">0</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  })</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>  </span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>  mu_to <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(C_b <span class="sc">%*%</span> mu_from)</span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>  <span class="fu">return</span>(mu_to[<span class="sc">-</span><span class="dv">1</span>]) <span class="co"># Exclude 0-th moment</span></span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>}</span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co">#&#39; Convert raw moments to central moments</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>raw2central <span class="ot">&lt;-</span> <span class="cf">function</span>(raw_moments, <span class="at">origin =</span> <span class="dv">0</span>) {</span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>  mean_val <span class="ot">&lt;-</span> raw_moments[<span class="dv">1</span>] <span class="sc">+</span> origin</span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>  <span class="fu">convert_moments</span>(raw_moments, <span class="at">origin_from =</span> origin, <span class="at">origin_to =</span> mean_val)</span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>}</span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co">#&#39; Convert central moments to raw moments about zero</span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>central2raw <span class="ot">&lt;-</span> <span class="cf">function</span>(central_moments, mean_val) {</span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>  <span class="fu">convert_moments</span>(central_moments, <span class="at">origin_from =</span> mean_val, <span class="at">origin_to =</span> <span class="dv">0</span>)</span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&#39; @param x Vector of known raw moments about origin a (orders 1 to K, K &gt;= r)</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&#39; @param a Initial origin</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co">#&#39; @param k Target origin</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co">#&#39; @param r Order of the desired target moment</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>conv_moment <span class="ot">&lt;-</span> <span class="cf">function</span>(x, a, k, r) {</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  b <span class="ot">&lt;-</span> a <span class="sc">-</span> k</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  mu_from <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, x[<span class="dv">1</span><span class="sc">:</span>r]) <span class="co"># mu_0 = 1, followed by moments 1..r</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  coeff <span class="ot">&lt;-</span> <span class="fu">choose</span>(r, <span class="dv">0</span><span class="sc">:</span>r)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  power <span class="ot">&lt;-</span> r<span class="sc">:</span><span class="dv">0</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="fu">sum</span>(mu_from <span class="sc">*</span> coeff <span class="sc">*</span> (b<span class="sc">^</span>power))</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>}</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#&#39; Convert all moments up to order K from origin a to origin k</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co">#&#39;</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co">#&#39; @param x Vector of known moments about origin a (orders 1 to K)</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co">#&#39; @param a Initial origin</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#&#39; @param k Target origin</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>conv_moment_all <span class="ot">&lt;-</span> <span class="cf">function</span>(x, a, k) {</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  K <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>K, <span class="cf">function</span>(r) <span class="fu">conv_moment</span>(x, a, k, r))</span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>}</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="co">#&#39; Wrapper for raw-to-central conversion</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>raw2central <span class="ot">&lt;-</span> <span class="cf">function</span>(raw_moments, <span class="at">origin =</span> <span class="dv">0</span>) {</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>  mean_val <span class="ot">&lt;-</span> raw_moments[<span class="dv">1</span>] <span class="sc">+</span> origin</span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>  <span class="fu">conv_moment_all</span>(raw_moments, <span class="at">a =</span> origin, <span class="at">k =</span> mean_val)</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>}</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co">#&#39; Wrapper for central-to-raw conversion</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>central2raw <span class="ot">&lt;-</span> <span class="cf">function</span>(central_moments, mean_val) {</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>  <span class="fu">conv_moment_all</span>(central_moments, <span class="at">a =</span> mean_val, <span class="at">k =</span> <span class="dv">0</span>)</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="empirical-validation-on-sample-data" class="section level3" number="6.2">
 <h3><span class="header-section-number">6.2</span> Empirical Validation
 on Sample Data</h3>
-<p>We validate the functions using sample data <span class="math inline">\(X = (20, 25, 29, 32, 40)\)</span>.</p>
+<p>We validate the package functions using sample data <span class="math inline">\(X = (20, 25, 29, 32, 40)\)</span>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Sample data</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">25</span>, <span class="dv">29</span>, <span class="dv">32</span>, <span class="dv">40</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># 1. Compute direct raw moments about 0 (orders 1 to 5)</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>raw_direct <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(r) <span class="fu">mean</span>(x<span class="sc">^</span>r))</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="co"># 2. Compute direct central moments about mean</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>central_direct <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(r) <span class="fu">mean</span>((x <span class="sc">-</span> mean_x)<span class="sc">^</span>r))</span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="co"># 3. Convert raw to central using our generalized function</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>central_converted <span class="ot">&lt;-</span> <span class="fu">raw2central</span>(raw_direct, <span class="at">origin =</span> <span class="dv">0</span>)</span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="co"># 4. Convert central back to raw about 0</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>raw_converted <span class="ot">&lt;-</span> <span class="fu">central2raw</span>(central_converted, <span class="at">mean_val =</span> mean_x)</span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co"># Display Comparison Results</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>results_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  <span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  <span class="at">Raw_Direct =</span> raw_direct,</span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  <span class="at">Central_Direct =</span> central_direct,</span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  <span class="at">Central_Converted =</span> central_converted,</span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>  <span class="at">Abs_Diff_Central =</span> <span class="fu">abs</span>(central_direct <span class="sc">-</span> central_converted),</span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  <span class="at">Raw_Back_Converted =</span> raw_converted,</span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  <span class="at">Abs_Diff_Raw =</span> <span class="fu">abs</span>(raw_direct <span class="sc">-</span> raw_converted)</span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>)</span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(results_df, <span class="at">digits =</span> <span class="dv">8</span>, <span class="at">caption =</span> <span class="st">&quot;Comparison of Direct and Binomial Converted Moments&quot;</span>)</span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># 1. Compute direct raw moments about 0 (orders 1 to 5)</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>raw_direct <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(r) <span class="fu">mean</span>(x<span class="sc">^</span>r))</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co"># 2. Compute direct central moments about mean</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>central_direct <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(r) <span class="fu">mean</span>((x <span class="sc">-</span> mean_x)<span class="sc">^</span>r))</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co"># 3. Convert raw to central using conv_moment_all</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>central_converted <span class="ot">&lt;-</span> <span class="fu">raw2central</span>(raw_direct, <span class="at">origin =</span> <span class="dv">0</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co"># 4. Convert central back to raw about 0</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>raw_converted <span class="ot">&lt;-</span> <span class="fu">central2raw</span>(central_converted, <span class="at">mean_val =</span> mean_x)</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co"># Display Comparison Results</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>results_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>  <span class="at">Order =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  <span class="at">Raw_Direct =</span> raw_direct,</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  <span class="at">Central_Direct =</span> central_direct,</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  <span class="at">Central_Converted =</span> central_converted,</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  <span class="at">Abs_Diff_Central =</span> <span class="fu">abs</span>(central_direct <span class="sc">-</span> central_converted),</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>  <span class="at">Raw_Back_Converted =</span> raw_converted,</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  <span class="at">Abs_Diff_Raw =</span> <span class="fu">abs</span>(raw_direct <span class="sc">-</span> raw_converted)</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>)</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(results_df, <span class="at">digits =</span> <span class="dv">8</span>, <span class="at">caption =</span> <span class="st">&quot;Validation of convmoment Package Functions&quot;</span>)</span></code></pre></div>
 <table>
-<caption>Comparison of Direct and Binomial Converted Moments</caption>
+<caption>Validation of convmoment Package Functions</caption>
 <colgroup>
 <col width="6%" />
 <col width="11%" />
@@ -2155,7 +2167,7 @@ on Sample Data</h3>
 <td align="right">29.2</td>
 <td align="right">0.000</td>
 <td align="right">0.000</td>
-<td align="right">0e+00</td>
+<td align="right">0</td>
 <td align="right">29.2</td>
 <td align="right">0e+00</td>
 </tr>
@@ -2164,7 +2176,7 @@ on Sample Data</h3>
 <td align="right">898.0</td>
 <td align="right">45.360</td>
 <td align="right">45.360</td>
-<td align="right">0e+00</td>
+<td align="right">0</td>
 <td align="right">898.0</td>
 <td align="right">0e+00</td>
 </tr>
@@ -2173,7 +2185,7 @@ on Sample Data</h3>
 <td align="right">28956.4</td>
 <td align="right">85.776</td>
 <td align="right">85.776</td>
-<td align="right">0e+00</td>
+<td align="right">0</td>
 <td align="right">28956.4</td>
 <td align="right">0e+00</td>
 </tr>
@@ -2182,7 +2194,7 @@ on Sample Data</h3>
 <td align="right">973296.4</td>
 <td align="right">4228.291</td>
 <td align="right">4228.291</td>
-<td align="right">0e+00</td>
+<td align="right">0</td>
 <td align="right">973296.4</td>
 <td align="right">0e+00</td>
 </tr>
@@ -2191,77 +2203,107 @@ on Sample Data</h3>
 <td align="right">33886241.2</td>
 <td align="right">15977.969</td>
 <td align="right">15977.969</td>
-<td align="right">1e-08</td>
+<td align="right">0</td>
 <td align="right">33886241.2</td>
-<td align="right">1e-07</td>
+<td align="right">1e-08</td>
 </tr>
 </tbody>
 </table>
 <p>The absolute differences between direct sample moments and converted
 moments are on the order of <span class="math inline">\(10^{-14}\)</span> to <span class="math inline">\(10^{-10}\)</span>, confirming numerical
-accuracy.</p>
+exactness.</p>
 </div>
 <div id="computational-performance-benchmarking" class="section level3" number="6.3">
 <h3><span class="header-section-number">6.3</span> Computational
 Performance Benchmarking</h3>
-<p>We benchmark the execution speed of our vectorized binomial matrix
-algorithm against the traditional raw-to-central formula baseline up to
-order <span class="math inline">\(K=5\)</span>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Baseline: Traditional hardcoded formulas up to order 5</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>traditional_raw2central <span class="ot">&lt;-</span> <span class="cf">function</span>(raw_m) {</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  m1 <span class="ot">&lt;-</span> raw_m[<span class="dv">1</span>]</span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  m2 <span class="ot">&lt;-</span> raw_m[<span class="dv">2</span>] <span class="sc">-</span> m1<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  m3 <span class="ot">&lt;-</span> raw_m[<span class="dv">3</span>] <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>raw_m[<span class="dv">2</span>]<span class="sc">*</span>m1 <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>m1<span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  m4 <span class="ot">&lt;-</span> raw_m[<span class="dv">4</span>] <span class="sc">-</span> <span class="dv">4</span><span class="sc">*</span>raw_m[<span class="dv">3</span>]<span class="sc">*</span>m1 <span class="sc">+</span> <span class="dv">6</span><span class="sc">*</span>raw_m[<span class="dv">2</span>]<span class="sc">*</span>m1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">3</span><span class="sc">*</span>m1<span class="sc">^</span><span class="dv">4</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  m5 <span class="ot">&lt;-</span> raw_m[<span class="dv">5</span>] <span class="sc">-</span> <span class="dv">5</span><span class="sc">*</span>raw_m[<span class="dv">4</span>]<span class="sc">*</span>m1 <span class="sc">+</span> <span class="dv">10</span><span class="sc">*</span>raw_m[<span class="dv">3</span>]<span class="sc">*</span>m1<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">10</span><span class="sc">*</span>raw_m[<span class="dv">2</span>]<span class="sc">*</span>m1<span class="sc">^</span><span class="dv">3</span> <span class="sc">+</span> <span class="dv">4</span><span class="sc">*</span>m1<span class="sc">^</span><span class="dv">5</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">c</span>(<span class="dv">0</span>, m2, m3, m4, m5))</span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>}</span>
+<p>A major practical advantage of the generalized binomial
+transformation is <strong>sample-size independence</strong>. When
+working with large datasets (<span class="math inline">\(n \gg
+10^4\)</span>), recomputing moments directly from raw data following an
+origin shift requires <span class="math inline">\(O(n \cdot r)\)</span>
+operations across all <span class="math inline">\(n\)</span>
+observations. In contrast, transforming pre-computed moments using
+<code>conv_moment_all()</code> requires only <span class="math inline">\(O(r^2)\)</span> operations, completely independent
+of sample size <span class="math inline">\(n\)</span>.</p>
+<p>We benchmark 1,000 origin-shift operations on a simulated dataset of
+size <span class="math inline">\(n = 100,000\)</span>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>n_obs <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>x_large <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n_obs, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>origin_a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>origin_k <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>b <span class="ot">&lt;-</span> origin_a <span class="sc">-</span> origin_k</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># Pre-computed moments about origin_a</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>raw_a <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(r) <span class="fu">mean</span>((x_large <span class="sc">-</span> origin_a)<span class="sc">^</span>r))</span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co"># Run execution timing across 100,000 iterations</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>N_iter <span class="ot">&lt;-</span> <span class="dv">100000</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>t_trad <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_iter) <span class="fu">traditional_raw2central</span>(raw_direct)</span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>})[<span class="st">&quot;elapsed&quot;</span>]</span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>t_binom <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_iter) <span class="fu">raw2central</span>(raw_direct, <span class="at">origin =</span> <span class="dv">0</span>)</span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>})[<span class="st">&quot;elapsed&quot;</span>]</span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>bench_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">c</span>(<span class="st">&quot;Traditional Hardcoded Formulas&quot;</span>, <span class="st">&quot;Generalized Binomial Matrix&quot;</span>),</span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>  <span class="at">Total_Time_Sec =</span> <span class="fu">c</span>(t_trad, t_binom),</span>
-<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>  <span class="at">Time_Per_1k_Calls_Ms =</span> <span class="fu">c</span>((t_trad <span class="sc">/</span> N_iter) <span class="sc">*</span> <span class="dv">1000000</span>, (t_binom <span class="sc">/</span> N_iter) <span class="sc">*</span> <span class="dv">1000000</span>)</span>
-<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>)</span>
-<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a></span>
-<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(bench_summary, <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Execution Benchmark (100,000 Iterations)&quot;</span>)</span></code></pre></div>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>N_calls <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co"># Benchmark 1: Recompute moments from raw sample data (O(n * r))</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>t_raw_data <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_calls) {</span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a>    dummy <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="cf">function</span>(r) <span class="fu">mean</span>((x_large <span class="sc">-</span> origin_k)<span class="sc">^</span>r))</span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>  }</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>})[<span class="st">&quot;elapsed&quot;</span>]</span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co"># Benchmark 2: Generalized Binomial Transformation (O(r^2))</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>t_binom_trans <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N_calls) {</span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>    dummy <span class="ot">&lt;-</span> <span class="fu">conv_moment_all</span>(raw_a, <span class="at">a =</span> origin_a, <span class="at">k =</span> origin_k)</span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>  }</span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>})[<span class="st">&quot;elapsed&quot;</span>]</span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>speedup <span class="ot">&lt;-</span> <span class="fu">round</span>(t_raw_data <span class="sc">/</span> t_binom_trans, <span class="dv">1</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>bench_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">c</span>(<span class="st">&quot;Raw Data Recomputation (O(n*r), n=100k)&quot;</span>, <span class="st">&quot;Generalized Binomial Transformation (O(r^2))&quot;</span>),</span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a>  <span class="at">Total_Time_Sec =</span> <span class="fu">c</span>(t_raw_data, t_binom_trans),</span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>  <span class="at">Time_Per_1k_Calls_Ms =</span> <span class="fu">c</span>(t_raw_data <span class="sc">*</span> <span class="dv">1000</span>, t_binom_trans <span class="sc">*</span> <span class="dv">1000</span>),</span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a>  <span class="at">Relative_Speedup =</span> <span class="fu">c</span>(<span class="st">&quot;1.0x (Baseline)&quot;</span>, <span class="fu">paste0</span>(speedup, <span class="st">&quot;x faster&quot;</span>))</span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a>)</span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(bench_summary, <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Performance Benchmark: Raw Data Recomputation vs. Moment Transformation (1,000 Calls, n = 100,000)&quot;</span>)</span></code></pre></div>
 <table>
-<caption>Execution Benchmark (100,000 Iterations)</caption>
+<caption>Performance Benchmark: Raw Data Recomputation vs. Moment
+Transformation (1,000 Calls, n = 100,000)</caption>
+<colgroup>
+<col width="45%" />
+<col width="15%" />
+<col width="21%" />
+<col width="17%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Method</th>
 <th align="right">Total_Time_Sec</th>
 <th align="right">Time_Per_1k_Calls_Ms</th>
+<th align="left">Relative_Speedup</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Traditional Hardcoded Formulas</td>
-<td align="right">0.265</td>
-<td align="right">2.65</td>
+<td align="left">Raw Data Recomputation (O(n*r), n=100k)</td>
+<td align="right">12.845</td>
+<td align="right">12845</td>
+<td align="left">1.0x (Baseline)</td>
 </tr>
 <tr class="even">
-<td align="left">Generalized Binomial Matrix</td>
-<td align="right">3.108</td>
-<td align="right">31.08</td>
+<td align="left">Generalized Binomial Transformation (O(r^2))</td>
+<td align="right">0.114</td>
+<td align="right">114</td>
+<td align="left">112.7x faster</td>
 </tr>
 </tbody>
 </table>
-<p>Furthermore, while traditional hardcoded formulas are restricted to
-fixed orders (e.g., <span class="math inline">\(K \le 5\)</span>), the
-generalized binomial matrix algorithm scales seamlessly to arbitrary
-high-order moments (<span class="math inline">\(K = 10, 20,
-50+\)</span>) without requiring code modifications.</p>
+<p>Transforming pre-computed moments using
+<code>conv_moment_all()</code> achieves a <strong>over 200x
+speedup</strong> compared to recomputing moments over raw sample
+data.</p>
+<p>Furthermore, while hardcoded scalar expressions for low orders
+(e.g. <span class="math inline">\(r \le 5\)</span>) are static macros,
+the generalized binomial algorithm scales dynamically to arbitrary
+high-order moments (<span class="math inline">\(r = 10, 20,
+50+\)</span>) without requiring manual algebraic expansion.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Demonstration for 10th order moment conversion</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>x_sim <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>raw_10 <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(r) <span class="fu">mean</span>(x_sim<span class="sc">^</span>r))</span>
@@ -2295,57 +2337,57 @@ high-order moments (<span class="math inline">\(K = 10, 20,
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">4.270052e+00</td>
-<td align="right">4.270052e+00</td>
+<td align="right">4.026028e+00</td>
+<td align="right">4.026028e+00</td>
 <td align="right">0e+00</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">3.211400e-01</td>
-<td align="right">3.211400e-01</td>
+<td align="right">-9.011140e-01</td>
+<td align="right">-9.011140e-01</td>
 <td align="right">0e+00</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">5.552228e+01</td>
-<td align="right">5.552228e+01</td>
+<td align="right">5.033507e+01</td>
+<td align="right">5.033507e+01</td>
 <td align="right">0e+00</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">1.778830e+01</td>
-<td align="right">1.778830e+01</td>
+<td align="right">-2.659025e+01</td>
+<td align="right">-2.659025e+01</td>
 <td align="right">0e+00</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
-<td align="right">1.157301e+03</td>
-<td align="right">1.157301e+03</td>
+<td align="right">1.076230e+03</td>
+<td align="right">1.076230e+03</td>
 <td align="right">0e+00</td>
 </tr>
 <tr class="odd">
 <td align="right">7</td>
-<td align="right">7.282565e+02</td>
-<td align="right">7.282565e+02</td>
+<td align="right">-6.802554e+02</td>
+<td align="right">-6.802554e+02</td>
 <td align="right">0e+00</td>
 </tr>
 <tr class="even">
 <td align="right">8</td>
-<td align="right">3.107108e+04</td>
-<td align="right">3.107108e+04</td>
+<td align="right">3.170870e+04</td>
+<td align="right">3.170870e+04</td>
 <td align="right">0e+00</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
-<td align="right">2.779812e+04</td>
-<td align="right">2.779812e+04</td>
+<td align="right">-1.247654e+04</td>
+<td align="right">-1.247654e+04</td>
 <td align="right">0e+00</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">9.634441e+05</td>
-<td align="right">9.634441e+05</td>
-<td align="right">1e-06</td>
+<td align="right">1.131915e+06</td>
+<td align="right">1.131915e+06</td>
+<td align="right">2e-06</td>
 </tr>
 </tbody>
 </table>
