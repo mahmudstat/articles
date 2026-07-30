@@ -1587,8 +1587,8 @@ memorization of order-specific formulas. In this paper, we establish a
 unified, generalized binomial algorithm for transforming moments of any
 order <span class="math inline">\(r \in \mathbb{N}\)</span> across
 arbitrary origins <span class="math inline">\(a \to k\)</span>. We
-demonstrate that any origin shift delta <span class="math inline">\(b =
-a - k\)</span> admits a simple symbolic binomial expansion, <span class="math inline">\(\mu&#39;_r(k) = (a + b)^r\)</span>, where powers
+demonstrate that any origin shift <span class="math inline">\((b = a -
+k)\)</span> admits a simple symbolic binomial expansion, <span class="math inline">\(\mu&#39;_r(k) = (a + b)^r\)</span>, where powers
 <span class="math inline">\(a^j\)</span> map directly to the <span class="math inline">\(j\)</span>-th moment <span class="math inline">\(\mu&#39;_j(a)\)</span>. This formulation unifies
 raw-to-raw, raw-to-central, and central-to-raw transformations under a
 single operational principle, eliminating formula memorization. We
@@ -1625,8 +1625,8 @@ size <span class="math inline">\(n\)</span>.</li>
 </ol>
 <p>To address these limitations, this paper introduces a
 <strong>generalized binomial framework</strong> for arbitrary moment
-transformations. Based on the origin shift delta <span class="math inline">\(b = a - k\)</span>, the proposed method
-provides:</p>
+transformations. Based on the origin shift <span class="math inline">\(b
+= a - k\)</span>, the proposed method provides:</p>
 <ul>
 <li>A single, unified equation for all origin shifts (<span class="math inline">\(a \to k\)</span>).</li>
 <li>An intuitive “binomial expansion trick” leveraging Pascal’s
@@ -1736,7 +1736,7 @@ Generalized Binomial Method</h2>
 Derivation</h3>
 <p>Let <span class="math inline">\(a\)</span> denote the initial origin
 and <span class="math inline">\(k\)</span> denote the target origin.
-Define the <strong>origin shift delta</strong> <span class="math inline">\(b\)</span> as: <span class="math display">\[
+Define the <strong>origin shift</strong> <span class="math inline">\(b\)</span> as: <span class="math display">\[
 b = a - k.
 \]</span> For any random variable <span class="math inline">\(X\)</span>, the deviation from target origin <span class="math inline">\(k\)</span> can be decomposed as: <span class="math display">\[
 X - k = (X - a) + (a - k) = (X - a) + b.
@@ -1754,7 +1754,7 @@ b^{r-j}.
 Transformation).</strong><br />
 <em>For any initial origin <span class="math inline">\(a\)</span>,
 target origin <span class="math inline">\(k\)</span>, and origin shift
-delta <span class="math inline">\(b = a - k\)</span>, the <span class="math inline">\(r^{\text{th}}\)</span> moment about <span class="math inline">\(k\)</span> is given by:</em> <span class="math display">\[
+<span class="math inline">\(b = a - k\)</span>, the <span class="math inline">\(r^{\text{th}}\)</span> moment about <span class="math inline">\(k\)</span> is given by:</em> <span class="math display">\[
 \mu&#39;_r(k) = \sum_{j=0}^r \binom{r}{j} \mu&#39;_j(a) \, b^{r-j}.
 \]</span></p>
 </blockquote>
@@ -1849,7 +1849,7 @@ lower-triangular transformation matrix of dimension <span class="math inline">\(
 <div id="unified-transformation-paradigm" class="section level3" number="4.4">
 <h3><span class="header-section-number">4.4</span> Unified
 Transformation Paradigm</h3>
-<p>The generalized shift delta <span class="math inline">\(b = a -
+<p>The generalized origin shift <span class="math inline">\(b = a -
 k\)</span> encapsulates all common moment conversions:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Raw-to-Raw Conversion:</strong> <span class="math inline">\(b = a - k\)</span>, where <span class="math inline">\(a\)</span> and <span class="math inline">\(k\)</span> are arbitrary initial and final
@@ -1918,7 +1918,7 @@ e^t)^n\)</span>, requiring nested applications of the product rule:
 Binomial Approach</h4>
 <p>Using our framework: - Initial origin <span class="math inline">\(a =
 0\)</span>. - Target origin <span class="math inline">\(k = \mu =
-np\)</span>. - Shift delta <span class="math inline">\(b = a - k = 0 -
+np\)</span>. - Origin shift <span class="math inline">\(b = a - k = 0 -
 np = -np\)</span>.</p>
 <ol style="list-style-type: decimal">
 <li><strong>First Central Moment (<span class="math inline">\(\mu_1\)</span>):</strong> <span class="math display">\[
@@ -2247,13 +2247,13 @@ order <span class="math inline">\(K=5\)</span>.</p>
 <tbody>
 <tr class="odd">
 <td align="left">Traditional Hardcoded Formulas</td>
-<td align="right">0.275</td>
-<td align="right">2.75</td>
+<td align="right">0.265</td>
+<td align="right">2.65</td>
 </tr>
 <tr class="even">
 <td align="left">Generalized Binomial Matrix</td>
-<td align="right">3.076</td>
-<td align="right">30.76</td>
+<td align="right">3.108</td>
+<td align="right">31.08</td>
 </tr>
 </tbody>
 </table>
@@ -2291,61 +2291,61 @@ high-order moments (<span class="math inline">\(K = 10, 20,
 <td align="right">1</td>
 <td align="right">0.000000e+00</td>
 <td align="right">0.000000e+00</td>
-<td align="right">0</td>
+<td align="right">0e+00</td>
 </tr>
 <tr class="even">
 <td align="right">2</td>
-<td align="right">4.132373e+00</td>
-<td align="right">4.132373e+00</td>
-<td align="right">0</td>
+<td align="right">4.270052e+00</td>
+<td align="right">4.270052e+00</td>
+<td align="right">0e+00</td>
 </tr>
 <tr class="odd">
 <td align="right">3</td>
-<td align="right">-2.646530e-01</td>
-<td align="right">-2.646530e-01</td>
-<td align="right">0</td>
+<td align="right">3.211400e-01</td>
+<td align="right">3.211400e-01</td>
+<td align="right">0e+00</td>
 </tr>
 <tr class="even">
 <td align="right">4</td>
-<td align="right">4.680441e+01</td>
-<td align="right">4.680441e+01</td>
-<td align="right">0</td>
+<td align="right">5.552228e+01</td>
+<td align="right">5.552228e+01</td>
+<td align="right">0e+00</td>
 </tr>
 <tr class="odd">
 <td align="right">5</td>
-<td align="right">-2.416024e+01</td>
-<td align="right">-2.416024e+01</td>
-<td align="right">0</td>
+<td align="right">1.778830e+01</td>
+<td align="right">1.778830e+01</td>
+<td align="right">0e+00</td>
 </tr>
 <tr class="even">
 <td align="right">6</td>
-<td align="right">9.123119e+02</td>
-<td align="right">9.123119e+02</td>
-<td align="right">0</td>
+<td align="right">1.157301e+03</td>
+<td align="right">1.157301e+03</td>
+<td align="right">0e+00</td>
 </tr>
 <tr class="odd">
 <td align="right">7</td>
-<td align="right">-1.541320e+03</td>
-<td align="right">-1.541320e+03</td>
-<td align="right">0</td>
+<td align="right">7.282565e+02</td>
+<td align="right">7.282565e+02</td>
+<td align="right">0e+00</td>
 </tr>
 <tr class="even">
 <td align="right">8</td>
-<td align="right">2.696887e+04</td>
-<td align="right">2.696887e+04</td>
-<td align="right">0</td>
+<td align="right">3.107108e+04</td>
+<td align="right">3.107108e+04</td>
+<td align="right">0e+00</td>
 </tr>
 <tr class="odd">
 <td align="right">9</td>
-<td align="right">-9.358675e+04</td>
-<td align="right">-9.358675e+04</td>
-<td align="right">0</td>
+<td align="right">2.779812e+04</td>
+<td align="right">2.779812e+04</td>
+<td align="right">0e+00</td>
 </tr>
 <tr class="even">
 <td align="right">10</td>
-<td align="right">1.089496e+06</td>
-<td align="right">1.089496e+06</td>
-<td align="right">0</td>
+<td align="right">9.634441e+05</td>
+<td align="right">9.634441e+05</td>
+<td align="right">1e-06</td>
 </tr>
 </tbody>
 </table>
@@ -2382,7 +2382,7 @@ such as R, Python, and C++.</li>
 <div id="conclusion" class="section level3" number="7.2">
 <h3><span class="header-section-number">7.2</span> Conclusion</h3>
 <p>By recasting moment transformations as a parameterized binomial
-expansion over shift delta <span class="math inline">\(b = a -
+expansion over origin shift <span class="math inline">\(b = a -
 k\)</span>, this paper unifies a traditionally fragmented topic in
 mathematical statistics. The accompanying R implementation provides a
 simple, verified computational tool for research, teaching, and software

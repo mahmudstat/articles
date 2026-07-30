@@ -3,15 +3,15 @@ title: "A Generalized Binomial Framework for Moment Transformations Across Arbit
 author: "Abdullah Al Mahmud"
 date: "`r Sys.Date()`"
 output:
+  pdf_document:
+    toc: true
+    number_sections: true
   html_document:
     toc: true
     toc_float: true
     number_sections: true
     theme: flatly
     highlight: tango
-  pdf_document:
-    toc: true
-    number_sections: true
 ---
 
 ```{r setup, include=FALSE}
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ## Abstract
 
-Statistical moments are fundamental descriptors of probability distributions and empirical data. However, transforming moments from one arbitrary origin to another—or converting between raw and central moments—traditionally requires cumbersome algebraic expansions or memorization of order-specific formulas. In this paper, we establish a unified, generalized binomial algorithm for transforming moments of any order $r \in \mathbb{N}$ across arbitrary origins $a \to k$. We demonstrate that any origin shift delta $b = a - k$ admits a simple symbolic binomial expansion, $\mu'_r(k) = (a + b)^r$, where powers $a^j$ map directly to the $j$-th moment $\mu'_j(a)$. This formulation unifies raw-to-raw, raw-to-central, and central-to-raw transformations under a single operational principle, eliminating formula memorization. We demonstrate the versatility of the method on discrete (Binomial) and continuous (Normal) theoretical distributions and present a vectorized matrix implementation in R. Computational benchmarks demonstrate that the proposed matrix formulation is both computationally efficient and numerically exact across higher-order moments.
+Statistical moments are fundamental descriptors of probability distributions and empirical data. However, transforming moments from one arbitrary origin to another—or converting between raw and central moments—traditionally requires cumbersome algebraic expansions or memorization of order-specific formulas. In this paper, we establish a unified, generalized binomial algorithm for transforming moments of any order $r \in \mathbb{N}$ across arbitrary origins $a \to k$. We demonstrate that any origin shift $(b = a - k)$ admits a simple symbolic binomial expansion, $\mu'_r(k) = (a + b)^r$, where powers $a^j$ map directly to the $j$-th moment $\mu'_j(a)$. This formulation unifies raw-to-raw, raw-to-central, and central-to-raw transformations under a single operational principle, eliminating formula memorization. We demonstrate the versatility of the method on discrete (Binomial) and continuous (Normal) theoretical distributions and present a vectorized matrix implementation in R. Computational benchmarks demonstrate that the proposed matrix formulation is both computationally efficient and numerically exact across higher-order moments.
 
 ---
 
@@ -34,7 +34,7 @@ Despite their ubiquity, calculating or shifting moments across origins presents 
 2. **Formula Complexity and Memorization:** As the moment order $r$ increases, the algebraic expansion of $(X - k)^r$ rapidly becomes tedious and prone to manual arithmetic errors.
 3. **Computational Overhead:** Algorithms that recompute moments directly from raw data following an origin shift require $O(n \cdot r)$ operations over the full sample, whereas transforming pre-computed moments requires only $O(r^2)$ operations independent of sample size $n$.
 
-To address these limitations, this paper introduces a **generalized binomial framework** for arbitrary moment transformations. Based on the origin shift delta $b = a - k$, the proposed method provides:
+To address these limitations, this paper introduces a **generalized binomial framework** for arbitrary moment transformations. Based on the origin shift $b = a - k$, the proposed method provides:
 
 - A single, unified equation for all origin shifts ($a \to k$).
 - An intuitive "binomial expansion trick" leveraging Pascal's triangle.
@@ -112,7 +112,7 @@ These formulas lack a structural pattern that students or practitioners can easi
 
 ### Theoretical Derivation
 
-Let $a$ denote the initial origin and $k$ denote the target origin. Define the **origin shift delta** $b$ as:
+Let $a$ denote the initial origin and $k$ denote the target origin. Define the **origin shift** $b$ as:
 \[
 b = a - k.
 \]
@@ -131,7 +131,7 @@ Taking the expectation $\mathbb{E}[\cdot]$ on both sides:
 Since $\mathbb{E}[(X - a)^j] = \mu'_j(a)$ and defining $\mu'_0(a) \equiv 1$, we obtain the **Generalized Binomial Moment Transformation Theorem**:
 
 > **Theorem 1 (Generalized Binomial Transformation).**  
-> *For any initial origin $a$, target origin $k$, and origin shift delta $b = a - k$, the $r^{\text{th}}$ moment about $k$ is given by:*
+> *For any initial origin $a$, target origin $k$, and origin shift $b = a - k$, the $r^{\text{th}}$ moment about $k$ is given by:*
 > \[
 > \mu'_r(k) = \sum_{j=0}^r \binom{r}{j} \mu'_j(a) \, b^{r-j}.
 > \]
@@ -180,7 +180,7 @@ where $\mathbf{C}_b$ is a lower-triangular transformation matrix of dimension $(
 
 ### Unified Transformation Paradigm
 
-The generalized shift delta $b = a - k$ encapsulates all common moment conversions:
+The generalized origin shift $b = a - k$ encapsulates all common moment conversions:
 
 1. **Raw-to-Raw Conversion:** $b = a - k$, where $a$ and $k$ are arbitrary initial and final origins.
 2. **Raw-to-Central Conversion:** Initial origin is $a$ (often $a=0$). The target origin is the mean $k = \bar{x} = \mu'_1(a) + a$. Hence, $b = a - (\mu'_1(a) + a) = -\mu'_1(a)$.
@@ -233,7 +233,7 @@ To evaluate central moments using MGFs, one must differentiate $M_{X-\mu}(t) = e
 Using our framework:
 - Initial origin $a = 0$.
 - Target origin $k = \mu = np$.
-- Shift delta $b = a - k = 0 - np = -np$.
+- Origin shift $b = a - k = 0 - np = -np$.
 
 1. **First Central Moment ($\mu_1$):**
    \[
@@ -454,7 +454,7 @@ The proposed generalized binomial framework offers distinct advantages over trad
 
 ### Conclusion
 
-By recasting moment transformations as a parameterized binomial expansion over shift delta $b = a - k$, this paper unifies a traditionally fragmented topic in mathematical statistics. The accompanying R implementation provides a simple, verified computational tool for research, teaching, and software development.
+By recasting moment transformations as a parameterized binomial expansion over origin shift $b = a - k$, this paper unifies a traditionally fragmented topic in mathematical statistics. The accompanying R implementation provides a simple, verified computational tool for research, teaching, and software development.
 
 ---
 
