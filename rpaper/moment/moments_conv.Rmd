@@ -3,15 +3,16 @@ title: "A Generalized Binomial Framework for Moment Transformations Across Arbit
 author: "Abdullah Al Mahmud"
 date: "`r Sys.Date()`"
 output:
+  pdf_document:
+    toc: true
+    number_sections: true
   html_document:
     toc: true
     toc_float: true
     number_sections: true
     theme: flatly
     highlight: tango
-  pdf_document:
-    toc: true
-    number_sections: true
+bibliography: bibliography.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -20,7 +21,9 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
 ## Abstract
 
-Statistical moments are fundamental quantitative descriptors of empirical data and theoretical probability distributions. However, transforming moments from one arbitrary origin to another—or converting between raw and central moments—traditionally relies on fragmented, order-specific algebraic expansions or rote memorization. In this paper, we establish a unified, generalized binomial framework for transforming moments of any order $r \in \mathbb{N}$ across arbitrary initial and target origins $a \to k$. We demonstrate that any origin shift $b = a - k$ admits a symbolic binomial expansion, $\mu'_r(k) = (a + b)^r$, where powers $a^j$ map directly to the $j$-th moment $\mu'_j(a)$. This symbolic formulation unifies raw-to-raw, raw-to-central, and central-to-raw transformations under a single operational principle, eliminating formula memorization. We contrast our approach with online and parallel pairwise algorithms (e.g., Pébay, 2008), emphasizing that while parallel algorithms focus on dataset merging across processors, our framework provides an exact, $O(r^2)$ sample-size-independent transformation for single-sample and theoretical distributions. We validate the framework on discrete (Binomial) and continuous (Normal) theoretical distributions and present an accompanying R package implementation (`convmoment`). Computational benchmarks confirm that the proposed moment transformation achieves a $>250\times$ speedup over raw sample recomputation on large datasets while remaining numerically exact.
+Statistical moments are fundamental descriptors of data and probability distributions. Transforming moments across origins traditionally relies on fragmented, order-specific algebraic expansions. We establish a unified, generalized binomial framework for transforming moments of any order $r \in \mathbb{N}$ across arbitrary initial and target origins $a \to k$. Any origin shift $b = a - k$ admits a symbolic binomial expansion, $\mu'_r(k) = (a + b)^r$, where powers $a^j$ map to the $j$-th moment $\mu'_j(a)$. This unifies raw-to-raw, raw-to-central, and central-to-raw transformations under a single operational principle. We contrast our $O(r^2)$ sample-size-independent transformation with parallel algorithms (e.g., P\'ebay, 2008) that address dataset merging across processors. Validation on theoretical (Binomial, Normal) and empirical distributions confirms numerical exactness. An R package \texttt{convmoment} provides \texttt{conv\_moment()}, \texttt{conv\_moment\_all()}, \texttt{raw2central()}, and \texttt{central2raw()}. Benchmarks show a $>250\times$ speedup over raw data recomputation for $n = 10^5$.
+
+**Keywords:** moment transformation, binomial theorem, central moments, raw moments, statistical computing, pedagogical statistics
 
 ---
 
@@ -31,17 +34,17 @@ Statistical moments are fundamental quantitative descriptors of empirical data a
 Moments play a central role across mathematical statistics, econometrics, signal processing, and data science. Raw moments, defined relative to an arbitrary origin $a$ as $\mu'_r(a) = \mathbb{E}[(X - a)^r]$, and central moments, defined relative to the mean $\mu$ as $\mu_r = \mathbb{E}[(X - \mu)^r]$, provide fundamental structural information regarding location, scale, skewness, and kurtosis.
 
 In applied and theoretical statistics, transforming moments across different reference origins is essential in several key domains:
-1. **Edgeworth and Gram-Charlier Series Expansions:** Approximating arbitrary or nearly Gaussian probability density functions requires converting higher-order central moments into standardized moments or cumulants (Hall, 1992; Blinnikov & Moessner, 1998).
-2. **Generalized Method of Moments (GMM):** In econometrics and financial modeling, parameter estimation frequently involves matching empirical sample moments computed around arbitrary origins to theoretical population moments (Hansen, 1982).
-3. **Image Processing and Pattern Recognition:** In computer vision, image moment invariants (Hu, 1962; Mukundan & Ramakrishnan, 1998) rely on shifting spatial origins to geometric centroids to achieve translation and scale invariance.
+1. **Edgeworth and Gram-Charlier Series Expansions:** Approximating arbitrary or nearly Gaussian probability density functions requires converting higher-order central moments into standardized moments or cumulants [@hall1992; @blinnikov1998].
+2. **Generalized Method of Moments (GMM):** In econometrics and financial modeling, parameter estimation frequently involves matching empirical sample moments computed around arbitrary origins to theoretical population moments [@hansen1982].
+3. **Image Processing and Pattern Recognition:** In computer vision, image moment invariants [@hu1962; @mukundan1998] rely on shifting spatial origins to geometric centroids to achieve translation and scale invariance.
 
 ### Review of Prior Art and Related Work
 
 Despite the widespread application of moments, existing literature presents moment transformations in a fragmented and computationally inefficient manner:
 
-*   **Classroom and Textbook Literature:** Standard statistical textbooks (Cramér, 1946; Mood et al., 1974; Kendall & Stuart, 1977; Johnson et al., 1994) present separate, hardcoded algebraic formulas for converting raw moments about zero to central moments ($\mu_2 = \mu'_2 - (\mu'_1)^2$, $\mu_3 = \mu'_3 - 3\mu'_2\mu'_1 + 2(\mu'_1)^3$, etc.). These treatments lack a unified operational framework and force students and practitioners to memorize order-specific formulas or consult printed tables.
-*   **Parallel and Online Moment Algorithms:** A distinct line of research focuses on online and parallel statistical updates (Chan et al., 1983; Terriberry, 2007; Pébay, 2008; Pébay et al., 2016). These algorithms address the problem of merging two separate data subsets $A$ and $B$ across parallel computing nodes or streaming buffers. While Pébay (2008) provides formulas for pairwise moment aggregation, those methods solve dataset partitioning across multiple processors rather than the transformation of a single pre-computed set of moments or theoretical distribution parameters across arbitrary reference points $a \to k$.
-*   **Symbolic Computational Methods:** Advanced computer algebra systems use symbolic cumulant expansions and umbral calculus (Andrews & Stafford, 2000; Di Nardo et al., 2008). While mathematically elegant, these techniques require complex symbolic software engines and are rarely accessible for routine statistical computations or classroom instruction.
+*   **Classroom and Textbook Literature:** Standard statistical textbooks [@cramer1946; @mood1974; @kendall1977; @johnson1994] present separate, hardcoded algebraic formulas for converting raw moments about zero to central moments ($\mu_2 = \mu'_2 - (\mu'_1)^2$, $\mu_3 = \mu'_3 - 3\mu'_2\mu'_1 + 2(\mu'_1)^3$, etc.). These treatments lack a unified operational framework and force students and practitioners to memorize order-specific formulas or consult printed tables.
+*   **Parallel and Online Moment Algorithms:** A distinct line of research focuses on online and parallel statistical updates [@chan1983; @terriberry2007; @pebay2008; @pebay2016]. These algorithms address the problem of merging two separate data subsets $A$ and $B$ across parallel computing nodes or streaming buffers. While @pebay2008 provides formulas for pairwise moment aggregation, those methods solve dataset partitioning across multiple processors rather than the transformation of a single pre-computed set of moments or theoretical distribution parameters across arbitrary reference points $a \to k$.
+*   **Symbolic Computational Methods:** Advanced computer algebra systems use symbolic cumulant expansions and umbral calculus [@andrews2000; @dinardo2008]. While mathematically elegant, these techniques require complex symbolic software engines and are rarely accessible for routine statistical computations or classroom instruction.
 
 ### Contributions and Novelty
 
@@ -471,19 +474,19 @@ knitr::kable(high_order_df, digits = 6, caption = "10th-Order Moment Transformat
 
 ### Unification and Pedagogical Advantages
 
-The central contribution of this paper is the unification of moment transformation theory into a single operational framework. By expressing any origin shift $a \to k$ via the single parameter $b = a - k$, the proposed binomial expansion $\mu'_r(k) = (a + b)^r$ eliminates the fragmentation present in traditional statistical textbooks (Cramér, 1946; Mood et al., 1974; Kendall & Stuart, 1977). 
+The central contribution of this paper is the unification of moment transformation theory into a single operational framework. By expressing any origin shift $a \to k$ via the single parameter $b = a - k$, the proposed binomial expansion $\mu'_r(k) = (a + b)^r$ eliminates the fragmentation present in traditional statistical textbooks [@cramer1946; @mood1974; @kendall1977]. 
 
 From a pedagogical perspective, students and researchers no longer need to consult printed lookup tables or memorize order-specific algebraic formulas for raw-to-central ($\mu_r$) or central-to-raw ($\mu'_r$) conversions. Instead, any higher-order moment transformation can be constructed on demand using Pascal's triangle coefficients.
 
 ### Comparison with Parallel and Online Algorithms
 
-It is instructive to contrast our framework with parallel and online moment update algorithms (Chan et al., 1983; Terriberry, 2007; Pébay, 2008; Pébay et al., 2016). Parallel algorithms are designed for distributed computing environments, where a dataset $X$ is partitioned into subsets $A$ and $B$, and moment updating rules are applied to merge statistics across processors without passing raw data. 
+It is instructive to contrast our framework with parallel and online moment update algorithms [@chan1983; @terriberry2007; @pebay2008; @pebay2016]. Parallel algorithms are designed for distributed computing environments, where a dataset $X$ is partitioned into subsets $A$ and $B$, and moment updating rules are applied to merge statistics across processors without passing raw data. 
 
 In contrast, our framework addresses the complementary problem of transforming moments across reference origins for a **single sample or theoretical distribution**. While parallel algorithms modify sample size ($n_A + n_B$) and combine local means, our binomial transformation operates on fixed pre-computed moments, achieving an $O(r^2)$ computational complexity that is entirely independent of sample size $n$.
 
 ### Numerical Stability Considerations and Limitations
 
-When converting uncentered raw moments of very high order ($r > 20$) for empirical datasets with large location offsets, binomial expansions can be susceptible to floating-point catastrophic cancellation due to alternating sum signs. For ultra-high-order empirical transformations ($r \ge 30$), combining the binomial transformation with arbitrary-precision arithmetic libraries or log-space moment representations (Di Nardo et al., 2008) provides numerical safeguards.
+When converting uncentered raw moments of very high order ($r > 20$) for empirical datasets with large location offsets, binomial expansions can be susceptible to floating-point catastrophic cancellation due to alternating sum signs. For ultra-high-order empirical transformations ($r \ge 30$), combining the binomial transformation with arbitrary-precision arithmetic libraries or log-space moment representations [@dinardo2008] provides numerical safeguards.
 
 ---
 
@@ -497,20 +500,20 @@ Future extensions of this work include generalizing the binomial shift framework
 
 ---
 
+## Supplementary Material
+
+The following supplementary materials are available online:
+
+1. **R Package `convmoment`:** Complete source code, documentation, and vignette demonstrating all package functions. Available at \url{https://github.com/yourusername/convmoment}.
+
+2. **Replication Code:** Full R script reproducing all numerical examples, distribution validations (Binomial, Normal), empirical validation, and computational benchmarks presented in the paper.
+
+3. **Extended Benchmark Results:** Additional performance comparisons for higher moment orders ($r = 10, 20, 50$) and larger sample sizes ($n = 10^6$).
+
+4. **Vignette:** A comprehensive tutorial vignette included with the package showing basic usage, theoretical distribution examples, and matrix formulation.
+
+---
+
 ## References
 
-1. Andrews, D. F., & Stafford, J. E. (2000). *Symbolic Computation for Statistical Inference*. Oxford University Press.
-2. Blinnikov, S., & Moessner, R. (1998). Expansions for nearly Gaussian distributions. *Astronomy and Astrophysics Supplement Series*, 130(1), 193–205.
-3. Chan, T. F., Golub, G. H., & LeVeque, R. J. (1983). Algorithms for computing the sample variance: Analysis and recommendations. *The American Statistician*, 37(3), 242–247.
-4. Cramér, H. (1946). *Mathematical Methods of Statistics*. Princeton University Press.
-5. Di Nardo, E., Guarino, G., & Senato, D. (2008). A unified framework for tenable statistical cumulants via symbolic computations. *Journal of Symbolic Computation*, 43(5), 355–373.
-6. Hall, P. (1992). *The Bootstrap and Edgeworth Expansion*. Springer-Verlag.
-7. Hansen, L. P. (1982). Large sample properties of Generalized Method of Moments estimators. *Econometrica*, 50(4), 1029–1054.
-8. Hu, M. K. (1962). Visual pattern recognition by moment invariants. *IRE Transactions on Information Theory*, 8(2), 179–187.
-9. Johnson, N. L., Kotz, S., & Balakrishnan, N. (1994). *Continuous Univariate Distributions, Volume 1* (2nd ed.). John Wiley & Sons.
-10. Kendall, M. G., & Stuart, A. (1977). *The Advanced Theory of Statistics: Vol. 1. Distribution Theory* (4th ed.). Charles Griffin & Company.
-11. Mood, A. M., Graybill, F. A., & Boes, D. C. (1974). *Introduction to the Theory of Statistics* (3rd ed.). McGraw-Hill.
-12. Mukundan, R., & Ramakrishnan, K. R. (1998). *Moment Functions in Image Processing: Theory and Applications*. World Scientific.
-13. Pébay, P. (2008). *Formulas for robust, one-pass parallel computation of covariances and arbitrary-order statistical moments*. Sandia National Laboratories Technical Report SAND2008-6212.
-14. Pébay, P., Terriberry, T. B., Kolla, H., & Bennett, J. (2016). Numerically stable, one-pass, parallel computation of arbitrary-order statistical moments. *Computational Statistics*, 31(4), 1271–1301.
-15. Terriberry, T. B. (2007). *Computing higher-order moments online*. Technical Report, Xiph.org Foundation.
+<!-- References will be automatically generated from bibliography.bib -->
