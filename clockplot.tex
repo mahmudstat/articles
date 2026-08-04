@@ -1,0 +1,435 @@
+\documentclass[article]{jss}
+
+%% -- LaTeX packages and custom commands ---------------------------------------
+
+%% recommended packages
+\usepackage{orcidlink,thumbpdf,lmodern}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{float}
+
+%% new custom commands
+\newcommand{\class}[1]{`\code{#1}'}
+\newcommand{\fct}[1]{\code{#1()}}
+
+%% For Sweave-based articles about R packages:
+%% need no \usepackage{Sweave}
+
+
+
+%% -- Article metainformation (author, title, ...) -----------------------------
+
+%% - \author{} with primary affiliation (and optionally ORCID link)
+%% - \Plainauthor{} without affiliations
+%% - Separate authors by \And or \AND (in \author) or by comma (in \Plainauthor).
+%% - \AND starts a new line, \And does not.
+\author{Abdullah Al Mahmud~\orcidlink{0000-0003-2814-8798}\\Bangladesh Cadet College}
+\Plainauthor{Abdullah Al Mahmud}
+
+%% - \title{} in title case
+%% - \Plaintitle{} without LaTeX markup (if any)
+%% - \Shorttitle{} with LaTeX markup (if any), used as running title
+\title{clockplot: An \proglang{R} Package to Plot Event Times on a 24-Hour Clock}
+\Plaintitle{clockplot: An R Package to Plot Event Times on a 24-Hour Clock}
+\Shorttitle{clockplot: Plotting Event Times on a 24-Hour Clock}
+
+%% - \Abstract{} almost as usual
+\Abstract{
+Visualization is a fundamental component of statistical analysis, enabling clear data description and informed model selection. While various methods exist for visualizing event data, there is a notable gap in representing events on a clock face. This paper introduces \pkg{clockplot}, an \proglang{R} package for plotting timestamped events on a 24-hour circular clock face. This approach offers a powerful way to perceive the precise timing of events and facilitates intuitive comparisons with other events. The package is particularly useful for analyzing daily patterns, event clustering, and temporal gaps. For event times, it is significantly more revealing than conventional visualizations like bar or pie charts. The package also generalizes the clock plot approach to create cyclic charts for other time frames, including weekly and monthly cycles. This functionality enables effective event planning and pattern analysis across multiple periods, providing a new and insightful tool for temporal data analysis.
+}
+
+%% - \Keywords{} with LaTeX markup, at least one required
+%% - \Plainkeywords{} without LaTeX markup (if necessary)
+%% - Should be comma-separated and in sentence case.
+\Keywords{circular visualization, temporal data, event times, clock plot, polar coordinates, \proglang{R}}
+\Plainkeywords{circular visualization, temporal data, event times, clock plot, polar coordinates, R}
+
+%% - \Address{} of at least one author
+%% - May contain multiple affiliations for each author
+%%   (in extra lines, separated by \emph{and}\\).
+%% - May contain multiple authors for the same affiliation
+%%   (in the same first line, separated by comma).
+\Address{
+Abdullah Al Mahmud\\
+Bangladesh Cadet College\\
+E-mail: \email{mahmudstat@gmail.com}\\
+URL: \url{https://github.com/mahmudstat/clockplot}
+}
+
+\begin{document}
+
+
+%% -- Introduction -------------------------------------------------------------
+
+\section[Introduction: Visualizing event times on a clock face]{Introduction: Visualizing event times on a clock face} \label{sec:intro}
+
+Visualizing temporal patterns in timestamped event data presents unique challenges, particularly when events exhibit cyclical behavior over 24-hour periods. Traditional linear timelines (e.g., using \fct{ggplot2::geom_point()} with time on the x-axis) have several limitations for this type of analysis:
+
+\begin{enumerate}
+\item \textbf{Circular continuity is broken}: The natural continuity between 23:59 and 00:00 is not preserved, making it difficult to see patterns that span midnight.
+\item \textbf{Density patterns are hard to discern}: Clustering of events around specific times of day is less visually apparent on linear axes.
+\item \textbf{Multiple days of data become cluttered}: Plotting several days of data on a linear timeline creates overlapping points that obscure daily patterns.
+\end{enumerate}
+
+While several \proglang{R} and Python packages offer circular or radial visualization capabilities, they are either too general-purpose or not specifically designed for timestamp data:
+
+\begin{itemize}
+\item \textbf{General circular plotting}: Packages like \pkg{circular} \citep{R-circular} and \pkg{plotrix} \citep{R-plotrix} provide basic circular plotting, but require extensive data transformation for timestamp visualization.
+\item \textbf{Polar coordinates}: \pkg{ggplot2} \citep{ggplot2} with \fct{coord_polar()} can create circular plots, but requires manual conversion of timestamps to radians and lacks specialized aesthetics for event data.
+\item \textbf{Specialized but limited}: Packages like \pkg{chron} and \pkg{lubridate} \citep{lubridate} handle time data but don't provide circular visualization methods.
+\item \textbf{CircadiPy}: Deals with rhythmic data but does not create circular visualizations \citep{carvalho2024circadipy}.
+\end{itemize}
+
+The \pkg{clockplot} package fills this gap by providing specialized visualization methods for timestamped event data on a 24-hour clock face. The package provides multivariate visualization capabilities including \textbf{colored point aesthetics} (mapping variables to hue/size/shape) and \textbf{modifiable clock hand lengths} (representing magnitude or intensity at each timestamp). These features enable clear differentiation of multiple variables on the same 24-hour clock face while maintaining intuitive interpretation of temporal patterns.
+
+
+%% -- Available Software -------------------------------------------------------
+
+\section{Available Software} \label{sec:software}
+
+Table~\ref{tab:comparison} compares \pkg{clockplot} with existing alternatives for circular time visualization.
+
+\begin{table}[t!]
+\centering
+\begin{tabular}{lccccc}
+\toprule
+Feature & \pkg{clockplot} & \pkg{circular} & \pkg{plotrix} & \pkg{ggplot2} + \fct{coord_polar()} & \pkg{lubridate} \\
+\midrule
+Native timestamp input (\texttt{HH:MM:SS}) & \checkmark & \texttimes & \texttimes & \texttimes & \checkmark \\
+24-hour clock face & \checkmark & \checkmark & \checkmark & Manual & \texttimes \\
+Multivariate encoding (color + size + length) & \checkmark & Limited & Limited & Manual & \texttimes \\
+Clock hand length encoding & \checkmark & \texttimes & \texttimes & \texttimes & \texttimes \\
+Cyclic charts (day/week/month/year) & \checkmark & \texttimes & \texttimes & Manual & \texttimes \\
+Period planners & \checkmark & \texttimes & \texttimes & \texttimes & \texttimes \\
+\proglang{ggplot2} compatible output & \checkmark & \texttimes & \texttimes & \checkmark & \texttimes \\
+CRAN availability & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:comparison} Comparison of \pkg{clockplot} with alternative packages for circular time visualization.}
+\end{table}
+
+
+%% -- Data Types ---------------------------------------------------------------
+
+\section{Acceptable Data Types} \label{sec:data}
+
+\pkg{clockplot} handles two primary data types:
+
+\subsection{Timestamped Event Data}
+For analyzing patterns in event occurrences, such as website visits, system logs, or biological rhythms:
+
+\begin{Code}
+# Sample univariate timestamps
+time <- c("21:12:27", "02:20:09", "16:46:37", "08:57:52",
+          "03:16:57", "03:35:33", "21:44:36", "12:45:15")
+df <- data.frame(time = time)
+clock_chart(df, time)
+\end{Code}
+
+\subsection{Multivariate Time Series Data}
+For visualizing continuous measurements at specific times, such as environmental monitoring or physiological data:
+
+\begin{Code}
+# Sample multivariate timestamps
+df <- data.frame(
+  time = c("21:12:27", "02:20:09", "03:16:57", "03:35:33"),
+  temperature = c(20.1, 20.2, 21.4, 20.6),
+  humidity = c(65, 70, 68, 72)
+)
+clock_chart_qnt(df, time = time, len = humidity, Col = temperature)
+\end{Code}
+
+The package accepts flexible time formats: \texttt{HH:MM:SS}, \texttt{HH:MM}, or even \texttt{H:M} (e.g., \texttt{9:3}). Seconds are parsed but have negligible visual impact.
+
+
+%% -- Implementation -----------------------------------------------------------
+
+\section{Implementation} \label{sec:implementation}
+
+The construction of clock charts involves two main steps: (i) building the 24-hour clock skeleton, and (ii) plotting event times on the clock.
+
+\subsection{Clock Skeleton Construction}
+
+The clock skeleton is a unit circle with 24 hour marks and quarter-hour tick marks. In \proglang{R}, the circle is efficiently generated using complex numbers:
+
+\begin{Schunk}
+\begin{Sinput}
+R> k <- 24
+R> hour <- exp(1i * 2 * pi * (k:1) / k)
+R> plot(hour, pch = 19)
+\end{Sinput}
+\end{Schunk}
+
+For the full skeleton with quarter-hour marks:
+
+\begin{Schunk}
+\begin{Sinput}
+R> k <- 24
+R> subk <- 24 * 4
+R> times <- exp(1i * 2 * pi * (k:1) / k)
+R> subtimes <- data.frame(SubT = exp(1i * 2 * pi * (subk:1) / subk))
+R> ampm <- c(rep(" AM", 6), rep(" PM", 12), rep(" AM", 6))
+R> dfclock <- tibble(
++    time = times,
++    label = paste0(c(6:12, 1:5), ampm)
++  )
+R> library(ggplot2)
+R> p1 <- dfclock %>% ggplot() +
++    geom_path(data = subtimes, aes(Re(SubT), Im(SubT))) +
++    geom_line(data = subtimes %>% dplyr::slice(-c(2:95)), aes(Re(SubT), Im(SubT))) +
++    theme(aspect.ratio = 1) +
++    geom_text(data = dfclock, aes(Re(time) * 1.1, Im(time) * 1.1, label = label)) +
++    geom_point(data = subtimes, aes(Re(SubT), Im(SubT)), shape = 19, color = "black", size = 0.6) +
++    geom_point(aes(Re(time), Im(time)), color = "black", size = 1.8)
+R> p1 + theme(axis.text = element_blank(), axis.ticks = element_blank()) + labs(x = "", y = "")
+\end{Sinput}
+\end{Schunk}
+
+This produces the static clock face with 24 hour labels (6 AM to 5 AM) and quarter-hour tick marks.
+
+\subsection{Coordinate Conversion Algorithm}
+
+To plot event times on the clock, timestamps in \texttt{HH:MM:SS} format are converted to Cartesian coordinates $(x, y)$ on the unit circle:
+
+\begin{enumerate}
+\item \textbf{Parse to fractional hours since midnight}:
+  \begin{equation}
+  t_{frac} = hour + \frac{minute}{60}
+  \end{equation}
+  Seconds are ignored as they contribute $< 0.1^\circ$ angular change.
+
+\item \textbf{Map to radians (clockwise from 12 o'clock = $\pi/2$)}:
+  \begin{align}
+  \theta &= \begin{cases}
+  (6 - t_{frac}) \cdot \pi/12, & 0 \le t_{frac} \le 6 \\
+  (30 - t_{frac}) \cdot \pi/12, & 6 < t_{frac} \le 24
+  \end{cases}
+  \end{align}
+  This piecewise formula handles the discontinuity at 6 AM/6 PM where the clock direction reverses relative to trigonometric angles.
+
+\item \textbf{Convert to Cartesian coordinates}:
+  \begin{align}
+  x &= r \cdot \cos(\theta) \\
+  y &= r \cdot \sin(\theta)
+  \end{align}
+  where $r = 0.95$ for event points (leaving room for labels at radius 1.1) and $r = 1.0$ for the clock skeleton.
+\end{enumerate}
+
+This algorithm is implemented in the internal functions \fct{conv_data()}, \fct{conv_data_col()}, and \fct{conv_data_len()} (\file{R/conv_data.R}).
+
+\subsection{Mapping to \proglang{ggplot2} Aesthetics}
+
+Once coordinates $(x_0, y_0, x_1, y_1)$ are computed (where $(x_0, y_0) = (0, 0)$ and $(x_1, y_1)$ is the tip of the clock hand), the chart functions map these to \pkg{ggplot2} geoms:
+
+\begin{table}[t!]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Function & \fct{geom_segment} & \fct{geom_point} & Color & Size \\
+\midrule
+\fct{clock_chart()} & Fixed & Fixed & \code{Col} argument & Constant \\
+\fct{clock_chart_col()} & Mapped to \code{crit} & Mapped to \code{crit} & Gradient \code{high}/\code{low} & Mapped to \code{crit} \\
+\fct{clock_chart_qnt()} & Mapped to \code{len} (color) & Mapped to \code{len} (color), \code{Col} (size) & Gradient \code{high}/\code{low} & Mapped to \code{Col} or \code{len} \\
+\fct{clock_chart_qlt()} & Mapped to \code{crit} (factor) & Mapped to \code{crit} (factor) & Discrete (Brewer Set2) & Constant \\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:aesthetics} Aesthetic mappings for clock chart functions.}
+\end{table}
+
+All functions return a \class{ggplot} object, enabling further customization with \pkg{ggplot2} functions (\fct{labs()}, \fct{theme()}, \fct{facet_wrap()}, etc.).
+
+\subsection{Cyclic and Period Charts: Polar Bar Geometry}
+
+The cyclic charts (\fct{cyclic_chart()}, \fct{day_chart()}, \fct{week_chart()}, \fct{year_chart()}) and planners (\fct{plan_day()}, \fct{plan_week()}) use a fundamentally different approach: \textbf{polar bar charts} via \pkg{ggplot2}'s \fct{coord_polar()} rather than clock hands.
+
+\begin{itemize}
+\item \fct{cyclic_chart()}: General-purpose; maps any periodic variable to angle, values to radius via \fct{geom_col()}.
+\item \fct{day_chart()}: 24-hour rose plot; fixed hour labels; gradient fill.
+\item \fct{week_chart()}: 7-day rose plot; fixed day labels (Saturday--Friday); gradient fill.
+\item \fct{year_chart()}: 12-month rose plot; \code{month.name} labels; gradient fill.
+\item \fct{plan_day()}/\fct{plan_week()}: Categorical planners; \fct{geom_col()} with \code{fill = activity} + \fct{geom_text()} for labels; uses \fct{scale_fill_brewer("Set2")}.
+\end{itemize}
+
+\subsection{Design Decisions}
+
+\begin{table}[t!]
+\centering
+\begin{tabular}{ll}
+\toprule
+Decision & Rationale \\
+\midrule
+24-hour clock (not 12-hour) & Avoids AM/PM ambiguity; matches \texttt{HH:MM:SS} format \\
+Ignore seconds & Visual angle change $< 0.1^\circ$; adds noise without insight \\
+Complex numbers for skeleton & \code{exp(1i * theta)} elegantly generates circle points \\
+Hand length $\in [0.5, 0.95]$ & 0.5 avoids origin clutter; 0.95 leaves room for labels \\
+Single hand (hour + minute fraction) & Cleaner for dense events; minute encoded as fractional position \\
+\fct{coord_polar()} for cyclic charts & Standard \pkg{ggplot2} pattern; leverages existing polar system \\
+Factor warning at $>5$ categories & Human color discrimination limit; suggests \fct{clock_chart()} instead \\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:design} Key design decisions and rationale.}
+\end{table}
+
+
+%% -- Illustrations ------------------------------------------------------------
+
+\section{Illustrations} \label{sec:illustrations}
+
+We demonstrate \pkg{clockplot} using built-in datasets and a real-world case study.
+
+\subsection{Built-in Datasets}
+
+The package includes several datasets:
+
+\begin{itemize}
+\item \code{smsclock}: SMS receiving times with sender/title metadata (32 events)
+\item \code{bdquake}: Earthquakes in Bangladesh since 2023 with magnitude, depth, time (54 events)
+\item \code{bdtemp}: Monthly temperatures for three Bangladeshi cities
+\item \code{brintcity}: Bus departure times from Dhaka
+\item \code{chatdf}: Chat message timestamps
+\item \code{gitcommit}: Git commit timestamps
+\end{itemize}
+
+\subsection{Basic Clock Chart}
+
+\begin{Schunk}
+\begin{Sinput}
+R> data(smsclock)
+R> p1 <- clock_chart(smsclock, time, Col = "green")
+R> p1 + labs(title = "SMS Receiving Times")
+\end{Sinput}
+\end{Schunk}
+
+The chart shows when messages are received. The largest gap is during night time (approximately 11 PM to 6 AM). Messages are received round the clock with few intermissions.
+
+\subsection{Colored Clock Chart}
+
+\begin{Schunk}
+\begin{Sinput}
+R> data(bdquake)
+R> p <- clock_chart_col(bdquake, time = hms, crit = mag)
+R> p + labs(size = "Magnitude", title = "Earthquakes in Bangladesh since 2023")
+\end{Sinput}
+\end{Schunk}
+
+Earthquakes are colored by magnitude (green = low, red = high).
+
+\subsection{Chart with Modified and Colored Hands}
+
+\begin{Schunk}
+\begin{Sinput}
+R> p1 <- clock_chart_qnt(
++    data = bdquake, time = hms, len = depth,
++    Col = mag, high = "red", low = "blue"
++  )
+R> p1 + labs(
++    color = "Depth", size = "Magnitude",
++    title = "Earthquakes in Bangladesh since 2023"
++  )
+\end{Sinput}
+\end{Schunk}
+
+Point size represents magnitude, while color and hand length represent depth. The plot shows quakes are roughly randomly distributed with respect to time. Most earthquakes occurred between 1 PM to 5 PM. Two of the biggest gaps are between 5 PM to 9 PM (4 hours) and 10 PM to 2 AM (4.25 hours).
+
+\subsection{Qualitative Variable}
+
+\begin{Schunk}
+\begin{Sinput}
+R> clock_chart_qlt(smsclock, time = time, crit = Title) +
++    labs(color = "Sender", title = "SMS Received throughout the Day")
+\end{Sinput}
+\end{Schunk}
+
+This shows which types of messages were sent when. Certain types (e.g., \code{Supper_Offer}) are always sent around the same time (4:30 PM to 6 PM).
+
+\subsection{Cyclic Charts}
+
+\begin{Schunk}
+\begin{Sinput}
+R> Col <- c("#0040ff", "#00bfff", "#8000ff")
+R> cyclic_chart(bdtemp,
++    Period = Month, Value = Temperature,
++    crit = City, ColV = Col
++  )
+\end{Sinput}
+\end{Schunk}
+
+Monthly temperatures for three cities.
+
+\begin{Schunk}
+\begin{Sinput}
+R> value <- sample(15:30, 24, replace = TRUE)
+R> day_chart(hvalue = value, high = "blue", low = "yellow", width = 0.8)
+\end{Sinput}
+\end{Schunk}
+
+24-hour rose plot with gradient fill.
+
+\begin{Schunk}
+\begin{Sinput}
+R> set.seed(10)
+R> wtemp <- sample(10:40, 7)
+R> week_chart(wtemp, high = "yellow") + labs(title = "Random Values by Day")
+\end{Sinput}
+\end{Schunk}
+
+7-day rose plot.
+
+\begin{Schunk}
+\begin{Sinput}
+R> syltmp <- c(18.4, 20.8, 24.3, 26.0, 26.8, 27.6, 28.0,
++              28.2, 27.9, 26.7, 23.3, 19.7)
+R> year_chart(mvalue = syltmp)
+\end{Sinput}
+\end{Schunk}
+
+12-month rose plot.
+
+\subsection{Period Planners}
+
+\begin{Schunk}
+\begin{Sinput}
+R> set.seed(123)
+R> work <- sample(c("Study", "Adda", "Entertainment", "Games", "Exercise", "Meal"),
++    size = 24, replace = TRUE
++  )
+R> plan_day(dwork = work, brdcol = NA)
+\end{Sinput}
+\end{Schunk}
+
+Daily activity planner.
+
+\begin{Schunk}
+\begin{Sinput}
+R> set.seed(10)
+R> wtask <- c(
++    "Desk Work", "Field Work", "Visit", "Monitoring",
++    "Rest", "Reporting", "Meeting"
++  )
+R> plan_week(wtask)
+\end{Sinput}
+\end{Schunk}
+
+Weekly activity planner.
+
+\subsection{Case Study: US Accidents Analysis}
+
+This example demonstrates a full workflow: data import $\to$ cleaning $\to$ visualization $\to$ interpretation.
+
+\begin{Schunk}
+\begin{Sinput}
+R> library(tidyverse)
+R> library(clockplot)
+R> # Import data (100-row sample from Kaggle US Accidents dataset)
+R> acdt <- read.csv("https://raw.githubusercontent.com/mahmudstat/open-analysis/main/data/usacc.csv")
+R> # Basic clock chart - when do accidents happen?
+R> p1 <- clock_chart(acdt, Time, Col = "darkred")
+R> p1 + labs(title = "US Accidents: Time of Day")
+R> # Multivariate: color by temperature, size by humidity
+R> p2 <- clock_chart_qnt(acdt, time = Time, len = Humidity..., Col = Temperature.F.)
+R> p2 + labs(size = "Humidity (%)", color = "Temperature (F)",
++         title = "US Accidents: Time, Temperature & Humidity")
+R> # Facet by severity
+R> p3 <- clock_chart_qlt(acdt, time = Time, crit = Severity) +
++    facet_wrap(~Severity) +
++    labs(color = "Severity", title = "Accidents by Severity Level")

@@ -1,0 +1,650 @@
+\documentclass[article]{jss}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+%% -- LaTeX packages and custom commands ---------------------------------------
+
+%% recommended packages
+\usepackage{orcidlink,thumbpdf,lmodern}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+%% new custom commands
+\newcommand{\class}[1]{`\code{#1}'}
+\newcommand{\fct}[1]{\code{#1()}}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'dplyr'}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:stats':\\\#\# \\\#\# \ \ \ \ filter, lag}}
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:base':\\\#\# \\\#\# \ \ \ \ intersect, setdiff, setequal, union}}\end{kframe}
+\end{knitrout}
+
+
+%% -- Article metainformation (author, title, ...) -----------------------------
+
+%% - \author{} with primary affiliation (and optionally ORCID link)
+%% - \Plainauthor{} without affiliations
+%% - Separate authors by \And or \AND (in \author) or by comma (in \Plainauthor).
+%% - \AND starts a new line, \And does not.
+\author{Abdullah Al Mahmud~\orcidlink{0000-0003-2814-8798}\\Bangladesh Cadet College}
+\Plainauthor{Abdullah Al Mahmud}
+
+%% - \title{} in title case
+%% - \Plaintitle{} without LaTeX markup (if any)
+%% - \Shorttitle{} with LaTeX markup (if any), used as running title
+\title{clockplot: An \proglang{R} Package to Plot Event Times on a 24-Hour Clock}
+\Plaintitle{clockplot: An R Package to Plot Event Times on a 24-Hour Clock}
+\Shorttitle{clockplot: Plotting Event Times on a 24-Hour Clock}
+
+%% - \Abstract{} almost as usual
+\Abstract{
+Visualization is a fundamental component of statistical analysis, enabling clear data description and informed model selection. While various methods exist for visualizing event data, there is a notable gap in representing events on a clock face. This paper introduces \pkg{clockplot}, an \proglang{R} package for plotting timestamped events on a 24-hour circular clock face. This approach offers a powerful way to perceive the precise timing of events and facilitates intuitive comparisons with other events. The package is particularly useful for analyzing daily patterns, event clustering, and temporal gaps. For event times, it is significantly more revealing than conventional visualizations like bar or pie charts. The package also generalizes the clock plot approach to create cyclic charts for other time frames, including weekly and monthly cycles. This functionality enables effective event planning and pattern analysis across multiple periods, providing a new and insightful tool for temporal data analysis.
+}
+
+%% - \Keywords{} with LaTeX markup, at least one required
+%% - \Plainkeywords{} without LaTeX markup (if necessary)
+%% - Should be comma-separated and in sentence case.
+\Keywords{circular visualization, temporal data, event times, clock plot, polar coordinates, \proglang{R}}
+\Plainkeywords{circular visualization, temporal data, event times, clock plot, polar coordinates, R}
+
+%% - \Address{} of at least one author
+%% - May contain multiple affiliations for each author
+%%   (in extra lines, separated by \emph{and}\\).
+%% - May contain multiple authors for the same affiliation
+%%   (in the same first line, separated by comma).
+\Address{
+Abdullah Al Mahmud\\
+Bangladesh Cadet College\\
+E-mail: \email{mahmudstat@gmail.com}\\
+URL: \url{https://github.com/mahmudstat/clockplot}
+}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+
+%% -- Introduction -------------------------------------------------------------
+
+\section[Introduction: Visualizing event times on a clock face]{Introduction: Visualizing event times on a clock face} \label{sec:intro}
+
+Visualizing temporal patterns in timestamped event data presents unique challenges, particularly when events exhibit cyclical behavior over 24-hour periods. Traditional linear timelines (e.g., using the \pkg{ggplot2} function \fct{geom\_point} with time on the x-axis) have several limitations for this type of analysis:
+
+\begin{enumerate}
+\item \textbf{Circular continuity is broken}: The natural continuity between 23:59 and 00:00 is not preserved, making it difficult to see patterns that span midnight.
+\item \textbf{Density patterns are hard to discern}: Clustering of events around specific times of day is less visually apparent on linear axes.
+\item \textbf{Multiple days of data become cluttered}: Plotting several days of data on a linear timeline creates overlapping points that obscure daily patterns.
+\end{enumerate}
+
+While several \proglang{R} and Python packages offer circular or radial visualization capabilities, they are either too general-purpose or not specifically designed for timestamp data:
+
+\begin{itemize}
+\item \textbf{General circular plotting}: Packages like \pkg{circular} \citep{R-circular} and \pkg{plotrix} \citep{R-plotrix} provide basic circular plotting, but require extensive data transformation for timestamp visualization.
+\item \textbf{Polar coordinates}: \pkg{ggplot2} \citep{ggplot2} with \fct{coord\_polar()} can create circular plots, but requires manual conversion of timestamps to radians and lacks specialized aesthetics for event data.
+\item \textbf{Specialized but limited}: Packages like \pkg{chron} and \pkg{lubridate} \citep{lubridate} handle time data but don't provide circular visualization methods.
+\item \textbf{CircadiPy}: Deals with rhythmic data but does not create circular visualizations \citep{carvalho2024circadipy}.
+\end{itemize}
+
+The \pkg{clockplot} package fills this gap by providing specialized visualization methods for timestamped event data on a 24-hour clock face. The package provides multivariate visualization capabilities including \textbf{colored point aesthetics} (mapping variables to hue/size/shape) and \textbf{modifiable clock hand lengths} (representing magnitude or intensity at each timestamp). These features enable clear differentiation of multiple variables on the same 24-hour clock face while maintaining intuitive interpretation of temporal patterns.
+
+
+%% -- Available Software -------------------------------------------------------
+
+\section{Available Software} \label{sec:software}
+
+Table~\ref{tab:comparison} compares \pkg{clockplot} with existing alternatives for circular time visualization.
+
+\begin{table}[t!]
+\centering
+\begin{tabular}{lccccc}
+\toprule
+Feature & \pkg{clockplot} & \pkg{circular} & \pkg{plotrix} & \pkg{ggplot2} + \fct{coord\_polar()} & \pkg{lubridate} \\
+\midrule
+Native timestamp input (\texttt{HH:MM:SS}) & \checkmark & \texttimes & \texttimes & \texttimes & \checkmark \\
+24-hour clock face & \checkmark & \checkmark & \checkmark & Manual & \texttimes \\
+Multivariate encoding (color + size + length) & \checkmark & Limited & Limited & Manual & \texttimes \\
+Clock hand length encoding & \checkmark & \texttimes & \texttimes & \texttimes & \texttimes \\
+Cyclic charts (day/week/month/year) & \checkmark & \texttimes & \texttimes & Manual & \texttimes \\
+Period planners & \checkmark & \texttimes & \texttimes & \texttimes & \texttimes \\
+\proglang{ggplot2} compatible output & \checkmark & \texttimes & \texttimes & \checkmark & \texttimes \\
+CRAN availability & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:comparison} Comparison of \pkg{clockplot} with alternative packages for circular time visualization.}
+\end{table}
+
+
+%% -- Data Types ---------------------------------------------------------------
+
+\section{Acceptable Data Types} \label{sec:data}
+
+\pkg{clockplot} handles two primary data types:
+
+\subsection{Timestamped Event Data}
+For analyzing patterns in event occurrences, such as website visits, system logs, or biological rhythms:
+
+\begin{Code}
+# Sample univariate timestamps
+time <- c("21:12:27", "02:20:09", "16:46:37", "08:57:52",
+          "03:16:57", "03:35:33", "21:44:36", "12:45:15")
+df <- data.frame(time = time)
+clock_chart(df, time)
+\end{Code}
+
+\subsection{Multivariate Time Series Data}
+For visualizing continuous measurements at specific times, such as environmental monitoring or physiological data:
+
+\begin{Code}
+# Sample multivariate timestamps
+df <- data.frame(
+  time = c("21:12:27", "02:20:09", "03:16:57", "03:35:33"),
+  temperature = c(20.1, 20.2, 21.4, 20.6),
+  humidity = c(65, 70, 68, 72)
+)
+clock_chart_qnt(df, time = time, len = humidity, Col = temperature)
+\end{Code}
+
+The package accepts flexible time formats: \texttt{HH:MM:SS}, \texttt{HH:MM}, or even \texttt{H:M} (e.g., \texttt{9:3}). Seconds are parsed but have negligible visual impact.
+
+
+%% -- Implementation -----------------------------------------------------------
+
+\section{Implementation} \label{sec:implementation}
+
+The construction of clock charts involves two main steps: (i) building the 24-hour clock skeleton, and (ii) plotting event times on the clock.
+
+\subsection{Clock Skeleton Construction}
+
+The clock skeleton is a unit circle with 24 hour marks and quarter-hour tick marks. In \proglang{R}, the circle is efficiently generated using complex numbers:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{k} \hlkwb{<-} \hlnum{24}
+\hldef{hour} \hlkwb{<-} \hlkwd{exp}\hldef{(}\hlnum{1i} \hlopt{*} \hlnum{2} \hlopt{*} \hldef{pi} \hlopt{*} \hldef{(k}\hlopt{:}\hlnum{1}\hldef{)} \hlopt{/} \hldef{k)}
+\hlkwd{plot}\hldef{(hour,} \hlkwc{pch} \hldef{=} \hlnum{19}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/skeleton-code-1} 
+\end{knitrout}
+
+For the full skeleton with quarter-hour marks:
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{k} \hlkwb{<-} \hlnum{24}
+\hldef{subk} \hlkwb{<-} \hlnum{24} \hlopt{*} \hlnum{4}
+\hldef{times} \hlkwb{<-} \hlkwd{exp}\hldef{(}\hlnum{1i} \hlopt{*} \hlnum{2} \hlopt{*} \hldef{pi} \hlopt{*} \hldef{(k}\hlopt{:}\hlnum{1}\hldef{)} \hlopt{/} \hldef{k)}
+\hldef{subtimes} \hlkwb{<-} \hlkwd{data.frame}\hldef{(}\hlkwc{SubT} \hldef{=} \hlkwd{exp}\hldef{(}\hlnum{1i} \hlopt{*} \hlnum{2} \hlopt{*} \hldef{pi} \hlopt{*} \hldef{(subk}\hlopt{:}\hlnum{1}\hldef{)} \hlopt{/} \hldef{subk))}
+\hldef{ampm} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlkwd{rep}\hldef{(}\hlsng{" AM"}\hldef{,} \hlnum{6}\hldef{),} \hlkwd{rep}\hldef{(}\hlsng{" PM"}\hldef{,} \hlnum{12}\hldef{),} \hlkwd{rep}\hldef{(}\hlsng{" AM"}\hldef{,} \hlnum{6}\hldef{))}
+\hldef{dfclock} \hlkwb{<-} \hlkwd{tibble}\hldef{(}
+  \hlkwc{time} \hldef{= times,}
+  \hlkwc{label} \hldef{=} \hlkwd{paste0}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{6}\hlopt{:}\hlnum{12}\hldef{,} \hlnum{1}\hlopt{:}\hlnum{5}\hldef{), ampm)}
+\hldef{)}
+
+\hlkwd{library}\hldef{(ggplot2)}
+\hldef{p1} \hlkwb{<-} \hldef{dfclock} \hlopt{%>%} \hlkwd{ggplot}\hldef{()} \hlopt{+}
+  \hlkwd{geom_path}\hldef{(}\hlkwc{data} \hldef{= subtimes,} \hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(SubT),} \hlkwd{Im}\hldef{(SubT)))} \hlopt{+}
+  \hlkwd{geom_line}\hldef{(}\hlkwc{data} \hldef{= subtimes} \hlopt{%>%} \hldef{dplyr}\hlopt{::}\hlkwd{slice}\hldef{(}\hlopt{-}\hlkwd{c}\hldef{(}\hlnum{2}\hlopt{:}\hlnum{95}\hldef{)),} \hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(SubT),} \hlkwd{Im}\hldef{(SubT)))} \hlopt{+}
+  \hlkwd{theme}\hldef{(}\hlkwc{aspect.ratio} \hldef{=} \hlnum{1}\hldef{)} \hlopt{+}
+  \hlkwd{geom_text}\hldef{(}\hlkwc{data} \hldef{= dfclock,} \hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(time)} \hlopt{*} \hlnum{1.1}\hldef{,} \hlkwd{Im}\hldef{(time)} \hlopt{*} \hlnum{1.1}\hldef{,} \hlkwc{label} \hldef{= label))} \hlopt{+}
+  \hlkwd{geom_point}\hldef{(}\hlkwc{data} \hldef{= subtimes,} \hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(SubT),} \hlkwd{Im}\hldef{(SubT)),} \hlkwc{shape} \hldef{=} \hlnum{19}\hldef{,} \hlkwc{color} \hldef{=} \hlsng{"black"}\hldef{,} \hlkwc{size} \hldef{=} \hlnum{0.6}\hldef{)} \hlopt{+}
+  \hlkwd{geom_point}\hldef{(}\hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(time),} \hlkwd{Im}\hldef{(time)),} \hlkwc{color} \hldef{=} \hlsng{"black"}\hldef{,} \hlkwc{size} \hldef{=} \hlnum{1.8}\hldef{)}
+\hldef{p1} \hlopt{+} \hlkwd{theme}\hldef{(}\hlkwc{axis.text} \hldef{=} \hlkwd{element_blank}\hldef{(),} \hlkwc{axis.ticks} \hldef{=} \hlkwd{element_blank}\hldef{())} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{x} \hldef{=} \hlsng{""}\hldef{,} \hlkwc{y} \hldef{=} \hlsng{""}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/skeleton-full-1} 
+\end{knitrout}
+
+This produces the static clock face with 24 hour labels (6 AM to 5 AM) and quarter-hour tick marks.
+
+\subsection{Coordinate Conversion Algorithm}
+
+To plot event times on the clock, timestamps in \texttt{HH:MM:SS} format are converted to Cartesian coordinates $(x, y)$ on the unit circle:
+
+\begin{enumerate}
+\item \textbf{Parse to fractional hours since midnight}:
+  \begin{equation}
+  t_{frac} = hour + \frac{minute}{60}
+  \end{equation}
+  Seconds are ignored as they contribute $< 0.1^\circ$ angular change.
+
+\item \textbf{Map to radians (clockwise from 12 o'clock = $\pi/2$)}:
+  \begin{align}
+  \theta &= \begin{cases}
+  (6 - t_{frac}) \cdot \pi/12, & 0 \le t_{frac} \le 6 \\
+  (30 - t_{frac}) \cdot \pi/12, & 6 < t_{frac} \le 24
+  \end{cases}
+  \end{align}
+  This piecewise formula handles the discontinuity at 6 AM/6 PM where the clock direction reverses relative to trigonometric angles.
+
+\item \textbf{Convert to Cartesian coordinates}:
+  \begin{align}
+  x &= r \cdot \cos(\theta) \\
+  y &= r \cdot \sin(\theta)
+  \end{align}
+  where $r = 0.95$ for event points (leaving room for labels at radius 1.1) and $r = 1.0$ for the clock skeleton.
+\end{enumerate}
+
+This algorithm is implemented in the internal functions \fct{conv\_data()}, \fct{conv\_data\_col()}, and \fct{conv\_data\_len()} (\texttt{R/conv\_data.R}).
+
+\subsection[Mapping to ggplot2 Aesthetics]{Mapping to \proglang{ggplot2} Aesthetics}
+
+Once coordinates $(x_0, y_0, x_1, y_1)$ are computed (where $(x_0, y_0) = (0, 0)$ and $(x_1, y_1)$ is the tip of the clock hand), the chart functions map these to \pkg{ggplot2} geoms:
+
+\begin{table}[t!]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+Function & \fct{geom\_segment} & \fct{geom\_point} & Color & Size \\
+\midrule
+\fct{clock\_chart()} & Fixed & Fixed & \code{Col} argument & Constant \\
+\fct{clock\_chart\_col()} & Mapped to \code{crit} & Mapped to \code{crit} & Gradient \code{high}/\code{low} & Mapped to \code{crit} \\
+\fct{clock\_chart\_qnt()} & Mapped to \code{len} (color) & Mapped to \code{len} (color), \code{Col} (size) & Gradient \code{high}/\code{low} & Mapped to \code{Col} or \code{len} \\
+\fct{clock\_chart\_qlt()} & Mapped to \code{crit} (factor) & Mapped to \code{crit} (factor) & Discrete (Brewer Set2) & Constant \\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:aesthetics} Aesthetic mappings for clock chart functions.}
+\end{table}
+
+All functions return a \class{ggplot} object, enabling further customization with \pkg{ggplot2} functions (\fct{labs()}, \fct{theme()}, \fct{facet\_wrap()}, etc.).
+
+\subsection[Cyclic and Period Charts]{Cyclic and Period Charts: Polar Bar Geometry}
+
+The cyclic charts (\fct{cyclic\_chart()}, \fct{day\_chart()}, \fct{week\_chart()}, \fct{year\_chart()}) and planners (\fct{plan\_day()}, \fct{plan\_week()}) use a fundamentally different approach: \textbf{polar bar charts} via \pkg{ggplot2}'s \fct{coord\_polar()} rather than clock hands.
+
+\begin{itemize}
+\item \fct{cyclic\_chart()}: General-purpose; maps any periodic variable to angle, values to radius via \fct{geom\_col()}.
+\item \fct{day\_chart()}: 24-hour rose plot; fixed hour labels; gradient fill.
+\item \fct{week\_chart()}: 7-day rose plot; fixed day labels (Saturday--Friday); gradient fill.
+\item \fct{year\_chart()}: 12-month rose plot; \code{month.name} labels; gradient fill.
+\item \fct{plan\_day()}/\fct{plan\_week()}: Categorical planners; \fct{geom\_col()} with \code{fill = activity} + \fct{geom\_text()} for labels; uses \fct{scale\_fill\_brewer("Set2")}.
+\end{itemize}
+
+\subsection{Design Decisions}
+
+\begin{table}[t!]
+\centering
+\begin{tabular}{ll}
+\toprule
+Decision & Rationale \\
+\midrule
+24-hour clock (not 12-hour) & Avoids AM/PM ambiguity; matches \texttt{HH:MM:SS} format \\
+Ignore seconds & Visual angle change $< 0.1^\circ$; adds noise without insight \\
+Complex numbers for skeleton & \code{exp(1i * theta)} elegantly generates circle points \\
+Hand length $\in [0.5, 0.95]$ & 0.5 avoids origin clutter; 0.95 leaves room for labels \\
+Single hand (hour + minute fraction) & Cleaner for dense events; minute encoded as fractional position \\
+\fct{coord\_polar()} for cyclic charts & Standard \pkg{ggplot2} pattern; leverages existing polar system \\
+Factor warning at $>5$ categories & Human color discrimination limit; suggests \fct{clock\_chart()} instead \\
+\bottomrule
+\end{tabular}
+\caption{\label{tab:design} Key design decisions and rationale.}
+\end{table}
+
+
+%% -- Illustrations ------------------------------------------------------------
+
+\section{Illustrations} \label{sec:illustrations}
+
+We demonstrate \pkg{clockplot} using built-in datasets and a real-world case study.
+
+\subsection{Built-in Datasets}
+
+The package includes several datasets:
+
+\begin{itemize}
+\item \code{smsclock}: SMS receiving times with sender/title metadata (32 events)
+\item \code{bdquake}: Earthquakes in Bangladesh since 2023 with magnitude, depth, time (54 events)
+\item \code{bdtemp}: Monthly temperatures for three Bangladeshi cities
+\item \code{brintcity}: Bus departure times from Dhaka
+\item \code{chatdf}: Chat message timestamps
+\item \code{gitcommit}: Git commit timestamps
+\end{itemize}
+
+\subsection{Basic Clock Chart}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{data}\hldef{(smsclock)}
+\hldef{p1} \hlkwb{<-} \hlkwd{clock_chart}\hldef{(smsclock, time,} \hlkwc{Col} \hldef{=} \hlsng{"green"}\hldef{)}
+\hldef{p1} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{title} \hldef{=} \hlsng{"SMS Receiving Times"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/basic-clock-1} 
+\end{knitrout}
+
+The chart shows when messages are received. The largest gap is during night time (approximately 11 PM to 6 AM). Messages are received round the clock with few intermissions.
+
+\subsection{Colored Clock Chart}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{data}\hldef{(bdquake)}
+\hldef{p} \hlkwb{<-} \hlkwd{clock_chart_col}\hldef{(bdquake,} \hlkwc{time} \hldef{= hms,} \hlkwc{crit} \hldef{= mag)}
+\hldef{p} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{size} \hldef{=} \hlsng{"Magnitude"}\hldef{,} \hlkwc{title} \hldef{=} \hlsng{"Earthquakes in Bangladesh since 2023"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/colored-clock-1} 
+\end{knitrout}
+
+Earthquakes are colored by magnitude (green = low, red = high).
+
+\subsection{Chart with Modified and Colored Hands}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{p1} \hlkwb{<-} \hlkwd{clock_chart_qnt}\hldef{(}
+  \hlkwc{data} \hldef{= bdquake,} \hlkwc{time} \hldef{= hms,} \hlkwc{len} \hldef{= depth,}
+  \hlkwc{Col} \hldef{= mag,} \hlkwc{high} \hldef{=} \hlsng{"red"}\hldef{,} \hlkwc{low} \hldef{=} \hlsng{"blue"}
+\hldef{)}
+\hldef{p1} \hlopt{+} \hlkwd{labs}\hldef{(}
+  \hlkwc{color} \hldef{=} \hlsng{"Depth"}\hldef{,} \hlkwc{size} \hldef{=} \hlsng{"Magnitude"}\hldef{,}
+  \hlkwc{title} \hldef{=} \hlsng{"Earthquakes in Bangladesh since 2023"}
+\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/qnt-clock-1} 
+\end{knitrout}
+
+Point size represents magnitude, while color and hand length represent depth. The plot shows quakes are roughly randomly distributed with respect to time. Most earthquakes occurred between 1 PM to 5 PM. Two of the biggest gaps are between 5 PM to 9 PM (4 hours) and 10 PM to 2 AM (4.25 hours).
+
+\subsection{Qualitative Variable}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{clock_chart_qlt}\hldef{(smsclock,} \hlkwc{time} \hldef{= time,} \hlkwc{crit} \hldef{= Title)} \hlopt{+}
+  \hlkwd{labs}\hldef{(}\hlkwc{color} \hldef{=} \hlsng{"Sender"}\hldef{,} \hlkwc{title} \hldef{=} \hlsng{"SMS Received throughout the Day"}\hldef{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in clock\_chart\_qlt(smsclock, time = time, crit = Title): No. of categories is more than 5 and may not be distinguished well. Try clock\_chart() function instead?}}\end{kframe}
+\includegraphics[width=\maxwidth]{figure/qlt-clock-1} 
+\end{knitrout}
+
+This shows which types of messages were sent when. Certain types (e.g., \code{Supper_Offer}) are always sent around the same time (4:30 PM to 6 PM).
+
+\subsection{Cyclic Charts}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{Col} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlsng{"#0040ff"}\hldef{,} \hlsng{"#00bfff"}\hldef{,} \hlsng{"#8000ff"}\hldef{)}
+\hlkwd{cyclic_chart}\hldef{(bdtemp,}
+  \hlkwc{Period} \hldef{= Month,} \hlkwc{Value} \hldef{= Temperature,}
+  \hlkwc{crit} \hldef{= City,} \hlkwc{ColV} \hldef{= Col}
+\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/cyclic-chart-1} 
+\end{knitrout}
+
+Monthly temperatures for three cities.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{value} \hlkwb{<-} \hlkwd{sample}\hldef{(}\hlnum{15}\hlopt{:}\hlnum{30}\hldef{,} \hlnum{24}\hldef{,} \hlkwc{replace} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hlkwd{day_chart}\hldef{(}\hlkwc{hvalue} \hldef{= value,} \hlkwc{high} \hldef{=} \hlsng{"blue"}\hldef{,} \hlkwc{low} \hldef{=} \hlsng{"yellow"}\hldef{,} \hlkwc{width} \hldef{=} \hlnum{0.8}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/day-chart-1} 
+\end{knitrout}
+
+24-hour rose plot with gradient fill.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{set.seed}\hldef{(}\hlnum{10}\hldef{)}
+\hldef{wtemp} \hlkwb{<-} \hlkwd{sample}\hldef{(}\hlnum{10}\hlopt{:}\hlnum{40}\hldef{,} \hlnum{7}\hldef{)}
+\hlkwd{week_chart}\hldef{(wtemp,} \hlkwc{high} \hldef{=} \hlsng{"yellow"}\hldef{)} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{title} \hldef{=} \hlsng{"Random Values by Day"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/week-chart-1} 
+\end{knitrout}
+
+7-day rose plot.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{syltmp} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{18.4}\hldef{,} \hlnum{20.8}\hldef{,} \hlnum{24.3}\hldef{,} \hlnum{26.0}\hldef{,} \hlnum{26.8}\hldef{,} \hlnum{27.6}\hldef{,} \hlnum{28.0}\hldef{,}
+            \hlnum{28.2}\hldef{,} \hlnum{27.9}\hldef{,} \hlnum{26.7}\hldef{,} \hlnum{23.3}\hldef{,} \hlnum{19.7}\hldef{)}
+\hlkwd{year_chart}\hldef{(}\hlkwc{mvalue} \hldef{= syltmp)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/year-chart-1} 
+\end{knitrout}
+
+12-month rose plot.
+
+\subsection{Period Planners}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{set.seed}\hldef{(}\hlnum{123}\hldef{)}
+\hldef{work} \hlkwb{<-} \hlkwd{sample}\hldef{(}\hlkwd{c}\hldef{(}\hlsng{"Study"}\hldef{,} \hlsng{"Adda"}\hldef{,} \hlsng{"Entertainment"}\hldef{,} \hlsng{"Games"}\hldef{,} \hlsng{"Exercise"}\hldef{,} \hlsng{"Meal"}\hldef{),}
+  \hlkwc{size} \hldef{=} \hlnum{24}\hldef{,} \hlkwc{replace} \hldef{=} \hlnum{TRUE}
+\hldef{)}
+\hlkwd{plan_day}\hldef{(}\hlkwc{dwork} \hldef{= work,} \hlkwc{brdcol} \hldef{=} \hlnum{NA}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/plan-day-1} 
+\end{knitrout}
+
+Daily activity planner.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{set.seed}\hldef{(}\hlnum{10}\hldef{)}
+\hldef{wtask} \hlkwb{<-} \hlkwd{c}\hldef{(}
+  \hlsng{"Desk Work"}\hldef{,} \hlsng{"Field Work"}\hldef{,} \hlsng{"Visit"}\hldef{,} \hlsng{"Monitoring"}\hldef{,}
+  \hlsng{"Rest"}\hldef{,} \hlsng{"Reporting"}\hldef{,} \hlsng{"Meeting"}
+\hldef{)}
+\hlkwd{plan_week}\hldef{(wtask)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/plan-week-1} 
+\end{knitrout}
+
+Weekly activity planner.
+
+\subsection{Case Study: US Accidents Analysis}
+
+This example demonstrates a full workflow: data import $\to$ cleaning $\to$ visualization $\to$ interpretation.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(tidyverse)}
+\end{alltt}
+
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Attaching core tidyverse packages -------------- tidyverse 2.0.0 --\\\#\# v forcats \ \ 1.0.1 \ \ \ \ v stringr \ \ 1.6.0\\\#\# v lubridate 1.9.5 \ \ \ \ v tibble \ \ \ 3.3.1\\\#\# v purrr \ \ \ \ 1.2.2 \ \ \ \ v tidyr \ \ \ \ 1.3.2\\\#\# v readr \ \ \ \ 2.2.0 \ \ \ \ \\\#\# -- Conflicts -------------------------------- tidyverse\_conflicts() --\\\#\# x dplyr::filter() masks stats::filter()\\\#\# x dplyr::lag() \ \ \ masks stats::lag()\\\#\# i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors}}\begin{alltt}
+\hlkwd{library}\hldef{(clockplot)}
+
+\hlcom{# Import data (100-row sample from Kaggle US Accidents dataset)}
+\hldef{acdt} \hlkwb{<-} \hlkwd{read.csv}\hldef{(}\hlsng{"https://raw.githubusercontent.com/mahmudstat/open-analysis/main/data/usacc.csv"}\hldef{)}
+
+\hlcom{# Basic clock chart - when do accidents happen?}
+\hldef{p1} \hlkwb{<-} \hlkwd{clock_chart}\hldef{(acdt, Time,} \hlkwc{Col} \hldef{=} \hlsng{"darkred"}\hldef{)}
+\hldef{p1} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{title} \hldef{=} \hlsng{"US Accidents: Time of Day"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/us-accidents-case-1} 
+\begin{kframe}\begin{alltt}
+\hlcom{# Multivariate: color by temperature, size by humidity}
+\hldef{p2} \hlkwb{<-} \hlkwd{clock_chart_qnt}\hldef{(acdt,} \hlkwc{time} \hldef{= Time,} \hlkwc{len} \hldef{= Humidity...,} \hlkwc{Col} \hldef{= Temperature.F.)}
+\hldef{p2} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{size} \hldef{=} \hlsng{"Humidity (%)"}\hldef{,} \hlkwc{color} \hldef{=} \hlsng{"Temperature (F)"}\hldef{,}
+       \hlkwc{title} \hldef{=} \hlsng{"US Accidents: Time, Temperature & Humidity"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/us-accidents-case-2} 
+\begin{kframe}\begin{alltt}
+\hlcom{# Facet by weather condition}
+\hldef{p3} \hlkwb{<-} \hlkwd{clock_chart_qlt}\hldef{(acdt,} \hlkwc{time} \hldef{= Time,} \hlkwc{crit} \hldef{= Weather_Condition)} \hlopt{+}
+  \hlkwd{facet_wrap}\hldef{(}\hlopt{~}\hldef{Weather_Condition)} \hlopt{+}
+  \hlkwd{labs}\hldef{(}\hlkwc{color} \hldef{=} \hlsng{"Weather"}\hldef{,} \hlkwc{title} \hldef{=} \hlsng{"Accidents by Weather Condition"}\hldef{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in clock\_chart\_qlt(acdt, time = Time, crit = Weather\_Condition): No. of categories is more than 5 and may not be distinguished well. Try clock\_chart() function instead?}}\begin{alltt}
+\hlcom{# Cyclic view: average humidity by hour}
+\hldef{acdt} \hlopt{%>%}
+  \hlkwd{mutate}\hldef{(}\hlkwc{hour} \hldef{=} \hlkwd{as.numeric}\hldef{(}\hlkwd{substr}\hldef{(Time,} \hlnum{1}\hldef{,} \hlnum{2}\hldef{)))} \hlopt{%>%}
+  \hlkwd{group_by}\hldef{(hour)} \hlopt{%>%}
+  \hlkwd{summarise}\hldef{(}\hlkwc{avg_humidity} \hldef{=} \hlkwd{mean}\hldef{(Humidity...),} \hlkwc{.groups} \hldef{=} \hlsng{"drop"}\hldef{)} \hlopt{%>%}
+  \hldef{\{} \hlkwd{day_chart}\hldef{(}\hlkwc{hvalue} \hldef{= .}\hlopt{$}\hldef{avg_humidity,} \hlkwc{high} \hldef{=} \hlsng{"blue"}\hldef{,} \hlkwc{low} \hldef{=} \hlsng{"yellow"}\hldef{)} \hlopt{+}
+      \hlkwd{labs}\hldef{(}\hlkwc{title} \hldef{=} \hlsng{"Average Humidity by Hour"}\hldef{,} \hlkwc{fill} \hldef{=} \hlsng{"Humidity (%)"}\hldef{) \}}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in `day\_chart()`:\\\#\# ! hvalue must have length 24 (one per hour), but has length 16}}\end{kframe}
+\end{knitrout}
+
+\subsubsection*{Interpretation}
+\begin{enumerate}
+\item \textbf{Peak hours}: Accidents cluster around morning rush (6--9 AM) and evening (4--7 PM).
+\item \textbf{Weather correlation}: Higher humidity (larger points) correlates with evening accidents.
+\item \textbf{Weather conditions}: Accidents occur across various conditions (rain, overcast, mostly cloudy).
+\item \textbf{Cyclic pattern}: Humidity peaks overnight (natural diurnal cycle), contributing to reduced visibility.
+\end{enumerate}
+
+
+%% -- Summary ------------------------------------------------------------------
+
+\section{Summary and Discussion} \label{sec:summary}
+
+\pkg{clockplot} provides a comprehensive toolkit for visualizing temporal event data on circular clock faces. Its key contributions are:
+
+\begin{enumerate}
+\item \textbf{Intuitive 24-hour clock visualization} that preserves circular continuity across midnight.
+\item \textbf{Multivariate encoding} via color, size, and hand length on the same clock face.
+\item \textbf{Generalized cyclic charts} for day/week/month/year periods using polar bar charts.
+\item \textbf{Period planners} for visual scheduling of daily and weekly activities.
+\item \textbf{Full \pkg{ggplot2} compatibility} enabling faceting, theming, and customization.
+\end{enumerate}
+
+The package is available on CRAN and GitHub (\url{https://github.com/mahmudstat/clockplot}). Future development may include jitter/stacking for simultaneous events, clock face customization (12-hour labels, adjustable start hour), and lollipop-style cyclic charts.
+
+
+%% -- Computational Details ----------------------------------------------------
+
+\section*{Computational Details}
+
+The results in this paper were obtained using
+\proglang{R}~4.6.1 with the
+\pkg{clockplot}~0.8.3 package,
+\pkg{ggplot2}~4.0.3,
+\pkg{dplyr}~1.2.1, and
+\pkg{tidyr}~1.3.2.
+\proglang{R} itself and all packages used are available from the Comprehensive
+\proglang{R} Archive Network (CRAN) at
+\url{https://CRAN.R-project.org/}.
+
+
+%% -- Acknowledgments ----------------------------------------------------------
+
+\section*{Acknowledgments}
+
+The example analyses use data from public repositories including the US Accidents Dataset (Kaggle) and earthquake data from the United States Geological Survey (USGS).
+
+We are grateful to the Comprehensive R Archive Network (CRAN) \citep{R-base} team for maintaining the infrastructure that supports open source software distribution and reproducibility in \proglang{R}. We thank the tidyverse \citep{wickham2019welcome} ecosystem for providing essential data manipulation and visualization functionalities. We also acknowledge GitHub for providing the collaborative platform used to develop, maintain, and share the source code for this package.
+
+
+%% -- Bibliography -------------------------------------------------------------
+
+\bibliography{refs}
+
+
+%% -- Appendix -----------------------------------------------------------------
+
+\newpage
+
+\begin{appendix}
+
+\section{Function Reference} \label{app:functions}
+
+\begin{longtable}{lllll}
+\toprule
+Function & Data Arg & Time/Period Arg & Value/Metric Args & Key Options \\
+\midrule
+\endhead
+\fct{clock\_chart()} & \code{data} & \code{time} & --- & \code{Col} (single color) \\
+\fct{clock\_chart\_col()} & \code{data} & \code{time} & \code{crit} (numeric) & \code{high}, \code{low} (gradient) \\
+\fct{clock\_chart\_qnt()} & \code{data} & \code{time} & \code{len}, \code{Col} (numeric) & \code{high}, \code{low} (gradient) \\
+\fct{clock\_chart\_qlt()} & \code{data} & \code{time} & \code{crit} (factor) & Auto (Brewer Set2) \\
+\fct{cyclic\_chart()} & \code{df} & \code{Period} & \code{Value} (numeric) & \code{ColV}, \code{crit} \\
+\fct{day\_chart()} & --- & --- (24h implicit) & \code{hvalue} (len=24) & \code{high}, \code{low}, \code{width} \\
+\fct{week\_chart()} & --- & --- (7d implicit) & \code{wvalue} (len=7) & \code{lgnm}, \code{high}, \code{low}, \code{width} \\
+\fct{year\_chart()} & --- & --- (12m implicit) & \code{mvalue} (len=12) & \code{lgnm}, \code{high}, \code{low}, \code{width} \\
+\fct{plan\_day()} & --- & --- (24h implicit) & \code{dwork} (char, len=24) & \code{width}, \code{brdcol} \\
+\fct{plan\_week()} & --- & --- (7d implicit) & \code{wtask} (factor, len=7) & --- \\
+\bottomrule
+\caption{\label{tab:functions} Complete function reference for \pkg{clockplot}. All functions return \class{ggplot} objects.}
+\end{longtable}
+
+\end{appendix}
+
+\end{document}

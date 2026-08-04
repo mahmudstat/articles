@@ -1,0 +1,77 @@
+\begin{thebibliography}{}
+
+\bibitem[Andrews and Stafford, 2000]{andrews2000}
+Andrews, D.~F. and Stafford, J.~E. (2000).
+\newblock Symbolic computation for statistical inference.
+\newblock {\em Oxford University Press}.
+
+\bibitem[Blinnikov and Moessner, 1998]{blinnikov1998}
+Blinnikov, S. and Moessner, R. (1998).
+\newblock Expansions for nearly gaussian distributions.
+\newblock {\em Astronomy and Astrophysics Supplement Series}, 130(1):193--205.
+
+\bibitem[Chan et~al., 1983]{chan1983}
+Chan, T.~F., Golub, G.~H., and LeVeque, R.~J. (1983).
+\newblock Algorithms for computing the sample variance: Analysis and recommendations.
+\newblock {\em The American Statistician}, 37(3):242--247.
+
+\bibitem[Cram{\'e}r, 1946]{cramer1946}
+Cram{\'e}r, H. (1946).
+\newblock {\em Mathematical Methods of Statistics}.
+\newblock Princeton University Press.
+
+\bibitem[Di~Nardo et~al., 2008]{dinardo2008}
+Di~Nardo, E., Guarino, G., and Senato, D. (2008).
+\newblock A unified framework for tenable statistical cumulants via symbolic computations.
+\newblock {\em Journal of Symbolic Computation}, 43(5):355--373.
+
+\bibitem[Hall, 1992]{hall1992}
+Hall, P. (1992).
+\newblock The bootstrap and edgeworth expansion.
+
+\bibitem[Hansen, 1982]{hansen1982}
+Hansen, L.~P. (1982).
+\newblock Large sample properties of generalized method of moments estimators.
+\newblock {\em Econometrica}, 50(4):1029--1054.
+
+\bibitem[Hu, 1962]{hu1962}
+Hu, M.-K. (1962).
+\newblock Visual pattern recognition by moment invariants.
+\newblock {\em IRE Transactions on Information Theory}, 8(2):179--187.
+
+\bibitem[Johnson et~al., 1994]{johnson1994}
+Johnson, N.~L., Kotz, S., and Balakrishnan, N. (1994).
+\newblock {\em Continuous Univariate Distributions, Volume 1}.
+\newblock John Wiley \& Sons, 2nd edition.
+
+\bibitem[Kendall and Stuart, 1977]{kendall1977}
+Kendall, M.~G. and Stuart, A. (1977).
+\newblock {\em The Advanced Theory of Statistics: Vol. 1. Distribution Theory}.
+\newblock Charles Griffin \& Company, 4th edition.
+
+\bibitem[Mood et~al., 1974]{mood1974}
+Mood, A.~M., Graybill, F.~A., and Boes, D.~C. (1974).
+\newblock {\em Introduction to the Theory of Statistics}.
+\newblock McGraw-Hill, 3rd edition.
+
+\bibitem[Mukundan and Ramakrishnan, 1998]{mukundan1998}
+Mukundan, R. and Ramakrishnan, K.~R. (1998).
+\newblock {\em Moment Functions in Image Processing: Theory and Applications}.
+\newblock World Scientific.
+
+\bibitem[P{\'e}bay, 2008]{pebay2008}
+P{\'e}bay, P. (2008).
+\newblock Formulas for robust, one-pass parallel computation of covariances and arbitrary-order statistical moments.
+\newblock Technical Report SAND2008-6212, Sandia National Laboratories.
+
+\bibitem[P{\'e}bay et~al., 2016]{pebay2016}
+P{\'e}bay, P., Terriberry, T.~B., Kolla, H., and Bennett, J. (2016).
+\newblock Numerically stable, one-pass, parallel computation of arbitrary-order statistical moments.
+\newblock {\em Computational Statistics}, 31(4):1271--1301.
+
+\bibitem[Terriberry, 2007]{terriberry2007}
+Terriberry, T.~B. (2007).
+\newblock Computing higher-order moments online.
+\newblock Technical report, Xiph.org Foundation.
+
+\end{thebibliography}

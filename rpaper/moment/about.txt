@@ -92,3 +92,10 @@ Steps
   accompany the submission.
   2. Journal Formatting: When ready, we can format the Rmd/LaTeX template specifically for
   your chosen journal (e.g., ASA/TAS format, Elsevier, or Springer templates).
+
+
+  ### Publishing
+
+  I think Journal of Statistics and Data Science Education is good a suit. I read
+  https://www.tandfonline.com/action/authorSubmission?show=instructions&journalCode=ujse21, and you go through it and then organize our manuscript as a latex file, following the "template" folder in this
+  dir (moment/template).In the mean time, I'm having another look at the cited papers.
