@@ -14,7 +14,7 @@
 \newcommand{\class}[1]{`\code{#1}'}
 \newcommand{\fct}[1]{\code{#1()}}
 
-<<preliminaries, echo=FALSE, results='hide'>>=
+<<preliminaries, echo=FALSE, results=hide>>=
 options(prompt = "R> ", continue = "+  ", width = 70, useFancyQuotes = FALSE)
 library("clockplot")
 library("ggplot2")
@@ -62,6 +62,7 @@ URL: \url{https://github.com/mahmudstat/clockplot}
 }
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 
 %% -- Introduction -------------------------------------------------------------
@@ -419,13 +420,16 @@ p3 <- clock_chart_qlt(acdt, time = Time, crit = Weather_Condition) +
   facet_wrap(~Weather_Condition) +
   labs(color = "Weather", title = "Accidents by Weather Condition")
 
-# Cyclic view: average humidity by hour
-acdt %>%
+# Cyclic view: average humidity by hour (ensure 24 hours)
+humidity_by_hour <- acdt %>%
   mutate(hour = as.numeric(substr(Time, 1, 2))) %>%
   group_by(hour) %>%
   summarise(avg_humidity = mean(Humidity...), .groups = "drop") %>%
-  { day_chart(hvalue = .$avg_humidity, high = "blue", low = "yellow") +
-      labs(title = "Average Humidity by Hour", fill = "Humidity (%)") }
+  complete(hour = 0:23, fill = list(avg_humidity = NA)) %>%
+  pull(avg_humidity)
+
+day_chart(hvalue = humidity_by_hour, high = "blue", low = "yellow") +
+  labs(title = "Average Humidity by Hour", fill = "Humidity (%)")
 @
 
 \subsubsection*{Interpretation}
