@@ -412,7 +412,7 @@ Converting central moments back to raw moments about zero ($a = \mu, k = 0, b = 
 
 \subsection{R Package Implementation (\texttt{convmoment})}
 
-We implement the generalized binomial moment conversion framework in R. The function \texttt{conv\_moment()} computes the converted moment of order $r$, while \texttt{conv\_moment\_all()} converts a vector of moments of orders $1 \dots K$ across any initial origin $a$ and target origin $k$.
+We implement the generalized binomial moment conversion framework in R \citep{wickham2015}. The function \texttt{conv\_moment()} computes the converted moment of order $r$, while \texttt{conv\_moment\_all()} converts a vector of moments of orders $1 \dots K$ across any initial origin $a$ and target origin $k$.
 
 \begin{verbatim}
 conv_moment <- function(x, a, k, r) {
@@ -453,17 +453,17 @@ The absolute differences between direct sample moments and converted moments are
 
 \subsection{Computational Performance Benchmarking}
 
-A major practical advantage of the generalized binomial transformation is \textbf{sample-size independence}. When working with large datasets ($n \gg 10^4$), recomputing moments directly from raw data following an origin shift requires $O(n \cdot r)$ operations across all $n$ observations. In contrast, transforming pre-computed moments using \texttt{conv\_moment\_all()} requires only $O(r^2)$ operations, completely independent of sample size $n$.
+A major practical advantage of the generalized binomial transformation is \textbf{sample-size independence}. When working with large datasets ($n \gg 10^4$), recomputing moments directly from raw data following an origin shift requires $O(nr)$ operations across all $n$ observations. In contrast, transforming pre-computed moments using \texttt{conv\_moment\_all()} requires only $O(r^2)$ operations, completely independent of sample size $n$.
 
 We benchmark 1,000 origin-shift operations on a simulated dataset of size $n = 100,000$:
 
 \begin{itemize}
 \item Pre-computed moments about origin $a$.
-\item Benchmark 1: Recompute moments from raw sample data ($O(n \cdot r)$).
+\item Benchmark 1: Recompute moments from raw sample data ($O(nr)$).
 \item Benchmark 2: Generalized Binomial Transformation ($O(r^2)$).
 \end{itemize}
 
-Transforming pre-computed moments using \texttt{conv\_moment\_all()} achieves a \textbf{over 250$\times$ speedup} compared to recomputing moments over raw sample data.
+Transforming pre-computed moments using \texttt{conv\_moment\_all()} achieves a \textbf{$>250\times$ speedup} compared to recomputing moments over raw sample data.
 
 Furthermore, while hardcoded scalar expressions for low orders (e.g. $r \le 5$) are static macros, the generalized binomial algorithm scales dynamically to arbitrary high-order moments ($r = 10, 20, 50+$) without requiring manual algebraic expansion.
 
@@ -485,7 +485,7 @@ In contrast, our framework addresses the complementary problem of transforming m
 
 \subsection{Numerical Stability Considerations and Limitations}
 
-When converting uncentered raw moments of very high order ($r > 20$) for empirical datasets with large location offsets, binomial expansions can be susceptible to floating-point catastrophic cancellation due to alternating sum signs. For ultra-high-order empirical transformations ($r \ge 30$), combining the binomial transformation with arbitrary-precision arithmetic libraries or log-space moment representations \citep{dinardo2008} provides numerical safeguards.
+When converting uncentered raw moments of very high order ($r > 20$) for empirical datasets with large location offsets, binomial expansions can be susceptible to floating-point catastrophic cancellation due to alternating sum signs \citep{higham2002}. For ultra-high-order empirical transformations ($r \ge 30$), combining the binomial transformation with arbitrary-precision arithmetic libraries or log-space moment representations \citep{dinardo2008} provides numerical safeguards.
 
 \section{Conclusion and Future Work}
 
