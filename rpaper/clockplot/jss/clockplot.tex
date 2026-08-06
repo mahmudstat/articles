@@ -1,54 +1,4 @@
-\documentclass[article]{jss}\usepackage[]{graphicx}\usepackage[]{xcolor}
-% maxwidth is the original width if it is less than linewidth
-% otherwise use linewidth (to make sure the graphics do not exceed the margin)
-\makeatletter
-\def\maxwidth{ %
-  \ifdim\Gin@nat@width>\linewidth
-    \linewidth
-  \else
-    \Gin@nat@width
-  \fi
-}
-\makeatother
-
-\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
-\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
-\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
-\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
-\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
-\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
-\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
-\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
-\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
-\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
-\let\hlipl\hlkwb
-
-\usepackage{framed}
-\makeatletter
-\newenvironment{kframe}{%
- \def\at@end@of@kframe{}%
- \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage}}%
-  \begin{minipage}{\columnwidth}%
- \fi\fi%
- \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
- \colorbox{shadecolor}{##1}\hskip-\fboxsep
-     % There is no \\@totalrightmargin, so:
-     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
- \MakeFramed {\advance\hsize-\width
-   \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage}}%
- {\par\unskip\endMakeFramed%
- \at@end@of@kframe}
-\makeatother
-
-\definecolor{shadecolor}{rgb}{.97, .97, .97}
-\definecolor{messagecolor}{rgb}{0, 0, 0}
-\definecolor{warningcolor}{rgb}{1, 0, 1}
-\definecolor{errorcolor}{rgb}{1, 0, 0}
-\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
-
-\usepackage{alltt}
+\documentclass[article]{jss}
 
 %% -- LaTeX packages and custom commands ---------------------------------------
 
@@ -64,16 +14,6 @@
 \newcommand{\class}[1]{`\code{#1}'}
 \newcommand{\fct}[1]{\code{#1()}}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# \\\#\# Attaching package: 'dplyr'}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:stats':\\\#\# \\\#\# \ \ \ \ filter, lag}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# The following objects are masked from 'package:base':\\\#\# \\\#\# \ \ \ \ intersect, setdiff, setequal, union}}\end{kframe}
-\end{knitrout}
 
 
 %% -- Article metainformation (author, title, ...) -----------------------------
@@ -114,8 +54,10 @@ Bangladesh Cadet College\\
 E-mail: \email{mahmudstat@gmail.com}\\
 URL: \url{https://github.com/mahmudstat/clockplot}
 }
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+\usepackage{Sweave}
 \begin{document}
+\input{clockplot-concordance}
 
 
 %% -- Introduction -------------------------------------------------------------
@@ -211,45 +153,38 @@ The construction of clock charts involves two main steps: (i) building the 24-ho
 
 The clock skeleton is a unit circle with 24 hour marks and quarter-hour tick marks. In \proglang{R}, the circle is efficiently generated using complex numbers:
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hldef{k} \hlkwb{<-} \hlnum{24}
-\hldef{hour} \hlkwb{<-} \hlkwd{exp}\hldef{(}\hlnum{1i} \hlopt{*} \hlnum{2} \hlopt{*} \hldef{pi} \hlopt{*} \hldef{(k}\hlopt{:}\hlnum{1}\hldef{)} \hlopt{/} \hldef{k)}
-\hlkwd{plot}\hldef{(hour,} \hlkwc{pch} \hldef{=} \hlnum{19}\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/skeleton-code-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> k <- 24
+R> hour <- exp(1i * 2 * pi * (k:1) / k)
+R> plot(hour, pch = 19)
+\end{Sinput}
+\end{Schunk}
 
 For the full skeleton with quarter-hour marks:
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hldef{k} \hlkwb{<-} \hlnum{24}
-\hldef{subk} \hlkwb{<-} \hlnum{24} \hlopt{*} \hlnum{4}
-\hldef{times} \hlkwb{<-} \hlkwd{exp}\hldef{(}\hlnum{1i} \hlopt{*} \hlnum{2} \hlopt{*} \hldef{pi} \hlopt{*} \hldef{(k}\hlopt{:}\hlnum{1}\hldef{)} \hlopt{/} \hldef{k)}
-\hldef{subtimes} \hlkwb{<-} \hlkwd{data.frame}\hldef{(}\hlkwc{SubT} \hldef{=} \hlkwd{exp}\hldef{(}\hlnum{1i} \hlopt{*} \hlnum{2} \hlopt{*} \hldef{pi} \hlopt{*} \hldef{(subk}\hlopt{:}\hlnum{1}\hldef{)} \hlopt{/} \hldef{subk))}
-\hldef{ampm} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlkwd{rep}\hldef{(}\hlsng{" AM"}\hldef{,} \hlnum{6}\hldef{),} \hlkwd{rep}\hldef{(}\hlsng{" PM"}\hldef{,} \hlnum{12}\hldef{),} \hlkwd{rep}\hldef{(}\hlsng{" AM"}\hldef{,} \hlnum{6}\hldef{))}
-\hldef{dfclock} \hlkwb{<-} \hlkwd{tibble}\hldef{(}
-  \hlkwc{time} \hldef{= times,}
-  \hlkwc{label} \hldef{=} \hlkwd{paste0}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{6}\hlopt{:}\hlnum{12}\hldef{,} \hlnum{1}\hlopt{:}\hlnum{5}\hldef{), ampm)}
-\hldef{)}
-
-\hlkwd{library}\hldef{(ggplot2)}
-\hldef{p1} \hlkwb{<-} \hldef{dfclock} \hlopt{%>%} \hlkwd{ggplot}\hldef{()} \hlopt{+}
-  \hlkwd{geom_path}\hldef{(}\hlkwc{data} \hldef{= subtimes,} \hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(SubT),} \hlkwd{Im}\hldef{(SubT)))} \hlopt{+}
-  \hlkwd{geom_line}\hldef{(}\hlkwc{data} \hldef{= subtimes} \hlopt{%>%} \hldef{dplyr}\hlopt{::}\hlkwd{slice}\hldef{(}\hlopt{-}\hlkwd{c}\hldef{(}\hlnum{2}\hlopt{:}\hlnum{95}\hldef{)),} \hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(SubT),} \hlkwd{Im}\hldef{(SubT)))} \hlopt{+}
-  \hlkwd{theme}\hldef{(}\hlkwc{aspect.ratio} \hldef{=} \hlnum{1}\hldef{)} \hlopt{+}
-  \hlkwd{geom_text}\hldef{(}\hlkwc{data} \hldef{= dfclock,} \hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(time)} \hlopt{*} \hlnum{1.1}\hldef{,} \hlkwd{Im}\hldef{(time)} \hlopt{*} \hlnum{1.1}\hldef{,} \hlkwc{label} \hldef{= label))} \hlopt{+}
-  \hlkwd{geom_point}\hldef{(}\hlkwc{data} \hldef{= subtimes,} \hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(SubT),} \hlkwd{Im}\hldef{(SubT)),} \hlkwc{shape} \hldef{=} \hlnum{19}\hldef{,} \hlkwc{color} \hldef{=} \hlsng{"black"}\hldef{,} \hlkwc{size} \hldef{=} \hlnum{0.6}\hldef{)} \hlopt{+}
-  \hlkwd{geom_point}\hldef{(}\hlkwd{aes}\hldef{(}\hlkwd{Re}\hldef{(time),} \hlkwd{Im}\hldef{(time)),} \hlkwc{color} \hldef{=} \hlsng{"black"}\hldef{,} \hlkwc{size} \hldef{=} \hlnum{1.8}\hldef{)}
-\hldef{p1} \hlopt{+} \hlkwd{theme}\hldef{(}\hlkwc{axis.text} \hldef{=} \hlkwd{element_blank}\hldef{(),} \hlkwc{axis.ticks} \hldef{=} \hlkwd{element_blank}\hldef{())} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{x} \hldef{=} \hlsng{""}\hldef{,} \hlkwc{y} \hldef{=} \hlsng{""}\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/skeleton-full-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> k <- 24
+R> subk <- 24 * 4
+R> times <- exp(1i * 2 * pi * (k:1) / k)
+R> subtimes <- data.frame(SubT = exp(1i * 2 * pi * (subk:1) / subk))
+R> ampm <- c(rep(" AM", 6), rep(" PM", 12), rep(" AM", 6))
+R> dfclock <- tibble(
++    time = times,
++    label = paste0(c(6:12, 1:5), ampm)
++  )
+R> library(ggplot2)
+R> p1 <- dfclock %>% ggplot() +
++    geom_path(data = subtimes, aes(Re(SubT), Im(SubT))) +
++    geom_line(data = subtimes %>% dplyr::slice(-c(2:95)), aes(Re(SubT), Im(SubT))) +
++    theme(aspect.ratio = 1) +
++    geom_text(data = dfclock, aes(Re(time) * 1.1, Im(time) * 1.1, label = label)) +
++    geom_point(data = subtimes, aes(Re(SubT), Im(SubT)), shape = 19, color = "black", size = 0.6) +
++    geom_point(aes(Re(time), Im(time)), color = "black", size = 1.8)
+R> p1 + theme(axis.text = element_blank(), axis.ticks = element_blank()) + labs(x = "", y = "")
+\end{Sinput}
+\end{Schunk}
 
 This produces the static clock face with 24 hour labels (6 AM to 5 AM) and quarter-hour tick marks.
 
@@ -358,155 +293,123 @@ The package includes several datasets:
 
 \subsection{Basic Clock Chart}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{data}\hldef{(smsclock)}
-\hldef{p1} \hlkwb{<-} \hlkwd{clock_chart}\hldef{(smsclock, time,} \hlkwc{Col} \hldef{=} \hlsng{"green"}\hldef{)}
-\hldef{p1} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{title} \hldef{=} \hlsng{"SMS Receiving Times"}\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/basic-clock-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> data(smsclock)
+R> p1 <- clock_chart(smsclock, time, Col = "green")
+R> p1 + labs(title = "SMS Receiving Times")
+\end{Sinput}
+\end{Schunk}
 
 The chart shows when messages are received. The largest gap is during night time (approximately 11 PM to 6 AM). Messages are received round the clock with few intermissions.
 
 \subsection{Colored Clock Chart}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{data}\hldef{(bdquake)}
-\hldef{p} \hlkwb{<-} \hlkwd{clock_chart_col}\hldef{(bdquake,} \hlkwc{time} \hldef{= hms,} \hlkwc{crit} \hldef{= mag)}
-\hldef{p} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{size} \hldef{=} \hlsng{"Magnitude"}\hldef{,} \hlkwc{title} \hldef{=} \hlsng{"Earthquakes in Bangladesh since 2023"}\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/colored-clock-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> data(bdquake)
+R> p <- clock_chart_col(bdquake, time = hms, crit = mag)
+R> p + labs(size = "Magnitude", title = "Earthquakes in Bangladesh since 2023")
+\end{Sinput}
+\end{Schunk}
 
 Earthquakes are colored by magnitude (green = low, red = high).
 
 \subsection{Chart with Modified and Colored Hands}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hldef{p1} \hlkwb{<-} \hlkwd{clock_chart_qnt}\hldef{(}
-  \hlkwc{data} \hldef{= bdquake,} \hlkwc{time} \hldef{= hms,} \hlkwc{len} \hldef{= depth,}
-  \hlkwc{Col} \hldef{= mag,} \hlkwc{high} \hldef{=} \hlsng{"red"}\hldef{,} \hlkwc{low} \hldef{=} \hlsng{"blue"}
-\hldef{)}
-\hldef{p1} \hlopt{+} \hlkwd{labs}\hldef{(}
-  \hlkwc{color} \hldef{=} \hlsng{"Depth"}\hldef{,} \hlkwc{size} \hldef{=} \hlsng{"Magnitude"}\hldef{,}
-  \hlkwc{title} \hldef{=} \hlsng{"Earthquakes in Bangladesh since 2023"}
-\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/qnt-clock-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> p1 <- clock_chart_qnt(
++    data = bdquake, time = hms, len = depth,
++    Col = mag, high = "red", low = "blue"
++  )
+R> p1 + labs(
++    color = "Depth", size = "Magnitude",
++    title = "Earthquakes in Bangladesh since 2023"
++  )
+\end{Sinput}
+\end{Schunk}
 
 Point size represents magnitude, while color and hand length represent depth. The plot shows quakes are roughly randomly distributed with respect to time. Most earthquakes occurred between 1 PM to 5 PM. Two of the biggest gaps are between 5 PM to 9 PM (4 hours) and 10 PM to 2 AM (4.25 hours).
 
 \subsection{Qualitative Variable}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{clock_chart_qlt}\hldef{(smsclock,} \hlkwc{time} \hldef{= time,} \hlkwc{crit} \hldef{= Title)} \hlopt{+}
-  \hlkwd{labs}\hldef{(}\hlkwc{color} \hldef{=} \hlsng{"Sender"}\hldef{,} \hlkwc{title} \hldef{=} \hlsng{"SMS Received throughout the Day"}\hldef{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning in clock\_chart\_qlt(smsclock, time = time, crit = Title): No. of categories is more than 5 and may not be distinguished well. Try clock\_chart() function instead?}}\end{kframe}
-\includegraphics[width=\maxwidth]{figure/qlt-clock-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> clock_chart_qlt(smsclock, time = time, crit = Title) +
++    labs(color = "Sender", title = "SMS Received throughout the Day")
+\end{Sinput}
+\end{Schunk}
 
 This shows which types of messages were sent when. Certain types (e.g., \code{Supper_Offer}) are always sent around the same time (4:30 PM to 6 PM).
 
 \subsection{Cyclic Charts}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hldef{Col} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlsng{"#0040ff"}\hldef{,} \hlsng{"#00bfff"}\hldef{,} \hlsng{"#8000ff"}\hldef{)}
-\hlkwd{cyclic_chart}\hldef{(bdtemp,}
-  \hlkwc{Period} \hldef{= Month,} \hlkwc{Value} \hldef{= Temperature,}
-  \hlkwc{crit} \hldef{= City,} \hlkwc{ColV} \hldef{= Col}
-\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/cyclic-chart-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> Col <- c("#0040ff", "#00bfff", "#8000ff")
+R> cyclic_chart(bdtemp,
++    Period = Month, Value = Temperature,
++    crit = City, ColV = Col
++  )
+\end{Sinput}
+\end{Schunk}
 
 Monthly temperatures for three cities.
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hldef{value} \hlkwb{<-} \hlkwd{sample}\hldef{(}\hlnum{15}\hlopt{:}\hlnum{30}\hldef{,} \hlnum{24}\hldef{,} \hlkwc{replace} \hldef{=} \hlnum{TRUE}\hldef{)}
-\hlkwd{day_chart}\hldef{(}\hlkwc{hvalue} \hldef{= value,} \hlkwc{high} \hldef{=} \hlsng{"blue"}\hldef{,} \hlkwc{low} \hldef{=} \hlsng{"yellow"}\hldef{,} \hlkwc{width} \hldef{=} \hlnum{0.8}\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/day-chart-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> value <- sample(15:30, 24, replace = TRUE)
+R> day_chart(hvalue = value, high = "blue", low = "yellow", width = 0.8)
+\end{Sinput}
+\end{Schunk}
 
 24-hour rose plot with gradient fill.
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{set.seed}\hldef{(}\hlnum{10}\hldef{)}
-\hldef{wtemp} \hlkwb{<-} \hlkwd{sample}\hldef{(}\hlnum{10}\hlopt{:}\hlnum{40}\hldef{,} \hlnum{7}\hldef{)}
-\hlkwd{week_chart}\hldef{(wtemp,} \hlkwc{high} \hldef{=} \hlsng{"yellow"}\hldef{)} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{title} \hldef{=} \hlsng{"Random Values by Day"}\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/week-chart-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> set.seed(10)
+R> wtemp <- sample(10:40, 7)
+R> week_chart(wtemp, high = "yellow") + labs(title = "Random Values by Day")
+\end{Sinput}
+\end{Schunk}
 
 7-day rose plot.
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hldef{syltmp} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{18.4}\hldef{,} \hlnum{20.8}\hldef{,} \hlnum{24.3}\hldef{,} \hlnum{26.0}\hldef{,} \hlnum{26.8}\hldef{,} \hlnum{27.6}\hldef{,} \hlnum{28.0}\hldef{,}
-            \hlnum{28.2}\hldef{,} \hlnum{27.9}\hldef{,} \hlnum{26.7}\hldef{,} \hlnum{23.3}\hldef{,} \hlnum{19.7}\hldef{)}
-\hlkwd{year_chart}\hldef{(}\hlkwc{mvalue} \hldef{= syltmp)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/year-chart-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> syltmp <- c(18.4, 20.8, 24.3, 26.0, 26.8, 27.6, 28.0,
++              28.2, 27.9, 26.7, 23.3, 19.7)
+R> year_chart(mvalue = syltmp)
+\end{Sinput}
+\end{Schunk}
 
 12-month rose plot.
 
 \subsection{Period Planners}
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{set.seed}\hldef{(}\hlnum{123}\hldef{)}
-\hldef{work} \hlkwb{<-} \hlkwd{sample}\hldef{(}\hlkwd{c}\hldef{(}\hlsng{"Study"}\hldef{,} \hlsng{"Adda"}\hldef{,} \hlsng{"Entertainment"}\hldef{,} \hlsng{"Games"}\hldef{,} \hlsng{"Exercise"}\hldef{,} \hlsng{"Meal"}\hldef{),}
-  \hlkwc{size} \hldef{=} \hlnum{24}\hldef{,} \hlkwc{replace} \hldef{=} \hlnum{TRUE}
-\hldef{)}
-\hlkwd{plan_day}\hldef{(}\hlkwc{dwork} \hldef{= work,} \hlkwc{brdcol} \hldef{=} \hlnum{NA}\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/plan-day-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> set.seed(123)
+R> work <- sample(c("Study", "Adda", "Entertainment", "Games", "Exercise", "Meal"),
++    size = 24, replace = TRUE
++  )
+R> plan_day(dwork = work, brdcol = NA)
+\end{Sinput}
+\end{Schunk}
 
 Daily activity planner.
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{set.seed}\hldef{(}\hlnum{10}\hldef{)}
-\hldef{wtask} \hlkwb{<-} \hlkwd{c}\hldef{(}
-  \hlsng{"Desk Work"}\hldef{,} \hlsng{"Field Work"}\hldef{,} \hlsng{"Visit"}\hldef{,} \hlsng{"Monitoring"}\hldef{,}
-  \hlsng{"Rest"}\hldef{,} \hlsng{"Reporting"}\hldef{,} \hlsng{"Meeting"}
-\hldef{)}
-\hlkwd{plan_week}\hldef{(wtask)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/plan-week-1} 
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> set.seed(10)
+R> wtask <- c(
++    "Desk Work", "Field Work", "Visit", "Monitoring",
++    "Rest", "Reporting", "Meeting"
++  )
+R> plan_week(wtask)
+\end{Sinput}
+\end{Schunk}
 
 Weekly activity planner.
 
@@ -514,54 +417,34 @@ Weekly activity planner.
 
 This example demonstrates a full workflow: data import $\to$ cleaning $\to$ visualization $\to$ interpretation.
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{library}\hldef{(tidyverse)}
-\end{alltt}
-
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# -- Attaching core tidyverse packages -------------- tidyverse 2.0.0 --\\\#\# v forcats \ \ 1.0.1 \ \ \ \ v stringr \ \ 1.6.0\\\#\# v lubridate 1.9.5 \ \ \ \ v tibble \ \ \ 3.3.1\\\#\# v purrr \ \ \ \ 1.2.2 \ \ \ \ v tidyr \ \ \ \ 1.3.2\\\#\# v readr \ \ \ \ 2.2.0 \ \ \ \ \\\#\# -- Conflicts -------------------------------- tidyverse\_conflicts() --\\\#\# x dplyr::filter() masks stats::filter()\\\#\# x dplyr::lag() \ \ \ masks stats::lag()\\\#\# i Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors}}\begin{alltt}
-\hlkwd{library}\hldef{(clockplot)}
-
-\hlcom{# Import data (100-row sample from Kaggle US Accidents dataset)}
-\hldef{acdt} \hlkwb{<-} \hlkwd{read.csv}\hldef{(}\hlsng{"https://raw.githubusercontent.com/mahmudstat/open-analysis/main/data/usacc.csv"}\hldef{)}
-
-\hlcom{# Basic clock chart - when do accidents happen?}
-\hldef{p1} \hlkwb{<-} \hlkwd{clock_chart}\hldef{(acdt, Time,} \hlkwc{Col} \hldef{=} \hlsng{"darkred"}\hldef{)}
-\hldef{p1} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{title} \hldef{=} \hlsng{"US Accidents: Time of Day"}\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/us-accidents-case-1} 
-\begin{kframe}\begin{alltt}
-\hlcom{# Multivariate: color by temperature, size by humidity}
-\hldef{p2} \hlkwb{<-} \hlkwd{clock_chart_qnt}\hldef{(acdt,} \hlkwc{time} \hldef{= Time,} \hlkwc{len} \hldef{= Humidity...,} \hlkwc{Col} \hldef{= Temperature.F.)}
-\hldef{p2} \hlopt{+} \hlkwd{labs}\hldef{(}\hlkwc{size} \hldef{=} \hlsng{"Humidity (%)"}\hldef{,} \hlkwc{color} \hldef{=} \hlsng{"Temperature (F)"}\hldef{,}
-       \hlkwc{title} \hldef{=} \hlsng{"US Accidents: Time, Temperature & Humidity"}\hldef{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/us-accidents-case-2} 
-\begin{kframe}\begin{alltt}
-\hlcom{# Facet by weather condition}
-\hldef{p3} \hlkwb{<-} \hlkwd{clock_chart_qlt}\hldef{(acdt,} \hlkwc{time} \hldef{= Time,} \hlkwc{crit} \hldef{= Weather_Condition)} \hlopt{+}
-  \hlkwd{facet_wrap}\hldef{(}\hlopt{~}\hldef{Weather_Condition)} \hlopt{+}
-  \hlkwd{labs}\hldef{(}\hlkwc{color} \hldef{=} \hlsng{"Weather"}\hldef{,} \hlkwc{title} \hldef{=} \hlsng{"Accidents by Weather Condition"}\hldef{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning in clock\_chart\_qlt(acdt, time = Time, crit = Weather\_Condition): No. of categories is more than 5 and may not be distinguished well. Try clock\_chart() function instead?}}\begin{alltt}
-\hlcom{# Cyclic view: average humidity by hour}
-\hldef{acdt} \hlopt{%>%}
-  \hlkwd{mutate}\hldef{(}\hlkwc{hour} \hldef{=} \hlkwd{as.numeric}\hldef{(}\hlkwd{substr}\hldef{(Time,} \hlnum{1}\hldef{,} \hlnum{2}\hldef{)))} \hlopt{%>%}
-  \hlkwd{group_by}\hldef{(hour)} \hlopt{%>%}
-  \hlkwd{summarise}\hldef{(}\hlkwc{avg_humidity} \hldef{=} \hlkwd{mean}\hldef{(Humidity...),} \hlkwc{.groups} \hldef{=} \hlsng{"drop"}\hldef{)} \hlopt{%>%}
-  \hldef{\{} \hlkwd{day_chart}\hldef{(}\hlkwc{hvalue} \hldef{= .}\hlopt{$}\hldef{avg_humidity,} \hlkwc{high} \hldef{=} \hlsng{"blue"}\hldef{,} \hlkwc{low} \hldef{=} \hlsng{"yellow"}\hldef{)} \hlopt{+}
-      \hlkwd{labs}\hldef{(}\hlkwc{title} \hldef{=} \hlsng{"Average Humidity by Hour"}\hldef{,} \hlkwc{fill} \hldef{=} \hlsng{"Humidity (%)"}\hldef{) \}}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in `day\_chart()`:\\\#\# ! hvalue must have length 24 (one per hour), but has length 16}}\end{kframe}
-\end{knitrout}
+\begin{Schunk}
+\begin{Sinput}
+R> library(tidyverse)
+R> library(clockplot)
+R> # Import data (100-row sample from Kaggle US Accidents dataset)
+R> acdt <- read.csv("https://raw.githubusercontent.com/mahmudstat/open-analysis/main/data/usacc.csv")
+R> # Basic clock chart - when do accidents happen?
+R> p1 <- clock_chart(acdt, Time, Col = "darkred")
+R> p1 + labs(title = "US Accidents: Time of Day")
+R> # Multivariate: color by temperature, size by humidity
+R> p2 <- clock_chart_qnt(acdt, time = Time, len = Humidity..., Col = Temperature.F.)
+R> p2 + labs(size = "Humidity (%)", color = "Temperature (F)",
++         title = "US Accidents: Time, Temperature & Humidity")
+R> # Facet by weather condition
+R> p3 <- clock_chart_qlt(acdt, time = Time, crit = Weather_Condition) +
++    facet_wrap(~Weather_Condition) +
++    labs(color = "Weather", title = "Accidents by Weather Condition")
+R> # Cyclic view: average humidity by hour (ensure 24 hours)
+R> humidity_by_hour <- acdt %>%
++    mutate(hour = as.numeric(substr(Time, 1, 2))) %>%
++    group_by(hour) %>%
++    summarise(avg_humidity = mean(Humidity...), .groups = "drop") %>%
++    complete(hour = 0:23, fill = list(avg_humidity = NA)) %>%
++    pull(avg_humidity)
+R> day_chart(hvalue = humidity_by_hour, high = "blue", low = "yellow") +
++    labs(title = "Average Humidity by Hour", fill = "Humidity (%)")
+\end{Sinput}
+\end{Schunk}
 
 \subsubsection*{Interpretation}
 \begin{enumerate}
