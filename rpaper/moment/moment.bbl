@@ -1,15 +1,5 @@
 \begin{thebibliography}{}
 
-\bibitem[Andrews and Stafford, 2000]{andrews2000}
-Andrews, D.~F. and Stafford, J.~E. (2000).
-\newblock {\em Symbolic Computation for Statistical Inference}.
-\newblock Oxford University Press, Oxford.
-
-\bibitem[Bishop et~al., 1975]{bish:fien:1975}
-Bishop, Y. M.~M., Fienberg, S.~E., and Holland, P.~W. (1975).
-\newblock {\em Discrete Multivariate Analyses: Theory and Practice}.
-\newblock MIT Press, Cambridge, MA.
-
 \bibitem[Blinnikov and Moessner, 1998]{blinnikov1998}
 Blinnikov, S. and Moessner, R. (1998).
 \newblock Expansions for nearly gaussian distributions.
@@ -24,11 +14,6 @@ Chan, T.~F., Golub, G.~H., and LeVeque, R.~J. (1983).
 Cram{\'e}r, H. (1946).
 \newblock {\em Mathematical Methods of Statistics}.
 \newblock Princeton University Press, Princeton, NJ.
-
-\bibitem[Di~Nardo et~al., 2008]{dinardo2008}
-Di~Nardo, E., Guarino, G., and Senato, D. (2008).
-\newblock A unified framework for tenable statistical cumulants via symbolic computations.
-\newblock {\em Journal of Symbolic Computation}, 43(5):355--373.
 
 \bibitem[Hall, 1992]{hall1992}
 Hall, P. (1992).
@@ -70,25 +55,15 @@ Mukundan, R. and Ramakrishnan, K.~R. (1998).
 \newblock {\em Moment Functions in Image Processing: Theory and Applications}.
 \newblock World Scientific, Singapore.
 
-\bibitem[Pearson, 2020]{pearson2020}
-Pearson, R.~K. (2020).
-\newblock Exploring data with the moment ratio diagram.
-\newblock {\em The American Statistician}, 74(4):400--410.
-
-\bibitem[P{\'e}bay, 2008]{pebay2008}
-P{\'e}bay, P. (2008).
-\newblock Formulas for robust, one-pass parallel computation of covariances and arbitrary-order statistical moments.
-\newblock Technical Report SAND2008-6212, Sandia National Laboratories, Albuquerque, NM.
-
 \bibitem[P{\'e}bay et~al., 2016]{pebay2016}
 P{\'e}bay, P., Terriberry, T.~B., Kolla, H., and Bennett, J. (2016).
 \newblock Numerically stable, one-pass, parallel computation of arbitrary-order statistical moments.
 \newblock {\em Computational Statistics}, 31(4):1271--1301.
 
-\bibitem[Terriberry, 2007]{terriberry2007}
-Terriberry, T.~B. (2007).
-\newblock Computing higher-order moments online.
-\newblock Technical report, Xiph.org Foundation.
+\bibitem[{R Core Team}, 2024]{rcore2024}
+{R Core Team} (2024).
+\newblock {\em R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
 
 \bibitem[Wickham, 2015]{wickham2015}
 Wickham, H. (2015).

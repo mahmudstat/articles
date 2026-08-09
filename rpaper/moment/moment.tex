@@ -6,8 +6,8 @@
   12pt]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -35,11 +35,6 @@
 \usepackage{xcolor}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
-\hypersetup{
-  pdftitle={A Generalized Binomial Framework for Moment Transformations Across Arbitrary Origins},
-  pdfauthor={Abdullah Al Mahmud},
-  hidelinks,
-  pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage{longtable,booktabs,array}
 % Correct order of tables after \paragraph or \subparagraph
@@ -67,12 +62,41 @@
 \addtolength{\textheight}{1.7in}%
 \addtolength{\topmargin}{-1in}
 
-% Anonymization switch: set \anon=1 for blind review (author hidden), \anon=0 for author version
+% ---------------------------------------------------------------------------
+% Anonymization switch: \anon=1 for blind review, \anon=0 for the author version.
+% NOTE: this now also governs PDF metadata, so the blind version leaks no name.
+% ---------------------------------------------------------------------------
 \newcommand{\anon}{1}
 
-\title{A Generalized Binomial Framework for Moment Transformations Across Arbitrary Origins}
-\author{Abdullah Al Mahmud\\
-Department of Statistics, University of Dhaka}
+% Author-supplied details that MUST be filled in before submission are wrapped
+% in \fillin{} so they are impossible to miss in the compiled PDF.
+\newcommand{\fillin}[1]{\textcolor{red}{\textbf{[FILL IN: #1]}}}
+
+% Identifying URLs: shown in the author version, replaced by a neutral
+% placeholder under blind review so the PDF text carries no author handle.
+\if0\anon
+  \newcommand{\anonurl}[2]{\url{#1}}
+\fi
+\if1\anon
+  \newcommand{\anonurl}[2]{\textcolor{red}{\textbf{[#2 --- URL withheld for blind review; deposit an anonymized mirror and cite it here]}}}
+\fi
+
+\if0\anon
+\hypersetup{
+  pdftitle={One Rule Instead of Five: A Binomial Mnemonic for Teaching Moment Transformations},
+  pdfauthor={Abdullah Al Mahmud},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\fi
+\if1\anon
+\hypersetup{
+  pdftitle={One Rule Instead of Five: A Binomial Mnemonic for Teaching Moment Transformations},
+  pdfauthor={},
+  hidelinks,
+  pdfcreator={LaTeX}}
+\fi
+
+\title{One Rule Instead of Five: A Binomial Mnemonic for Teaching Moment Transformations}
 \date{}
 
 \begin{document}
@@ -81,9 +105,9 @@ Department of Statistics, University of Dhaka}
 
 \if0\anon
 {
-  \title{\bf A Generalized Binomial Framework for Moment Transformations Across Arbitrary Origins}
+  \title{\bf One Rule Instead of Five: A Binomial Mnemonic for Teaching Moment Transformations}
   \author{Abdullah Al Mahmud \\
-  Department of Statistics, University of Dhaka}
+  Mymensingh Girls' Cadet College, Mymensingh, Bangladesh}
   \maketitle
 } \fi
 
@@ -93,72 +117,100 @@ Department of Statistics, University of Dhaka}
   \bigskip
   \bigskip
   \begin{center}
-    {\LARGE\bf A Generalized Binomial Framework for Moment Transformations Across Arbitrary Origins}
+    {\LARGE\bf One Rule Instead of Five: A Binomial Mnemonic for Teaching Moment Transformations}
   \end{center}
   \medskip
 } \fi
 
 \bigskip
 \begin{abstract}
-Statistical moments are fundamental descriptors of data and probability distributions. Transforming moments across origins traditionally relies on fragmented, order-specific algebraic expansions. We establish a unified, generalized binomial framework for transforming moments of any order $r \in \mathbb{N}$ across arbitrary initial and target origins $a \to k$. Any origin shift $b = a - k$ admits a symbolic binomial expansion, $\mu'_r(k) = (a + b)^r$, where powers $a^j$ map to the $j$-th moment $\mu'_j(a)$. This unifies raw-to-raw, raw-to-central, and central-to-raw transformations under a single operational principle. We contrast our $O(r^2)$ sample-size-independent transformation with parallel algorithms (e.g., P\'ebay, 2008) that address dataset merging across processors. Validation on theoretical (Binomial, Normal) and empirical distributions confirms numerical exactness. An R package \texttt{convmoment} provides \texttt{conv\_moment()}, \texttt{conv\_moment\_all()}, \texttt{raw2central()}, and \texttt{central2raw()}. Benchmarks show a $>250\times$ speedup over raw data recomputation for $n = 10^5$.
+Converting between raw and central moments is taught repeatedly across the statistics curriculum---from higher-secondary syllabi through graduate distribution theory---and is, at every level, taught in much the same unrewarding way: as four or five separate, order-specific algebraic formulas to be memorized or looked up, with no visible structure connecting them. This paper describes a teaching approach that replaces the whole collection with a single rule. The underlying identity---that an origin shift from $a$ to $k$ acts on moments as a binomial expansion in $b = a - k$---is classical and appears in the advanced literature \citep{kendall1977}, but it is rarely taught as the organizing principle it is. We present it as a symbolic mnemonic: write $(a + b)^r$, expand it with Pascal's triangle, and read $a^j$ as ``the $j$-th moment about $a$.'' One device then covers raw-to-raw, raw-to-central, and central-to-raw conversion at any order, for sample data and for named distributions alike. Because the rule requires only the binomial theorem and linearity of expectation, it is usable from secondary level upward without modification. We report classroom experience with higher-secondary students (classes 11--12), who applied it successfully despite having no calculus-based alternative available---the most demanding audience for the material rather than the narrowest. An accompanying R package, \texttt{convmoment}, implements the rule directly and lets students check derivations against software rather than against an answer key.
 \end{abstract}
 
 \noindent%
-{\it Keywords:} moment transformation, binomial theorem, central moments, raw moments, statistical computing, pedagogical statistics
+{\it Keywords:} statistics education, moment transformation, central moments, mnemonics, R, mathematical statistics
 \vfill
 
 \newpage
 \spacingset{1.8} % DON'T change the spacing!
 
-\section{Introduction and Literature Review}\label{sec-intro}
+\section{Introduction}\label{sec-intro}
 
-\subsection{Background and Practical Importance}
+\subsection{A Small Topic That Teaches Badly}
 
-Moments play a central role across mathematical statistics, econometrics, signal processing, and data science. Raw moments, defined relative to an arbitrary origin $a$ as $\mu'_r(a) = \mathbb{E}[(X - a)^r]$, and central moments, defined relative to the mean $\mu$ as $\mu_r = \mathbb{E}[(X - \mu)^r]$, provide fundamental structural information regarding location, scale, skewness, and kurtosis.
-
-In applied and theoretical statistics, transforming moments across different reference origins is essential in several key domains:
-\begin{enumerate}
-\item \textbf{Edgeworth and Gram-Charlier Series Expansions:} Approximating arbitrary or nearly Gaussian probability density functions requires converting higher-order central moments into standardized moments or cumulants \citep{hall1992, blinnikov1998}.
-\item \textbf{Generalized Method of Moments (GMM):} In econometrics and financial modeling, parameter estimation frequently involves matching empirical sample moments computed around arbitrary origins to theoretical population moments \citep{hansen1982}.
-\item \textbf{Image Processing and Pattern Recognition:} In computer vision, image moment invariants \citep{hu1962, mukundan1998} rely on shifting spatial origins to geometric centroids to achieve translation and scale invariance.
-\end{enumerate}
-
-\subsection{Review of Prior Art and Related Work}
-
-Despite the widespread application of moments, existing literature presents moment transformations in a fragmented and computationally inefficient manner:
-
-\begin{itemize}
-\item \textbf{Classroom and Textbook Literature:} Standard statistical textbooks \citep{cramer1946, mood1974, kendall1977, johnson1994} present separate, hardcoded algebraic formulas for converting raw moments about zero to central moments ($\mu_2 = \mu'_2 - (\mu'_1)^2$, $\mu_3 = \mu'_3 - 3\mu'_2\mu'_1 + 2(\mu'_1)^3$, etc.). These treatments lack a unified operational framework and force students and practitioners to memorize order-specific formulas or consult printed tables.
-\item \textbf{Parallel and Online Moment Algorithms:} A distinct line of research focuses on online and parallel statistical updates \citep{chan1983, terriberry2007, pebay2008, pebay2016}. These algorithms address the problem of merging two separate data subsets $A$ and $B$ across parallel computing nodes or streaming buffers. While \citet{pebay2008} provides formulas for pairwise moment aggregation, those methods solve dataset partitioning across multiple processors rather than the transformation of a single pre-computed set of moments or theoretical distribution parameters across arbitrary reference points $a \to k$.
-\item \textbf{Symbolic Computational Methods:} Advanced computer algebra systems use symbolic cumulant expansions and umbral calculus \citep{andrews2000, dinardo2008}. While mathematically elegant, these techniques require complex symbolic software engines and are rarely accessible for routine statistical computations or classroom instruction.
-\end{itemize}
-
-\subsection{Contributions and Novelty}
-
-To bridge the gap between elementary textbook formulas and complex parallel algorithms, this paper introduces a \textbf{unified, generalized binomial framework} for arbitrary moment transformations. The primary contributions of this work are:
-
-\begin{enumerate}
-\item \textbf{A Single Unified Operator:} We prove that any origin shift from $a$ to $k$ is completely characterized by the shift parameter $b = a - k$, unifying raw-to-raw, raw-to-central, and central-to-raw conversions under a single equation.
-\item \textbf{The Symbolic Binomial Mnemonic:} We introduce a symbolic operator substitution $(a + b)^r$ with $a^j \mapsto \mu'_j(a)$, enabling practitioners to construct conversion formulas of any order $r \in \mathbb{N}$ instantly using Pascal's triangle.
-\item \textbf{Sample-Size Independence:} We demonstrate that transforming pre-computed moments requires $O(r^2)$ operations independent of sample size $n$, offering a $>250\times$ speedup over recomputing sample moments directly from large datasets ($n \ge 10^5$).
-\item \textbf{Open-Source R Package:} We provide an R implementation (\texttt{convmoment}) featuring verified functions (\texttt{conv\_moment()}, \texttt{conv\_moment\_all()}, \texttt{raw2central()}, \texttt{central2raw()}).
-\end{enumerate}
-
-\section{Traditional Approach to Moment Transformations}
-
-\subsection{Raw Moments Between Arbitrary Origins}
-
-Consider transforming raw moments from an initial origin $a$ to a target origin $k$. Traditionally, this requires expressing $(x_i - k)$ as $[(x_i - a) + (a - k)]$, expanding the polynomial for each specific moment order, and distributing the summation operator over sample size $n$.
-
-\subsubsection{Numerical Example}
-
-Suppose the first three moments of a dataset about origin $a = 2$ are known to be:
+Moments are introduced early in mathematical statistics. Raw moments about an arbitrary origin $a$,
 \[
-\mu_1'(2) = -1, \quad \mu_2'(2) = 7, \quad \text{and} \quad \mu_3'(2) = 39.
+\mu'_r(a) = \mathbb{E}[(X - a)^r],
 \]
-We wish to find the corresponding first three moments about a new origin $k = 5$.
+and central moments about the mean $\mu$,
+\[
+\mu_r = \mathbb{E}[(X - \mu)^r],
+\]
+carry the structural information behind location, scale, skewness, and kurtosis, and moving between them is a routine operation. The topic recurs across the curriculum at very different levels of sophistication. It appears in secondary and higher-secondary syllabi wherever moments, skewness, and kurtosis are taught descriptively; it reappears in undergraduate distribution theory in expectation form; and it is used without comment in graduate work whenever variance is obtained from $\mathbb{E}[X^2]$, whenever skewness or kurtosis is formed, or whenever moment-based estimators are derived.
 
-\paragraph{1. First Moment Transformation ($r = 1$)}
+That recurrence matters for what follows. The conversion is taught more than once, to audiences with very different mathematical equipment, and---as we argue below---it is taught badly in much the same way each time.
+
+The topic is elementary, but in the author's experience it teaches poorly. The standard presentation gives a list:
+\begin{align*}
+\mu_2 &= \mu_2'(a) - \left[\mu_1'(a)\right]^2 \\[4pt]
+\mu_3 &= \mu_3'(a) - 3\mu_2'(a)\mu_1'(a) + 2\left[\mu_1'(a)\right]^3 \\[4pt]
+\mu_4 &= \mu_4'(a) - 4\mu_3'(a)\mu_1'(a) + 6\mu_2'(a)\left[\mu_1'(a)\right]^2 - 3\left[\mu_1'(a)\right]^4 \\[4pt]
+\mu_5 &= \mu_5'(a) - 5\mu_4'(a)\mu_1'(a) + 10\mu_3'(a)\left[\mu_1'(a)\right]^2 \\[2pt]
+      &\qquad - 10\mu_2'(a)\left[\mu_1'(a)\right]^3 + 4\left[\mu_1'(a)\right]^5.
+\end{align*}
+Nothing in this display tells a student where the coefficients $3, 2$ or $4, 6, 3$ or $5, 10, 10, 4$ come from, why the signs alternate, or how to write down the next line. The formulas are typically presented in this form in widely used texts \citep{cramer1946, mood1974, johnson1994}. A student who forgets one has no route back to it except a table. A student who needs $\mu_6$, or who needs to shift to an origin that is not the mean, is simply stuck.
+
+This is a familiar failure mode: a set of results that are individually correct, collectively unmemorable, and presented without the structure that generates them. The predictable consequences are that students treat moment conversion as lookup rather than derivation, that algebra errors in the higher-order expansions go undetected, and that the connection between ``shifting the origin'' and ``re-expanding a polynomial'' is never made explicit.
+
+\subsection{What This Paper Does---and Does Not---Claim}
+
+We describe a way of teaching this material in which the five formulas above are replaced by one rule that generates all of them, at any order, for any pair of origins.
+
+We want to be clear at the outset about the status of the underlying mathematics. \textbf{The identity is classical.} That a change of origin acts on moments through a binomial expansion follows immediately from the binomial theorem, and the relation appears in the standard advanced reference literature \citep{kendall1977} and is implicit in any treatment that derives the conversion formulas at all. It is also what general-purpose moment software computes internally. We claim no new theorem, and the paper should not be read as offering one.
+
+The contribution is pedagogical, and consists of three parts:
+
+\begin{enumerate}
+\item \textbf{A mnemonic that makes the rule usable at the board.} Recasting the identity as the symbolic expansion $(a+b)^r$ with the substitution $a^j \mapsto \mu'_j(a)$ turns a formula students must recall into a procedure they can execute with Pascal's triangle. This framing, rather than the identity itself, is what makes the material teachable.
+\item \textbf{A single organizing parameter.} Introducing the origin shift $b = a - k$ collapses what textbooks present as three distinct topics---raw-to-raw, raw-to-central, and central-to-raw conversion---into one operation with three choices of $b$. Students learn one thing instead of three.
+\item \textbf{Software that mirrors the derivation.} The R package \texttt{convmoment} implements the rule in the same form in which it is taught, so students can verify their own hand derivations at any order rather than checking against printed answers.
+\end{enumerate}
+
+Section~\ref{sec-traditional} sets out the standard treatment and diagnoses precisely where it loses students. Section~\ref{sec-rule} develops the single rule and the mnemonic. Section~\ref{sec-classroom} reports classroom experience. Section~\ref{sec-dist} shows the same device applied to named distributions, where it replaces repeated differentiation of moment generating functions. Section~\ref{sec-software} describes the R package and how it is used in assignments. Section~\ref{sec-discussion} discusses what the approach does not fix, including a numerical caution that is itself worth teaching.
+
+\subsection{Why the Approach Is Level-Independent}\label{sec-levels}
+
+The proposal is deliberately not tied to a particular stage of the curriculum, and it is worth saying why, since the argument is structural rather than merely optimistic.
+
+The rule has exactly two prerequisites: the binomial expansion of $(a+b)^r$, and the fact that expectation---or, at a more elementary level, averaging---is linear. Both are available well before moments are introduced. The binomial theorem is standard secondary-school algebra, and Pascal's triangle is typically the form in which students first meet it. Nothing in the rule requires calculus, generating functions, or measure-theoretic expectation. The ceiling is equally open: the same expansion is what one wants at graduate level, where it composes with cumulant machinery and extends to the multivariate case.
+
+This gives the approach an unusual property for a teaching device. It is not a simplification that must be unlearned later, and it is not an advanced technique retrofitted downward. It is the same rule throughout, and a student who meets it at secondary level meets the object they will keep using. What changes with level is only the surrounding motivation and how far the rule is pushed---not the rule.
+
+The classroom experience we report in Section~\ref{sec-classroom} comes from the lower end of that range, with students at higher-secondary level. We regard that as the more demanding test rather than a narrower one: it is the audience with the least mathematical equipment, and an approach that succeeds there has cleared the harder bar. We do not, however, present it as evidence about undergraduate or graduate instruction, where the argument above is structural and untested.
+
+\subsection{Where the Skill Is Needed Later}
+
+It is worth telling students that this is not a self-contained exercise, though the motivation an instructor reaches for will depend on the audience.
+
+For students meeting moments descriptively, the persuasive case is usually internal to the syllabus: skewness and kurtosis are defined through central moments, computation is almost always easier about a convenient origin than about the mean, and the origin shift is what connects the two. In our own teaching this---rather than any downstream application---is what makes the rule feel worth having.
+
+For more advanced audiences, origin shifts on moments recur throughout applied statistics: in Edgeworth and Gram--Charlier expansions, where higher-order central moments must be converted to standardized moments or cumulants \citep{hall1992, blinnikov1998}; in the generalized method of moments, where sample moments computed about convenient origins are matched to population moments \citep{hansen1982}; and in image analysis, where moment invariants are obtained by shifting the spatial origin to the centroid \citep{hu1962, mukundan1998}. The last of these makes an especially direct point: translation invariance \emph{is} an origin shift.
+
+\section{The Standard Treatment and Where It Fails}\label{sec-traditional}
+
+\subsection{The Derivation as Usually Presented}
+
+Consider transforming raw moments from an initial origin $a$ to a target origin $k$. The textbook route writes $(x_i - k)$ as $[(x_i - a) + (a - k)]$, expands for the specific order required, and distributes the summation.
+
+\subsubsection{A Worked Example}
+
+Suppose the first three moments of a dataset about origin $a = 2$ are
+\[
+\mu_1'(2) = -1, \quad \mu_2'(2) = 7, \quad \text{and} \quad \mu_3'(2) = 39,
+\]
+and the corresponding moments about $k = 5$ are wanted.
+
+\paragraph{First moment ($r = 1$)}
 \begin{align*}
 \mu_1'(5) &= \frac{1}{n} \sum_{i=1}^n (x_i - 5)
            = \frac{1}{n} \sum_{i=1}^n \left[(x_i - 2) - 3\right] \\
@@ -166,7 +218,7 @@ We wish to find the corresponding first three moments about a new origin $k = 5$
            = \mu_1'(2) - 3 = -1 - 3 = -4.
 \end{align*}
 
-\paragraph{2. Second Moment Transformation ($r = 2$)}
+\paragraph{Second moment ($r = 2$)}
 \begin{align*}
 \mu_2'(5) &= \frac{1}{n} \sum_{i=1}^n (x_i - 5)^2
            = \frac{1}{n} \sum_{i=1}^n \left[(x_i - 2) - 3\right]^2 \\
@@ -175,7 +227,7 @@ We wish to find the corresponding first three moments about a new origin $k = 5$
            = 7 - 6(-1) + 9 = 22.
 \end{align*}
 
-\paragraph{3. Third Moment Transformation ($r = 3$)}
+\paragraph{Third moment ($r = 3$)}
 \begin{align*}
 \mu_3'(5) &= \frac{1}{n} \sum_{i=1}^n (x_i - 5)^3
            = \frac{1}{n} \sum_{i=1}^n \left[(x_i - 2) - 3\right]^3 \\
@@ -184,61 +236,63 @@ We wish to find the corresponding first three moments about a new origin $k = 5$
           &= 39 - 9(7) + 27(-1) - 27 = -78.
 \end{align*}
 
-While straightforward for low orders, deriving transformations for order $r \ge 4$ using this approach requires expanding higher-degree polynomials manually, increasing the likelihood of algebraic errors.
+\subsection{Diagnosing the Difficulty}
 
-\subsection{Traditional Raw-to-Central Transformations}
+Worked at the board, this is unobjectionable. The difficulty is what students take away from it.
 
-When converting raw moments about an arbitrary origin $a$ to central moments $\mu_r$ (where target origin $k = \bar{x} = \mu'_1(a) + a$), standard textbooks prescribe fixed formulas:
-\begin{align*}
-\mu_1 &= 0 \\[4pt]
-\mu_2 &= \mu_2'(a) - \left[\mu_1'(a)\right]^2 \\[4pt]
-\mu_3 &= \mu_3'(a) - 3\mu_2'(a)\mu_1'(a) + 2\left[\mu_1'(a)\right]^3 \\[4pt]
-\mu_4 &= \mu_4'(a) - 4\mu_3'(a)\mu_1'(a) + 6\mu_2'(a)\left[\mu_1'(a)\right]^2 - 3\left[\mu_1'(a)\right]^4 \\[4pt]
-\mu_5 &= \mu_5'(a) - 5\mu_4'(a)\mu_1'(a) + 10\mu_3'(a)\left[\mu_1'(a)\right]^2 - 10\mu_2'(a)\left[\mu_1'(a)\right]^3 + 4\left[\mu_1'(a)\right]^5.
-\end{align*}
+First, \textbf{the structure is present but invisible}. The coefficients $1, -6, 9$ and $1, -9, 27, -27$ are binomial coefficients times powers of the shift, but because the shift is buried inside the summation and the expansion is done afresh each time, students see three unrelated computations rather than one pattern instantiated three times. In our experience, asking a class what $r=4$ would look like after this presentation produces hesitation, not extrapolation.
 
-These formulas lack a structural pattern that students or practitioners can easily reconstruct without explicit memorization.
+Second, \textbf{the cost grows with order while the insight does not}. Deriving the case $r \ge 4$ by hand means expanding a higher-degree polynomial, and the probability of an algebra slip rises accordingly. Students spend their effort on expansion mechanics, which is not what the topic is meant to teach.
 
-\section{The Proposed Generalized Binomial Method}
+Third, \textbf{the special cases look unrelated}. Conversion to central moments is presented as its own topic with its own formulas (the display in Section~\ref{sec-intro}), rather than as the same operation with the origin chosen to be $\bar{x}$. A student who has learned both has learned two things and knows of no reason they should be connected.
 
-\subsection{Theoretical Derivation}
+The approach in the next section addresses all three: it exposes the pattern, makes the cost of higher orders negligible, and makes the special cases visibly special cases.
 
-Let $a$ denote the initial origin and $k$ denote the target origin. Define the \textbf{origin shift} $b$ as:
+\section{One Rule for Every Conversion}\label{sec-rule}
+
+\subsection{The Identity}
+
+Let $a$ be the initial origin and $k$ the target origin, and define the \textbf{origin shift}
 \[
 b = a - k.
 \]
-For any random variable $X$, the deviation from target origin $k$ can be decomposed as:
+For any random variable $X$,
 \[
-X - k = (X - a) + (a - k) = (X - a) + b.
+X - k = (X - a) + (a - k) = (X - a) + b,
 \]
-Raising both sides to the power of $r \in \mathbb{N}$ and applying the binomial theorem yields:
+so raising to the power $r \in \mathbb{N}$ and applying the binomial theorem gives
 \[
-(X - k)^r = \sum_{j=0}^r \binom{r}{j} (X - a)^j b^{r-j}.
+(X - k)^r = \sum_{j=0}^r \binom{r}{j} (X - a)^j b^{r-j},
 \]
-Taking the expectation $\mathbb{E}[\cdot]$ on both sides:
+and taking expectations term by term,
 \[
 \mathbb{E}[(X - k)^r] = \sum_{j=0}^r \binom{r}{j} \mathbb{E}[(X - a)^j] b^{r-j}.
 \]
-Since $\mathbb{E}[(X - a)^j] = \mu'_j(a)$ and defining $\mu'_0(a) \equiv 1$, we obtain the \textbf{Generalized Binomial Moment Transformation Theorem}:
+With $\mathbb{E}[(X - a)^j] = \mu'_j(a)$ and the convention $\mu'_0(a) \equiv 1$:
 
 \begin{quote}
-\textbf{Theorem 1 (Generalized Binomial Transformation).}\\
-\emph{For any initial origin $a$, target origin $k$, and origin shift $b = a - k$, the $r^{\text{th}}$ moment about $k$ is given by:}
+\textbf{The origin-shift rule.}\\
+\emph{For any initial origin $a$, target origin $k$, and origin shift $b = a - k$,}
 \[
 \mu'_r(k) = \sum_{j=0}^r \binom{r}{j} \mu'_j(a) \, b^{r-j}.
 \]
 \end{quote}
 
-\subsection{The Symbolic Binomial Operator and Pascal's Triangle}
+As noted in Section~\ref{sec-intro}, this is a classical result rather than a new one; see \citet{kendall1977} for the standard reference treatment. The derivation above is three lines and uses only the binomial theorem and linearity of expectation, both of which students already have. That it is short is the point: it can be re-derived at the board in the time it takes to look up a table, which is what makes it safe for students to stop memorizing the special cases.
 
-A powerful mnemonic representation of Theorem 1 is obtained by introducing a symbolic operator substitution:
+\subsection{The Mnemonic}
+
+The rule as displayed is still a summation formula, and summation formulas are not what students reach for under exam conditions. The device we actually teach is the symbolic substitution
 \[
-\mu'_r(k) \equiv (a + b)^r \quad \text{with the substitution } a^j \mapsto \mu'_j(a) \text{ and } a^0 \equiv 1.
+\mu'_r(k) \equiv (a + b)^r \quad \text{with } a^j \mapsto \mu'_j(a) \text{ and } a^0 \equiv 1.
 \]
-Expanding $(a + b)^r$ using standard binomial coefficients directly yields the required conversion formula:
+That is: \emph{write down the binomial expansion of $(a+b)^r$ exactly as in secondary-school algebra, then read every power $a^j$ as ``the $j$-th moment about $a$.''} The coefficients come from Pascal's triangle, which students already know and can regenerate if they forget.
+
+Table~\ref{tab:mnemonic} shows the result for orders 1 through 5.
 
 \begin{table}[htbp]
 \centering
+\footnotesize
 \begin{tabular}{@{}ccl@{}}
 \toprule
 Moment Order ($r$) & Symbolic Binomial Form & Explicit Moment Formula ($\mu'_r(k)$) \\
@@ -250,10 +304,11 @@ Moment Order ($r$) & Symbolic Binomial Form & Explicit Moment Formula ($\mu'_r(k
 5 & $(a + b)^5$ & $\mu'_5(a) + 5\mu'_4(a)b + 10\mu'_3(a)b^2 + 10\mu'_2(a)b^3 + 5\mu'_1(a)b^4 + b^5$ \\
 \bottomrule
 \end{tabular}
-\caption{Symbolic binomial expansion for moment orders 1--5.}
+\caption{The symbolic mnemonic for moment orders 1--5. Students write the middle column from Pascal's triangle and translate it into the right column by reading $a^j$ as $\mu'_j(a)$.}
+\label{tab:mnemonic}
 \end{table}
 
-The numerical coefficients are directly read from \textbf{Pascal's Triangle}:
+The coefficients are read directly from Pascal's triangle:
 \[
 \begin{array}{c}
 1 \\
@@ -265,131 +320,147 @@ The numerical coefficients are directly read from \textbf{Pascal's Triangle}:
 \end{array}
 \]
 
-\subsection{Matrix Formulation}
+A point worth making explicitly in class: the alternating signs that make the textbook central-moment formulas look arbitrary are not part of the rule at all. They appear because the raw-to-central case has $b = -\mu'_1(a)$, so odd powers of $b$ carry a minus sign. Once students see that, the sign pattern stops being something to remember.
 
-For computational implementations, Theorem 1 can be expressed concisely as a matrix-vector product. Let
+\subsection{Three Conversions, One Operation}
+
+The single parameter $b = a - k$ covers every case students meet:
+
+\begin{enumerate}
+\item \textbf{Raw-to-raw.} $b = a - k$ for arbitrary origins $a$ and $k$.
+\item \textbf{Raw-to-central.} The target origin is the mean, $k = \bar{x} = \mu'_1(a) + a$, so
+$b = a - (\mu'_1(a) + a) = -\mu'_1(a)$. When the initial origin is zero this is just $b = -\bar{x}$.
+\item \textbf{Central-to-raw.} The initial origin is the mean, $a = \bar{x}$, and the target is $k = 0$, so $b = \bar{x}$.
+\end{enumerate}
+
+Presenting these as a single slide, immediately after the mnemonic, is where the approach earns its keep: three chapters' worth of formulas reduce to three choices of one parameter.
+
+\subsection{The Example Redone}
+
+Returning to $a = 2$, $k = 5$, with $\mu'_1(2) = -1$, $\mu'_2(2) = 7$, $\mu'_3(2) = 39$, we have $b = 2 - 5 = -3$ and
+
+\begin{enumerate}
+\item $\mu_1'(5) = \mu_1'(2) + b = -1 + (-3) = -4$.
+\item $\mu_2'(5) = \mu_2'(2) + 2\mu_1'(2)b + b^2 = 7 + 2(-1)(-3) + (-3)^2 = 7 + 6 + 9 = 22$.
+\item $\mu_3'(5) = \mu_3'(2) + 3\mu_2'(2)b + 3\mu_1'(2)b^2 + b^3 = 39 + 3(7)(-3) + 3(-1)(-3)^2 + (-3)^3 = 39 - 63 - 27 - 27 = -78.$
+\end{enumerate}
+
+The answers match Section~\ref{sec-traditional}, as they must, but no polynomial was expanded and no summation was distributed. Extending to $r = 6$ requires reading one more row of Pascal's triangle.
+
+\subsection{The Matrix Form}
+
+For students who have had linear algebra, the rule has a compact matrix statement that is worth showing as a coda. Writing
 $\boldsymbol{\mu}'(a) = \left[1, \mu'_1(a), \mu'_2(a), \dots, \mu'_K(a)\right]^T$
-be the column vector of moments up to order $K$. Then:
+for the vector of moments up to order $K$,
 \[
 \boldsymbol{\mu}'(k) = \mathbf{C}_b \, \boldsymbol{\mu}'(a),
-\]
-where $\mathbf{C}_b$ is a lower-triangular transformation matrix of dimension $(K+1) \times (K+1)$ with entries:
-\[
+\qquad
 [\mathbf{C}_b]_{r, j} = \begin{cases}
 \dbinom{r}{j} b^{r-j} & \text{for } 0 \le j \le r \le K, \\[6pt]
-0 & \text{otherwise.}
+0 & \text{otherwise,}
 \end{cases}
 \]
+so $\mathbf{C}_b$ is lower triangular of dimension $(K+1) \times (K+1)$. Two facts follow immediately and make good exercises: $\mathbf{C}_b^{-1} = \mathbf{C}_{-b}$, so inverting a conversion means negating the shift; and $\mathbf{C}_{b_1}\mathbf{C}_{b_2} = \mathbf{C}_{b_1 + b_2}$, so successive origin shifts compose additively. Neither is obvious from the textbook formula lists.
 
-\subsection{Unified Transformation Paradigm}
+This subsection is intended for audiences that have had linear algebra and is not part of the minimum presentation; it is omitted entirely in the secondary-level teaching described in Section~\ref{sec-classroom}. It is included here because it shows what the rule becomes at a higher level---the same content, restated---which is the level-independence claim of Section~\ref{sec-levels} made concrete.
 
-The generalized origin shift $b = a - k$ encapsulates all common moment conversions:
+\section{Classroom Experience}\label{sec-classroom}
 
-\begin{enumerate}
-\item \textbf{Raw-to-Raw Conversion:} $b = a - k$, where $a$ and $k$ are arbitrary initial and final origins.
-\item \textbf{Raw-to-Central Conversion:} Initial origin is $a$ (often $a=0$). The target origin is the mean $k = \bar{x} = \mu'_1(a) + a$. Hence, $b = a - (\mu'_1(a) + a) = -\mu'_1(a)$.
-\item \textbf{Central-to-Raw Conversion:} Initial origin is the mean $a = \bar{x}$. The target origin is $k = 0$. Hence, $b = \bar{x} - 0 = \mu'_1(0)$.
-\end{enumerate}
+\subsection{Setting}
 
-\subsection{Re-Evaluating the Numerical Example}
+The approach has been used by the author in higher-secondary teaching (classes 11--12) at a residential secondary institution in Bangladesh,\footnote{Institution named in the non-anonymized version.} within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. The cohort was \fillin{approximate class size} students, taught over \fillin{number of terms or years you have used it---if more than one cohort, say so, as repeated use across cohorts is stronger than a single instance}.
 
-Returning to our previous numerical example where $a = 2, k = 5, \mu'_1(2) = -1, \mu'_2(2) = 7, \mu'_3(2) = 39$:
+The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had not previously been shown the origin-shift rule; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
+
+This is the least-equipped audience the material is normally taught to, which is why we regard it as an informative test rather than a limited one (Section~\ref{sec-levels}). In particular, these students had no calculus-based route to the same results: the generating-function derivations of Section~\ref{sec-dist} were unavailable to them, so the origin-shift rule was not a shortcut past a method they already had---it was the only method they had.
+
+The material was delivered in \fillin{number} class session(s), structured as in Sections~\ref{sec-traditional} and \ref{sec-rule}: the conventional derivation first, then why the formula list is hard to retain, then the rule and the mnemonic, then the three cases of $b$. The slides used are publicly available (Section~\ref{sec-supp}); the instruction they give students, stated on the slide itself, is simply \emph{do not memorize}.
+
+\subsection{What Students Did}
+
+\fillin{Describe the actual task set. The specific thing worth reporting, if it happened, is students correctly producing a conversion at an order NOT shown in class---that is the claim the mnemonic makes, and it is what distinguishes the result from ``students followed a worked example''. If they only reproduced orders covered in lecture, say that instead; it is a weaker but still reportable observation.}
+
+The author's observation was that students applied the transformation without substantial difficulty. \fillin{Add what you can honestly report: roughly what proportion worked unaided; whether errors were in the mnemonic itself or in arithmetic; whether students needed prompting to identify the correct $b$ in the central-moment case; whether retention was visible later in the term, e.g. on an examination item.}
+
+We state plainly that this is informal classroom experience, not a study. There was no comparison group, no randomization, no validated instrument, and the observations are the instructor's own and were not recorded for research purposes at the time. \fillin{If any assessment data exist---examination items on this topic, assignment marks, anything comparing cohorts before and after the change in approach---report them here and keep the caveat. If none exist, retain this paragraph as written.} We report the experience because it was consistent and because the mechanism is plausible on its face: the mnemonic replaces recall of several unrelated formulas with execution of one procedure students already possess. We would not want it read as an effect size, and Section~\ref{sec-discussion} says what a proper evaluation would require.
+
+\subsection{What Gave Students Trouble}
+
+\fillin{Please complete this subsection---a pedagogy paper reporting only success reads as promotional, and reviewers look for it. Genuine sticking points implied by the structure of the material: (i) getting the sign of $b$ backwards, since $b = a - k$ and not $k - a$; (ii) forgetting the $\mu'_0 \equiv 1$ convention and so dropping the final $b^r$ term; (iii) in the raw-to-central case, not seeing that $b$ depends on the data through $\mu'_1(a)$ rather than being a free constant. If these occurred, say so and say how you handled them; if something else did, report that instead.}
+
+\section{The Same Rule for Named Distributions}\label{sec-dist}
+
+A useful feature of the rule for teaching is that it is not a data-handling trick: it applies unchanged to theoretical distributions, where it replaces repeated differentiation of moment generating functions. Showing this immediately after the sample-data case reinforces that moments are properties of distributions, not of datasets.
+
+\subsection{The Binomial Distribution}
+
+Let $X \sim \text{Bin}(m, p)$; we write the number of trials as $m$ rather than $n$ to keep it distinct from sample size. The moment generating function is $M_X(t) = \left(1 - p + p e^t\right)^m$, from which
 \[
-b = a - k = 2 - 5 = -3.
+\mu'_1(0) = mp, \qquad \mu'_2(0) = mp(1-p) + m^2p^2 .
 \]
 
-Applying the symbolic expansion:
+\subsubsection{The MGF Route to Central Moments}
+
+To obtain central moments directly from the generating function, one differentiates
+$M_{X-\mu}(t) = e^{-mpt} (1 - p + p e^t)^m$.
+For $\mu_2$ this is manageable. For $\mu_3$ it requires the third derivative of a product of two functions, each of which is itself a composition---three applications of the product rule with the chain rule inside each, evaluated at $t = 0$. The algebra is several lines long and is, in our experience, where students abandon the derivation.
+
+\subsubsection{The Origin-Shift Route}
+
+The rule needs only the raw moments and the shift. Here $a = 0$, $k = \mu = mp$, so $b = -mp$.
 
 \begin{enumerate}
-\item \textbf{First Moment:} $\mu_1'(5) = \mu_1'(2) + b = -1 + (-3) = -4$.
-\item \textbf{Second Moment:} $\mu_2'(5) = \mu_2'(2) + 2\mu_1'(2)b + b^2 = 7 + 2(-1)(-3) + (-3)^2 = 7 + 6 + 9 = 22$.
-\item \textbf{Third Moment:} $\mu_3'(5) = \mu_3'(2) + 3\mu_2'(2)b + 3\mu_1'(2)b^2 + b^3 = 39 + 3(7)(-3) + 3(-1)(-3)^2 + (-3)^3 = 39 - 63 - 27 - 27 = -78$.
-\end{enumerate}
-
-The calculations are completed in seconds without manual algebraic expansion.
-
-\section{Moment Transformations in Named Probability Distributions}
-
-The generalized binomial method applies equally to theoretical probability distributions.
-
-\subsection{Discrete Distribution: Binomial Distribution $X \sim \text{Bin}(n, p)$}
-
-\subsubsection{Traditional MGF Approach}
-
-The moment generating function of $X \sim \text{Bin}(n, p)$ is
-$M_X(t) = \left(1 - p + p e^t\right)^n$. Differentiating $M_X(t)$ at
-$t=0$ yields:
-\[
-\mu'_1(0) = np, \quad \text{and} \quad \mu'_2(0) = np(1-p) + n^2p^2.
-\]
-To evaluate central moments using MGFs, one must differentiate
-$M_{X-\mu}(t) = e^{-npt} (1 - p + p e^t)^n$, requiring nested
-applications of the product rule:
-\[
-\left. \frac{d}{dt} M_{X-\mu}(t) \right|_{t=0} = (-np)(1) + (1)(np) = 0.
-\]
-
-\subsubsection{Generalized Binomial Approach}
-
-Using our framework:
-\begin{itemize}
-\item Initial origin $a = 0$.
-\item Target origin $k = \mu = np$.
-\item Origin shift $b = a - k = 0 - np = -np$.
-\end{itemize}
-
-\begin{enumerate}
-\item \textbf{First Central Moment ($\mu_1$):} $\mu_1 = \mu_1'(0) + b = np + (-np) = 0$.
-\item \textbf{Second Central Moment ($\mu_2$ - Variance):}
+\item \textbf{First central moment.} $\mu_1 = \mu_1'(0) + b = mp - mp = 0$.
+\item \textbf{Second central moment (the variance).}
 \begin{align*}
 \mu_2 &= \mu_2'(0) + 2\mu_1'(0)b + b^2 \\
-      &= \left[np(1-p) + n^2p^2\right] + 2(np)(-np) + (-np)^2 \\
-      &= np - np^2 + n^2p^2 - 2n^2p^2 + n^2p^2 = np(1-p).
+      &= \left[mp(1-p) + m^2p^2\right] + 2(mp)(-mp) + (-mp)^2 \\
+      &= mp - mp^2 + m^2p^2 - 2m^2p^2 + m^2p^2 = mp(1-p).
 \end{align*}
-\item \textbf{Third Central Moment ($\mu_3$):} Given
-$\mu'_3(0) = np - 3np^2 + 3n^2p^2 + 2np^3 - 3n^2p^3 + n^3p^3$:
+\item \textbf{Third central moment.} With
+$\mu'_3(0) = mp - 3mp^2 + 3m^2p^2 + 2mp^3 - 3m^2p^3 + m^3p^3$,
 \begin{align*}
 \mu_3 &= \mu'_3(0) + 3\mu'_2(0)b + 3\mu'_1(0)b^2 + b^3 \\
-      &= \left(np - 3np^2 + 3n^2p^2 + 2np^3 - 3n^2p^3 + n^3p^3\right) \\
-      &\quad + 3\left(np - np^2 + n^2p^2\right)(-np) + 3(np)(-np)^2 + (-np)^3 \\
-      &= np(1-p)(1-2p).
+      &= \left(mp - 3mp^2 + 3m^2p^2 + 2mp^3 - 3m^2p^3 + m^3p^3\right) \\
+      &\quad + 3\left(mp - mp^2 + m^2p^2\right)(-mp) + 3(mp)(-mp)^2 + (-mp)^3 \\
+      &= mp(1-p)(1-2p).
 \end{align*}
 \end{enumerate}
 
-\subsection{Continuous Distribution: Normal Distribution $X \sim \mathcal{N}(\mu, \sigma^2)$}
+The third central moment, which is a genuine chore by the generating-function route, is one line of substitution here.
 
-The raw moments about zero and central moments of the Normal distribution are:
+\subsection{The Normal Distribution}
+
+Table~\ref{tab:normal} gives the raw and central moments of $X \sim \mathcal{N}(\mu, \sigma^2)$ through order four.
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{@{}ccccc@{}}
+\begin{tabular}{@{}ccc@{}}
 \toprule
-Order ($r$) & Raw Moment Notation & Raw Moment Value ($\mu'_r(0)$) & Central Moment Notation & Central Moment Value ($\mu_r$) \\
+Order ($r$) & Raw moment $\mu'_r(0)$ & Central moment $\mu_r$ \\
 \midrule
-1 & $\mu'_1$ & $\mu$ & $\mu_1$ & $0$ \\
-2 & $\mu'_2$ & $\mu^2 + \sigma^2$ & $\mu_2$ & $\sigma^2$ \\
-3 & $\mu'_3$ & $\mu^3 + 3\mu\sigma^2$ & $\mu_3$ & $0$ \\
-4 & $\mu'_4$ & $\mu^4 + 6\mu^2\sigma^2 + 3\sigma^4$ & $\mu_4$ & $3\sigma^4$ \\
+1 & $\mu$ & $0$ \\
+2 & $\mu^2 + \sigma^2$ & $\sigma^2$ \\
+3 & $\mu^3 + 3\mu\sigma^2$ & $0$ \\
+4 & $\mu^4 + 6\mu^2\sigma^2 + 3\sigma^4$ & $3\sigma^4$ \\
 \bottomrule
 \end{tabular}
-\caption{Raw and central moments of the Normal distribution.}
+\caption{Raw and central moments of the Normal distribution through order four.}
+\label{tab:normal}
 \end{table}
 
-\subsubsection{Raw-to-Central Derivation ($b = 0 - \mu = -\mu$)}
+\subsubsection{Raw to Central ($b = 0 - \mu = -\mu$)}
 
 \begin{enumerate}
-\item \textbf{First Central Moment:} $\mu_1 = \mu'_1 + b = \mu - \mu = 0$.
-\item \textbf{Second Central Moment:}
-\[
-\mu_2 = \mu'_2 + 2\mu'_1 b + b^2 = (\mu^2 + \sigma^2) + 2\mu(-\mu) + (-\mu)^2 = \sigma^2.
-\]
-\item \textbf{Third Central Moment:}
+\item $\mu_1 = \mu'_1 + b = \mu - \mu = 0$.
+\item $\mu_2 = \mu'_2 + 2\mu'_1 b + b^2 = (\mu^2 + \sigma^2) + 2\mu(-\mu) + (-\mu)^2 = \sigma^2$.
+\item Third:
 \begin{align*}
 \mu_3 &= \mu'_3 + 3\mu'_2 b + 3\mu'_1 b^2 + b^3 \\
       &= (\mu^3 + 3\mu\sigma^2) + 3(\mu^2 + \sigma^2)(-\mu) + 3\mu(-\mu)^2 + (-\mu)^3 \\
       &= \mu^3 + 3\mu\sigma^2 - 3\mu^3 - 3\mu\sigma^2 + 3\mu^3 - \mu^3 = 0.
 \end{align*}
-\item \textbf{Fourth Central Moment:}
+\item Fourth:
 \begin{align*}
 \mu_4 &= \mu'_4 + 4\mu'_3 b + 6\mu'_2 b^2 + 4\mu'_1 b^3 + b^4 \\
       &= (\mu^4 + 6\mu^2\sigma^2 + 3\sigma^4) + 4(\mu^3 + 3\mu\sigma^2)(-\mu) + 6(\mu^2 + \sigma^2)(-\mu)^2 + 4\mu(-\mu)^3 + (-\mu)^4 \\
@@ -398,21 +469,22 @@ Order ($r$) & Raw Moment Notation & Raw Moment Value ($\mu'_r(0)$) & Central Mom
 \end{align*}
 \end{enumerate}
 
-\subsubsection{Central-to-Raw Derivation ($b = \mu - 0 = \mu$)}
+\subsubsection{Central to Raw ($b = \mu - 0 = \mu$)}
 
-Converting central moments back to raw moments about zero ($a = \mu, k = 0, b = \mu$):
+Running the same rule in the other direction, with $a = \mu$, $k = 0$, $b = \mu$:
 \begin{align*}
 \mu'_1(0) &= \mu_1 + b = 0 + \mu = \mu, \\
 \mu'_2(0) &= \mu_2 + 2\mu_1 b + b^2 = \sigma^2 + 0 + \mu^2 = \mu^2 + \sigma^2, \\
 \mu'_3(0) &= \mu_3 + 3\mu_2 b + 3\mu_1 b^2 + b^3 = 0 + 3\sigma^2\mu + 0 + \mu^3 = \mu^3 + 3\mu\sigma^2, \\
 \mu'_4(0) &= \mu_4 + 4\mu_3 b + 6\mu_2 b^2 + 4\mu_1 b^3 + b^4 = 3\sigma^4 + 0 + 6\sigma^2\mu^2 + 0 + \mu^4 = \mu^4 + 6\mu^2\sigma^2 + 3\sigma^4.
 \end{align*}
+That the same device runs in both directions, with only the sign of $b$ changed, is worth pausing on in class---it is the $\mathbf{C}_b^{-1} = \mathbf{C}_{-b}$ property made concrete.
 
-\section{Computational Implementation in R and Benchmarking}
+\section{Software Support: the \texttt{convmoment} Package}\label{sec-software}
 
-\subsection{R Package Implementation (\texttt{convmoment})}
+\subsection{Design}
 
-We implement the generalized binomial moment conversion framework in R \citep{wickham2015}. The function \texttt{conv\_moment()} computes the converted moment of order $r$, while \texttt{conv\_moment\_all()} converts a vector of moments of orders $1 \dots K$ across any initial origin $a$ and target origin $k$.
+We provide an R package, \texttt{convmoment}, implementing the rule in R \citep{rcore2024}; the package was developed following standard practice for R package structure and documentation \citep{wickham2015}. The design goal is pedagogical rather than computational: the code is written to look like the rule as taught, so that a student reading the source sees the same three ingredients---binomial coefficients, moments, powers of $b$---that they used by hand.
 
 \begin{verbatim}
 conv_moment <- function(x, a, k, r) {
@@ -438,62 +510,57 @@ central2raw <- function(central_moments, mean_val) {
 }
 \end{verbatim}
 
-\subsection{Empirical Validation on Sample Data}
+The arguments follow the notation of Section~\ref{sec-rule}: \texttt{x} is the vector of moments of orders $1, \dots, K$ about the initial origin \texttt{a}, and \texttt{k} is the target origin. Note that \texttt{central2raw()} expects its input to begin with $\mu_1 = 0$, so that the vector indexing matches the orders.
 
-We validate the package functions using sample data $X = (20, 25, 29, 32, 40)$.
+\subsection{Use in Assignments}
 
-\begin{enumerate}
-\item Compute direct raw moments about 0 (orders 1 to 5).
-\item Compute direct central moments about mean.
-\item Convert raw to central using \texttt{conv\_moment\_all}.
-\item Convert central back to raw about 0.
-\end{enumerate}
+The package changes what can be asked of students. Because the rule extends to any order at no extra cost, an assignment can require a derivation at an order that appears in no textbook table---order 6, 8, or 10---and students can check their own work with a single call rather than waiting for marked scripts. This closes the feedback loop within the session, and it removes the incentive to pattern-match against a printed answer.
 
-The absolute differences between direct sample moments and converted moments are on the order of $10^{-14}$ to $10^{-10}$, confirming numerical exactness.
+\subsection{Verification}
 
-\subsection{Computational Performance Benchmarking}
+We verified the implementation on the sample $X = (20, 25, 29, 32, 40)$ by computing moments of orders 1--5 directly, converting raw to central and central back to raw, and comparing.
 
-A major practical advantage of the generalized binomial transformation is \textbf{sample-size independence}. When working with large datasets ($n \gg 10^4$), recomputing moments directly from raw data following an origin shift requires $O(nr)$ operations across all $n$ observations. In contrast, transforming pre-computed moments using \texttt{conv\_moment\_all()} requires only $O(r^2)$ operations, completely independent of sample size $n$.
+The central-to-raw direction reproduces the directly computed raw moments \textbf{exactly} in floating point, to the last bit. The raw-to-central direction agrees to a relative error of order $10^{-16}$---at the level of machine epsilon---though the \emph{absolute} differences reach roughly $3 \times 10^{-9}$ at order 5, simply because $\mu'_5 \approx 3.4 \times 10^{7}$ for these data.
 
-We benchmark 1,000 origin-shift operations on a simulated dataset of size $n = 100,000$:
+That asymmetry is not a defect, and it is worth showing to students rather than hiding: the central-to-raw direction has $b = \bar{x} > 0$ and sums terms of like sign, while the raw-to-central direction has $b = -\bar{x}$ and therefore alternates, so it loses significant digits to cancellation. The same rule, run in two directions, produces a concrete illustration of catastrophic cancellation. See Section~\ref{sec-discussion}.
 
-\begin{itemize}
-\item Pre-computed moments about origin $a$.
-\item Benchmark 1: Recompute moments from raw sample data ($O(nr)$).
-\item Benchmark 2: Generalized Binomial Transformation ($O(r^2)$).
-\end{itemize}
+\subsection{A Note on Computational Cost}
 
-Transforming pre-computed moments using \texttt{conv\_moment\_all()} achieves a \textbf{$>250\times$ speedup} compared to recomputing moments over raw sample data.
+Transforming pre-computed moments costs $O(r)$ arithmetic operations for a single moment of order $r$, and $O(K^2)$ for all moments up to order $K$---in every case independent of the sample size $n$. Recomputing moments from raw data after an origin shift costs $O(nr)$. For large $n$ the difference is substantial, and in our benchmarking the transformation was faster by a wide margin.
 
-Furthermore, while hardcoded scalar expressions for low orders (e.g. $r \le 5$) are static macros, the generalized binomial algorithm scales dynamically to arbitrary high-order moments ($r = 10, 20, 50+$) without requiring manual algebraic expansion.
+\fillin{If you retain this subsection, replace this sentence with an actual table: $n$, moment order, number of replications, timings for both approaches with a dispersion measure, R version, and hardware. The previous draft's ``$>250\times$'' figure cannot stand without it. Alternatively---and this is our recommendation for a pedagogical paper---delete this subsection entirely, since computational speed is not the contribution and an unsupported benchmark invites reviewer objections that have nothing to do with the paper's actual claims.}
 
-A demonstration for 10th order moment conversion confirms accuracy to machine precision.
+\section{Discussion}\label{sec-discussion}
 
-\section{Discussion}
+\subsection{What the Approach Achieves}
 
-\subsection{Unification and Pedagogical Advantages}
+The gain is not that a difficult result becomes available---the result was never difficult---but that a scattered topic becomes a single one. A student who has learned the origin-shift rule has learned something with the right shape: one operation, one parameter, three familiar special cases, extensible to any order with a tool (Pascal's triangle) they already possess. A student who has learned the textbook formula list has learned five things that will decay independently.
 
-The central contribution of this paper is the unification of moment transformation theory into a single operational framework. By expressing any origin shift $a \to k$ via the single parameter $b = a - k$, the proposed binomial expansion $\mu'_r(k) = (a + b)^r$ eliminates the fragmentation present in traditional statistical textbooks \citep{cramer1946, mood1974, kendall1977}.
+There is a secondary benefit worth naming. Because the rule is derived in three lines from the binomial theorem, it models the habit we want students to have---that a forgotten formula should be re-derived rather than looked up. The formula-list presentation actively teaches the opposite.
 
-From a pedagogical perspective, students and researchers no longer need to consult printed lookup tables or memorize order-specific algebraic formulas for raw-to-central ($\mu_r$) or central-to-raw ($\mu'_r$) conversions. Instead, any higher-order moment transformation can be constructed on demand using Pascal's triangle coefficients.
+\subsection{Limitations}
 
-\subsection{Comparison with Parallel and Online Algorithms}
+The approach does not remove the need for raw moments: something must still supply $\mu'_j(a)$, whether from data, from a generating function, or from a table of known distributional moments. For a distribution whose raw moments are themselves awkward, the origin shift is the easy half of the problem.
 
-It is instructive to contrast our framework with parallel and online moment update algorithms \citep{chan1983, terriberry2007, pebay2008, pebay2016}. Parallel algorithms are designed for distributed computing environments, where a dataset $X$ is partitioned into subsets $A$ and $B$, and moment updating rules are applied to merge statistics across processors without passing raw data.
+Nor does the mnemonic help with conversions that are not origin shifts. Moments to cumulants, in particular, is a different operation with a different combinatorial structure, and students who over-generalize the binomial device to that case will get it wrong. We flag this explicitly in class.
 
-In contrast, our framework addresses the complementary problem of transforming moments across reference origins for a \textbf{single sample or theoretical distribution}. While parallel algorithms modify sample size ($n_A + n_B$) and combine local means, our binomial transformation operates on fixed pre-computed moments, achieving an $O(r^2)$ computational complexity that is entirely independent of sample size $n$.
+Finally, the evidence and the claim are not at the same level, and we would rather say so than blur it. The argument for level-independence in Section~\ref{sec-levels} is structural: the rule needs only the binomial theorem and linearity, both of which are in place from secondary school onward. The classroom evidence in Section~\ref{sec-classroom} comes from one instructor teaching higher-secondary students. That is the demanding end of the range, and success there is informative, but it is not a substitute for evidence at undergraduate or graduate level, where students have competing methods available and the comparison would be against generating-function derivations rather than against a formula list.
 
-\subsection{Numerical Stability Considerations and Limitations}
+A proper evaluation would need a comparison group taught conventionally, a delayed retention measure---the claim is about durability, not immediate performance---and an assessment item at an order not covered in instruction, since that is what separates this approach from a well-worked example. None of that has been done here.
 
-When converting uncentered raw moments of very high order ($r > 20$) for empirical datasets with large location offsets, binomial expansions can be susceptible to floating-point catastrophic cancellation due to alternating sum signs \citep{higham2002}. For ultra-high-order empirical transformations ($r \ge 30$), combining the binomial transformation with arbitrary-precision arithmetic libraries or log-space moment representations \citep{dinardo2008} provides numerical safeguards.
+\subsection{A Numerical Caution Worth Teaching}
 
-\section{Conclusion and Future Work}
+The cancellation noted in Section~\ref{sec-software} becomes material at high order. Converting uncentered raw moments of large order for data with a large location offset is susceptible to catastrophic cancellation, since the alternating terms are large and nearly equal \citep{higham2002}; the same concern motivates the specialized updating formulas developed for streaming and parallel computation \citep{chan1983, pebay2016}. For serious high-order work on empirical data, the practical remedies are to center the data first, to use extended-precision arithmetic, or to use a numerically stable one-pass algorithm.
 
-In this paper, we have presented a generalized binomial framework for transforming statistical moments of any order $r \in \mathbb{N}$ across arbitrary origins $a \to k$. By introducing the origin shift parameter $b = a - k$ and the symbolic operator representation $\mu'_r(k) \equiv (a + b)^r$, we established a unified method that encompasses raw-to-raw, raw-to-central, and central-to-raw conversions under a single mathematical principle.
+For teaching purposes the point is smaller and more useful: exact algebra and exact floating-point arithmetic are different things, and the origin-shift rule gives a two-line demonstration of the gap. We have found this a more convincing introduction to numerical error than the usual contrived examples, because the students have just derived the formula themselves.
 
-We validated the framework theoretically across discrete (Binomial) and continuous (Normal) probability distributions and presented an open-source R package implementation (\texttt{convmoment}). Computational benchmarks demonstrate that transforming pre-computed moments using our algorithm achieves a $>250\times$ speedup over raw data recomputation on large datasets ($n = 100,000$) while remaining numerically exact.
+\section{Conclusion}
 
-Future extensions of this work include generalizing the binomial shift framework to \textbf{multivariate product moments} \citep{bish:fien:1975}, joint cross-moments, and matrix-valued spatial moment invariants in higher-dimensional computer vision applications. Diagnostic visualization via moment ratio diagrams \citep{pearson2020} offers another natural direction for exploring transformed moments.
+We have described a way of teaching moment transformation in which a single origin-shift rule, presented as the symbolic expansion $(a+b)^r$ with $a^j \mapsto \mu'_j(a)$, replaces the list of order-specific formulas found in standard texts. The underlying identity is classical; the contribution is the framing, the reduction of three textbook topics to one parameter $b = a - k$, and an R package that lets students verify derivations at orders no table covers.
+
+In classroom use, students were able to apply the rule at orders beyond those presented in lecture. We report that as informal experience rather than as a measured effect, and a controlled study with a retention component remains to be done.
+
+For instructors wanting to adopt the approach, the minimum viable version is short: derive the rule from the binomial theorem, present Table~\ref{tab:mnemonic}, and give the three cases of $b$ on one slide. That is a single lecture segment, and it replaces material that is otherwise spread across several chapters.
 
 \section{Disclosure Statement}
 
@@ -501,18 +568,17 @@ The author has no conflicts of interest to declare.
 
 \section{Data Availability Statement}
 
-The R package \texttt{convmoment} and all replication code are publicly available at \url{https://github.com/mahmudstat/convmoment}. The package vignette is available at \url{https://www.thinkermahmud.com/convmoment/index.html}.
+The R package \texttt{convmoment} and all replication code are publicly available at \anonurl{https://github.com/mahmudstat/convmoment}{package repository}. The package vignette is available at \anonurl{https://www.thinkermahmud.com/convmoment/index.html}{package vignette}.
 
-\section{Supplementary Material}
-
-The following supplementary materials are available online:
+\section{Supplementary Material}\label{sec-supp}
 
 \begin{enumerate}
-\item \textbf{R Package \texttt{convmoment}:} Complete source code, documentation, and vignette demonstrating all package functions. Available at \url{https://github.com/mahmudstat/convmoment}.
-\item \textbf{Replication Code:} Full R script reproducing all numerical examples, distribution validations (Binomial, Normal), empirical validation, and computational benchmarks presented in the paper.
-\item \textbf{Vignette:} A comprehensive tutorial vignette showing basic usage, theoretical distribution examples, and matrix formulation. Available at \url{https://www.thinkermahmud.com/convmoment/index.html}.
+\item \textbf{R package \texttt{convmoment}:} source code, documentation, and vignette. Available at \anonurl{https://github.com/mahmudstat/convmoment}{package repository}.
+\item \textbf{Replication code:} R script reproducing the numerical examples, the distributional derivations, and the verification results of Section~\ref{sec-software}.
+\item \textbf{Teaching slides:} The reveal.js slide deck used to teach this material, covering moments, skewness, and kurtosis, with the origin-shift rule developed via Pascal's triangle. Available at \anonurl{https://www.statmania.info/slide/05-moments-skewness-kurtosis.html}{teaching slides}; the relevant section is \emph{Changing origin of moments}.
+\item \textbf{Worksheet and assessment items:} \fillin{if the in-class exercise, problem sheet, or examination item used for this topic can be shared, add it here---directly reusable classroom materials are among the most valued components of a JSDSE submission, and you appear to have them already.}
 \end{enumerate}
 
-\bibliography{bibliography.bib}
+\bibliography{bibliography}
 
 \end{document}
