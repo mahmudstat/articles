@@ -15,6 +15,11 @@ Cram{\'e}r, H. (1946).
 \newblock {\em Mathematical Methods of Statistics}.
 \newblock Princeton University Press, Princeton, NJ.
 
+\bibitem[Dogucu and {\c{C}}etinkaya-Rundel, 2022]{dogucu2022}
+Dogucu, M. and {\c{C}}etinkaya-Rundel, M. (2022).
+\newblock Tools and recommendations for reproducible teaching.
+\newblock {\em Journal of Statistics and Data Science Education}, 30(3):251--260.
+
 \bibitem[Hall, 1992]{hall1992}
 Hall, P. (1992).
 \newblock {\em The Bootstrap and Edgeworth Expansion}.
@@ -69,5 +74,11 @@ P{\'e}bay, P., Terriberry, T.~B., Kolla, H., and Bennett, J. (2016).
 Wickham, H. (2015).
 \newblock {\em R Packages: Organize, Test, Document, and Share Your Code}.
 \newblock O'Reilly Media, Sebastopol, CA.
+
+\bibitem[Zavez and Harel, 2025]{zavez2025}
+Zavez, K. and Harel, O. (2025).
+\newblock Teaching statistical concepts using computing tools: A review of the literature.
+\newblock {\em Journal of Statistics and Data Science Education}, pages 1--12.
+\newblock Advance online publication; update volume and issue before submission.
 
 \end{thebibliography}
