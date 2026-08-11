@@ -357,7 +357,7 @@ Returning to $a = 2$, $k = 5$, with $\mu'_1(2) = -1$, $\mu'_2(2) = 7$, $\mu'_3(2
 
 The answers match Section~\ref{sec-traditional}, as they must, but no polynomial was expanded and no summation was distributed. Extending to $r = 6$ requires reading one more row of Pascal's triangle or one can simply use the expression $\binom{r}{i}$, as shown before. 
 
-\subsection{The Matrix Form}
+\subsection{The Matrix Form}\label{sec-matrix}
 
 For students who have had linear algebra, the rule has a compact matrix statement that is worth showing as a coda. Writing
 $\boldsymbol{\mu}'(a) = \left[1, \mu'_1(a), \mu'_2(a), \dots, \mu'_K(a)\right]^T$
@@ -408,10 +408,36 @@ A useful feature of the rule for teaching is that it is not a data-handling tric
 
 \subsection{The Binomial Distribution}
 
-Let $X \sim \text{Bin}(m, p)$; we write the number of trials as $m$ rather than $n$ to keep it distinct from sample size. The moment generating function is $M_X(t) = \left(1 - p + p e^t\right)^m$, from which
+Let $X \sim \text{Bin}(m, p)$; we write the number of trials as $m$ rather than $n$ to keep it distinct from sample size. The moment generating function is $M_X(t) = \left(1 - p + p e^t\right)^m$, and differentiating it at $t = 0$ gives the raw moments in Table~\ref{tab:binom}. The central moments in the same table are the target, and all four are derived below. To keep the raw moments compact we write the falling factorial
 \[
-\mu'_1(0) = mp, \qquad \mu'_2(0) = mp(1-p) + m^2p^2 .
+m^{(j)} = m(m-1)(m-2)\cdots(m-j+1),
 \]
+so that $m^{(1)} = m$, $m^{(2)} = m(m-1)$, and so on.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{@{}clc@{}}
+\toprule
+Order ($r$) & Raw moment $\mu'_r(0)$ & Central moment $\mu_r$ \\
+\midrule
+1 & $m^{(1)}p$ & $0$ \\
+2 & $m^{(1)}p + m^{(2)}p^2$ & $mp(1-p)$ \\
+3 & $m^{(1)}p + 3m^{(2)}p^2 + m^{(3)}p^3$ & $mp(1-p)(1-2p)$ \\
+4 & $m^{(1)}p + 7m^{(2)}p^2 + 6m^{(3)}p^3 + m^{(4)}p^4$ & $mp(1-p)\left[1 + 3(m-2)p(1-p)\right]$ \\
+\bottomrule
+\end{tabular}
+\caption{Raw and central moments of the Binomial distribution $\text{Bin}(m,p)$ through order four. The raw moments follow from the moment generating function, written here in falling-factorial form for compactness ($m^{(j)}$ defined above); the central moments are derived from them in Section~\ref{sec-binom-shift} using the origin-shift rule alone.}
+\label{tab:binom}
+\end{table}
+
+Expanding the order-two and order-three entries of the raw column gives the forms used explicitly in the derivations below:
+\[
+\mu'_2(0) = mp(1-p) + m^2p^2, \qquad
+\mu'_3(0) = mp - 3mp^2 + 3m^2p^2 + 2mp^3 - 3m^2p^3 + m^3p^3 .
+\]
+
+Setting the raw moments out in advance, rather than producing them as they are needed, is deliberate: it makes visible that the origin shift consumes exactly this table and nothing else. Two features are worth pointing out to students before any algebra begins. The central moments are dramatically simpler than the raw ones---compare $mp(1-p)(1-2p)$ with the six-term expansion of $\mu'_3(0)$---which is the practical reason the conversion is worth having. And the fully expanded raw moments grow unmanageable quickly: at order four the expansion runs to ten terms, which is why the falling-factorial form is used in the table. The origin-shift rule is indifferent to this; it consumes whichever form is supplied.
 
 \subsubsection{The MGF Route to Central Moments}
 
@@ -419,9 +445,9 @@ To obtain central moments directly from the generating function, one differentia
 $M_{X-\mu}(t) = e^{-mpt} (1 - p + p e^t)^m$.
 For $\mu_2$ this is manageable. For $\mu_3$ it requires the third derivative of a product of two functions, each of which is itself a composition---three applications of the product rule with the chain rule inside each, evaluated at $t = 0$. The algebra is several lines long and is, in our experience, where students abandon the derivation.
 
-\subsubsection{The Origin-Shift Route}
+\subsubsection{The Origin-Shift Route}\label{sec-binom-shift}
 
-The rule needs only the raw moments and the shift. Here $a = 0$, $k = \mu = mp$, so $b = -mp$.
+The rule needs only the raw moments already tabulated and the shift. Here $a = 0$, $k = \mu = mp$, so $b = -mp$.
 
 \begin{enumerate}
 \item \textbf{First central moment.} $\mu_1 = \mu_1'(0) + b = mp - mp = 0$.
@@ -431,17 +457,23 @@ The rule needs only the raw moments and the shift. Here $a = 0$, $k = \mu = mp$,
       &= \left[mp(1-p) + m^2p^2\right] + 2(mp)(-mp) + (-mp)^2 \\
       &= mp - mp^2 + m^2p^2 - 2m^2p^2 + m^2p^2 = mp(1-p).
 \end{align*}
-\item \textbf{Third central moment.} With
-$\mu'_3(0) = mp - 3mp^2 + 3m^2p^2 + 2mp^3 - 3m^2p^3 + m^3p^3$,
+\item \textbf{Third central moment.} Taking $\mu'_3(0)$ from Table~\ref{tab:binom},
 \begin{align*}
 \mu_3 &= \mu'_3(0) + 3\mu'_2(0)b + 3\mu'_1(0)b^2 + b^3 \\
       &= \left(mp - 3mp^2 + 3m^2p^2 + 2mp^3 - 3m^2p^3 + m^3p^3\right) \\
       &\quad + 3\left(mp - mp^2 + m^2p^2\right)(-mp) + 3(mp)(-mp)^2 + (-mp)^3 \\
       &= mp(1-p)(1-2p).
 \end{align*}
+\item \textbf{Fourth central moment.} With $b = -mp$ the rule gives
+\begin{align*}
+\mu_4 &= \mu'_4(0) + 4\mu'_3(0)b + 6\mu'_2(0)b^2 + 4\mu'_1(0)b^3 + b^4 \\
+      &= \mu'_4(0) - 4mp\,\mu'_3(0) + 6m^2p^2\,\mu'_2(0) - 4m^3p^3\,\mu'_1(0) + m^4p^4 \\
+      &= mp(1-p)\left[1 + 3(m-2)p(1-p)\right],
+\end{align*}
+where the last step is routine collection of terms. Writing down the substitution is immediate; only the simplification is laborious, and that labour belongs to the distribution rather than to the method.
 \end{enumerate}
 
-The third central moment, which is a genuine chore by the generating-function route, is one line of substitution here.
+Each central moment of order $r$ draws on the tabulated raw moments of orders $1$ through $r$, and on nothing else---the same triangular dependence recorded by the lower-triangular matrix $\mathbf{C}_b$ of Section~\ref{sec-matrix}. Every entry of the central column of Table~\ref{tab:binom} has now been recovered from the raw column, using no property of the Binomial distribution beyond the raw moments themselves.
 
 \subsection{The Normal Distribution}
 
@@ -449,7 +481,8 @@ Table~\ref{tab:normal} gives the raw and central moments of $X \sim \mathcal{N}(
 
 \begin{table}[htbp]
 \centering
-\begin{tabular}{@{}ccc@{}}
+\small
+\begin{tabular}{@{}clc@{}}
 \toprule
 Order ($r$) & Raw moment $\mu'_r(0)$ & Central moment $\mu_r$ \\
 \midrule
