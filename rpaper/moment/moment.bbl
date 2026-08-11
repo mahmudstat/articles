@@ -1,3 +1,73 @@
 \begin{thebibliography}{}
 
+\bibitem[Blinnikov and Moessner, 1998]{blinnikov1998}
+Blinnikov, S. and Moessner, R. (1998).
+\newblock Expansions for nearly gaussian distributions.
+\newblock {\em Astronomy and Astrophysics Supplement Series}, 130(1):193--205.
+
+\bibitem[Chan et~al., 1983]{chan1983}
+Chan, T.~F., Golub, G.~H., and LeVeque, R.~J. (1983).
+\newblock Algorithms for computing the sample variance: Analysis and recommendations.
+\newblock {\em The American Statistician}, 37(3):242--247.
+
+\bibitem[Cram{\'e}r, 1946]{cramer1946}
+Cram{\'e}r, H. (1946).
+\newblock {\em Mathematical Methods of Statistics}.
+\newblock Princeton University Press, Princeton, NJ.
+
+\bibitem[Hall, 1992]{hall1992}
+Hall, P. (1992).
+\newblock {\em The Bootstrap and Edgeworth Expansion}.
+\newblock Springer-Verlag, New York.
+
+\bibitem[Hansen, 1982]{hansen1982}
+Hansen, L.~P. (1982).
+\newblock Large sample properties of generalized method of moments estimators.
+\newblock {\em Econometrica}, 50(4):1029--1054.
+
+\bibitem[Higham, 2002]{higham2002}
+Higham, N.~J. (2002).
+\newblock {\em Accuracy and Stability of Numerical Algorithms}.
+\newblock SIAM, Philadelphia, 2nd edition.
+
+\bibitem[Hu, 1962]{hu1962}
+Hu, M.-K. (1962).
+\newblock Visual pattern recognition by moment invariants.
+\newblock {\em IRE Transactions on Information Theory}, 8(2):179--187.
+
+\bibitem[Johnson et~al., 1994]{johnson1994}
+Johnson, N.~L., Kotz, S., and Balakrishnan, N. (1994).
+\newblock {\em Continuous Univariate Distributions, Volume 1}.
+\newblock John Wiley \& Sons, New York, 2nd edition.
+
+\bibitem[Kendall and Stuart, 1977]{kendall1977}
+Kendall, M.~G. and Stuart, A. (1977).
+\newblock {\em The Advanced Theory of Statistics: Vol. 1. Distribution Theory}.
+\newblock Charles Griffin \& Company, London, 4th edition.
+
+\bibitem[Mood et~al., 1974]{mood1974}
+Mood, A.~M., Graybill, F.~A., and Boes, D.~C. (1974).
+\newblock {\em Introduction to the Theory of Statistics}.
+\newblock McGraw-Hill, New York, 3rd edition.
+
+\bibitem[Mukundan and Ramakrishnan, 1998]{mukundan1998}
+Mukundan, R. and Ramakrishnan, K.~R. (1998).
+\newblock {\em Moment Functions in Image Processing: Theory and Applications}.
+\newblock World Scientific, Singapore.
+
+\bibitem[P{\'e}bay et~al., 2016]{pebay2016}
+P{\'e}bay, P., Terriberry, T.~B., Kolla, H., and Bennett, J. (2016).
+\newblock Numerically stable, one-pass, parallel computation of arbitrary-order statistical moments.
+\newblock {\em Computational Statistics}, 31(4):1271--1301.
+
+\bibitem[{R Core Team}, 2024]{rcore2024}
+{R Core Team} (2024).
+\newblock {\em R: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+
+\bibitem[Wickham, 2015]{wickham2015}
+Wickham, H. (2015).
+\newblock {\em R Packages: Organize, Test, Document, and Share Your Code}.
+\newblock O'Reilly Media, Sebastopol, CA.
+
 \end{thebibliography}

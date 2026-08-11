@@ -78,7 +78,15 @@
   \newcommand{\anonurl}[2]{\url{#1}}
 \fi
 \if1\anon
-  \newcommand{\anonurl}[2]{\textcolor{red}{\textbf{[#2 --- URL withheld for blind review; deposit an anonymized mirror and cite it here]}}}
+  % Set \anonmirror to the anonymized deposit URL (e.g. an OSF view-only link)
+  % once created; leave empty to print a reminder instead.
+  \newcommand{\anonmirror}{}
+  \newcommand{\anonurl}[2]{%
+    \ifx\anonmirror\empty
+      \textcolor{red}{\textbf{[#2 --- URL withheld for blind review; deposit an anonymized mirror and set \texttt{\textbackslash anonmirror}]}}%
+    \else
+      #2, anonymized deposit: \url{\anonmirror}%
+    \fi}
 \fi
 
 \if0\anon
@@ -370,25 +378,29 @@ This subsection is intended for audiences that have had linear algebra and is no
 
 \subsection{Setting}
 
-The approach has been used by the author in higher-secondary teaching (classes 11--12) at a residential secondary institution in Bangladesh,\footnote{Institution named in the non-anonymized version.} within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. The cohort was \fillin{30} students, taught over \fillin{6 years}.
+The approach has been used by the author in higher-secondary teaching (classes 11--12) at a residential secondary institution in Bangladesh,\footnote{Institution named in the non-anonymized version.} within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. Each cohort was approximately 30 students, and the approach has been used with successive cohorts over six years.
 
 The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had not previously been shown the origin-shift rule; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
 
 This is the least-equipped audience the material is normally taught to, which is why we regard it as an informative test rather than a limited one (Section~\ref{sec-levels}). In particular, these students had no calculus-based route to the same results: the generating-function derivations of Section~\ref{sec-dist} were unavailable to them, so the origin-shift rule was not a shortcut past a method they already had---it was the only method they had.
 
-The material was delivered in \fillin{one} class session, structured as in Sections~\ref{sec-traditional} and \ref{sec-rule}: the conventional derivation first, then why the formula list is hard to retain, then the rule and the mnemonic, then the three cases of $b$. The slides used are publicly available (Section~\ref{sec-supp}); the instruction they give students, stated on the slide itself, is simply \emph{do not memorize}.
+The material was delivered in a single class session, structured as in Sections~\ref{sec-traditional} and \ref{sec-rule}: the conventional derivation first, then why the formula list is hard to retain, then the rule and the mnemonic, then the three cases of $b$. The slides used are publicly available (Section~\ref{sec-supp}); the instruction they give students, stated on the slide itself, is simply \emph{do not memorize}.
 
 \subsection{What Students Did}
 
-At first they were shown the traditional textbook approach to change origin of raw moments. Then they were told that changing to central moments from raw moments required a different set of formulae. Then the new method was introduced. But before that, the students were first reintroduced to the binomial expansion and how to obtain its coefficients with the help of Pascal's triangle and the expression  $\binom{r}{i}$. They were then told correlate $r_{th}$ moment to $r_{th}$ binomial expansion.
+At first they were shown the traditional textbook approach to change origin of raw moments. Then they were told that changing to central moments from raw moments required a different set of formulae. Then the new method was introduced. But before that, the students were first reintroduced to the binomial expansion and how to obtain its coefficients with the help of Pascal's triangle and the expression $\binom{r}{i}$. They were then asked to associate the $r$th moment with the $r$th binomial expansion.
 
-The author's observation was that students applied the transformation without substantial difficulty. \fillin{It took them a while (usually not more than 5 minutes) to become familiar with the necessary notations of transformation, but once they grasped the idea, they continued with ease, converting the first four moments successfully}
+The author's observation was that students applied the transformation without substantial difficulty. Becoming familiar with the notation took a short period---typically no more than five minutes---after which they proceeded with ease, converting the first four moments successfully.
 
-We state plainly that this is informal classroom experience, not a study. There was no comparison group, no randomization, no validated instrument, and the observations are the instructor's own and were not recorded for research purposes at the time. We report the experience because it was consistent and because the mechanism is plausible on its face: the mnemonic replaces recall of several unrelated formulas with execution of one procedure students already possess. We would not want it read as an effect size, and Section ~\ref{sec-discussion} says what a proper evaluation would require.
+We are careful about what this does and does not show. Students applied the rule correctly at the orders covered in the session; we did not set a task at an order withheld from instruction, which would have been the sharper test of whether the mnemonic transfers rather than merely supports a worked example. The observation is therefore that the rule was learnable and usable in one session by students with only algebraic prerequisites---not that it was demonstrably generative beyond the orders taught. Section~\ref{sec-discussion} returns to this.
+
+We state plainly that this is informal classroom experience, not a study. There was no comparison group, no randomization, no validated instrument, and the observations are the instructor's own and were not recorded for research purposes at the time. We report the experience because it was consistent and because the mechanism is plausible on its face: the mnemonic replaces recall of several unrelated formulas with execution of one procedure students already possess. We would not want it read as an effect size, and Section~\ref{sec-discussion} says what a proper evaluation would require.
 
 \subsection{What Gave Students Trouble}
 
-\fillin{They students often stumpled finding the central moments from raw moments, confused where to get the new origin (mean); the author showd that it can be easily derived from raw moments, as described in ~\ref{subsec:threec}
+One difficulty was consistent enough to be worth reporting. Students stumbled when moving from raw moments to central moments, and the sticking point was not the expansion but the origin: they were unsure where the new origin was supposed to come from. The mean is not given separately in this setting, and students did not initially see that it is already available from the moments they hold, as $\bar{x} = \mu'_1(a) + a$. Once it was shown that the target origin can be derived from the raw moments themselves---the raw-to-central case of Section~\ref{subsec:threec}---the difficulty resolved.
+
+This is worth flagging for anyone adopting the approach, because it is a predictable consequence of how the rule is presented. In the raw-to-raw case $b$ is a constant the student chooses; in the raw-to-central case $b = -\mu'_1(a)$ depends on the data. Students who have met only the first case reasonably expect the second to supply an origin from outside. Making that dependence explicit when the three cases are introduced, rather than leaving it implicit in the algebra, appears to prevent the confusion rather than merely fix it afterwards.
 
 \section{The Same Rule for Named Distributions}\label{sec-dist}
 
@@ -550,9 +562,9 @@ The approach does not remove the need for raw moments: something must still supp
 
 Nor does the mnemonic help with conversions that are not origin shifts. Moments to cumulants, in particular, is a different operation with a different combinatorial structure, and students who over-generalize the binomial device to that case will get it wrong. We flag this explicitly in class.
 
-Finally, the evidence and the claim are not at the same level, and we would rather say so than blur it. The argument for level-independence in Section~\ref{sec-levels} is structural: the rule needs only the binomial theorem and linearity, both of which are in place from secondary school onward. The classroom evidence in Section~\ref{sec-classroom} comes from one instructor teaching higher-secondary students. That is the demanding end of the range, and success there is informative, but it is not a substitute for evidence at undergraduate or graduate level, where students have competing methods available and the comparison would be against generating-function derivations rather than against a formula list.
+Finally, the evidence and the claim are not at the same level, and we would rather say so than blur it. The argument for level-independence in Section~\ref{sec-levels} is structural: the rule needs only the binomial theorem and linearity, both of which are in place from secondary school onward. The classroom evidence in Section~\ref{sec-classroom} comes from one instructor teaching higher-secondary students, across successive cohorts over six years. Repetition across cohorts is worth something---the observation is not a single good session---but it is repetition by one instructor who designed the approach, which is a specific and well-known source of bias. And it remains the demanding end of the level range rather than a sample of it: it is not a substitute for evidence at undergraduate or graduate level, where students have competing methods available and the comparison would be against generating-function derivations rather than against a formula list.
 
-A proper evaluation would need a comparison group taught conventionally, a delayed retention measure---the claim is about durability, not immediate performance---and an assessment item at an order not covered in instruction, since that is what separates this approach from a well-worked example. None of that has been done here.
+A proper evaluation would need a comparison group taught conventionally, a delayed retention measure---the claim is about durability, not immediate performance---and an assessment item at an order not covered in instruction. That last point deserves emphasis, since it is the one the present observations most clearly do not address: students here applied the rule at the orders taught (Section~\ref{sec-classroom}), which establishes that the rule is learnable in a single session but not that it generalizes in the students' hands to orders they have not seen. Since generativity is precisely what the mnemonic claims over a formula list, that is the first thing a follow-up study should measure. None of it has been done here.
 
 \subsection{A Numerical Caution Worth Teaching}
 
