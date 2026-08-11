@@ -531,7 +531,7 @@ That the same device runs in both directions, with only the sign of $b$ changed,
 
 \subsection{Design}
 
-We provide an R package, \texttt{convmoment}, implementing the rule in R \citep{rcore2024}; the package was developed following standard practice for R package structure and documentation \citep{wickham2015}. The design goal is pedagogical rather than computational: the code is written to look like the rule as taught, so that a student reading the source sees the same three ingredients---binomial coefficients, moments, powers of $b$---that they used by hand.
+We provide an R package, \texttt{convmoment}, implementing the rule in R \citep{rcore2024}; the package was developed following standard practice for R package structure and documentation \citep{wickham2015}. The design goal is pedagogical rather than computational: the code is written to look like the rule as taught, so that a student reading the source sees the same three ingredients---binomial coefficients, moments, powers of $b$---that they used by hand. The package, its vignette, and the replication script are distributed together so that the materials can be re-run and adapted by other instructors \citep{dogucu2022}.
 
 \begin{verbatim}
 conv_moment <- function(x, a, k, r) {
@@ -562,6 +562,8 @@ The arguments follow the notation of Section~\ref{sec-rule}: \texttt{x} is the v
 \subsection{Use in Assignments}
 
 The package changes what can be asked of students. Because the rule extends to any order at no extra cost, an assignment can require a derivation at an order that appears in no textbook table---order 6, 8, or 10---and students can check their own work with a single call rather than waiting for marked scripts. This closes the feedback loop within the session, and it removes the incentive to pattern-match against a printed answer.
+
+The division of labour matters here. The computation does not perform the derivation; it adjudicates one the student has already done by hand. That is the use of computing tools that the education literature supports---supporting conceptual work rather than substituting for it \citep{zavez2025}---and it is the reason the package is written to mirror the taught rule rather than to be fast.
 
 \subsection{Verification}
 
@@ -599,7 +601,7 @@ For teaching purposes the point is smaller and more useful: exact algebra and ex
 
 We have described a way of teaching moment transformation in which a single origin-shift rule, presented as the symbolic expansion $(a+b)^r$ with $a^j \mapsto \mu'_j(a)$, replaces the list of order-specific formulas found in standard texts. The underlying identity is classical; the contribution is the framing, the reduction of three textbook topics to one parameter $b = a - k$, and an R package that lets students verify derivations at orders no table covers.
 
-In classroom use, students were able to apply the rule at orders beyond those presented in lecture. We report that as informal experience rather than as a measured effect, and a controlled study with a retention component remains to be done.
+In classroom use with higher-secondary students, the rule proved learnable and usable within a single session by students whose only prerequisites were the binomial theorem and familiarity with expectation. We report that as informal experience rather than as a measured effect. Whether the mnemonic is genuinely generative---whether students can apply it at orders they have not been shown---is the claim that most needs testing, and a controlled study with a retention component remains to be done.
 
 For instructors wanting to adopt the approach, the minimum viable version is short: derive the rule from the binomial theorem, present Table~\ref{tab:mnemonic}, and give the three cases of $b$ on one slide. That is a single lecture segment, and it replaces material that is otherwise spread across several chapters.
 

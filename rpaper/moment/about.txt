@@ -8,6 +8,10 @@ email: almahmud.sbi@gmail.com
 Acknowledgment: None
 Disclosure: No funding
 
+JSDSE teaching-derivation/nemonics
+https://www.tandfonline.com/doi/full/10.1080/26939169.2022.2138645#abstract
+https://www.tandfonline.com/doi/full/10.1080/26939169.2024.2445541
+
 
 Purpose: To obtain a generalized method to convert to and from raw and central moments (i.e., changing origin arbitrarily).
 Why useful:
