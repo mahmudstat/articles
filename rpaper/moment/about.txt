@@ -8,10 +8,20 @@ email: almahmud.sbi@gmail.com
 Acknowledgment: None
 Disclosure: No funding
 
-JSDSE teaching-derivation/nemonics
-https://www.tandfonline.com/doi/full/10.1080/26939169.2022.2138645#abstract
-https://www.tandfonline.com/doi/full/10.1080/26939169.2024.2445541
+JSDSE refs ALREADY CITED (note: these are about computing/reproducibility
+in teaching, NOT mnemonics -- originally mislabelled):
 
+  Dogucu, M. & Cetinkaya-Rundel, M. (2022). Tools and Recommendations for
+  Reproducible Teaching. JSDSE 30(3):251-260.
+  https://doi.org/10.1080/26939169.2022.2138645
+  -> cited in: contribution list, 6.1 Design (materials distributed for reuse)
+
+  Zavez, K. & Harel, O. (2025). Teaching Statistical Concepts Using Computing
+  Tools: A Review of the Literature. JSDSE (advance online; update vol/iss).
+  https://doi.org/10.1080/26939169.2024.2445541
+  -> cited in: contribution list, 6.2 Use in Assignments (computation
+     adjudicates a hand derivation rather than performing it)
+https://www.tandfonline.com/doi/full/10.1080/26939169.2024.2334905#d1e196
 
 Purpose: To obtain a generalized method to convert to and from raw and central moments (i.e., changing origin arbitrarily).
 Why useful:
@@ -45,9 +55,96 @@ audience, not the only one.
 
 Teaching slides: https://www.statmania.info/slide/05-moments-skewness-kurtosis.html
   -> section "Changing origin of moments" ("DO NOT MEMORIZE")
-  -> needs an anonymized mirror for blind review
+  -> RESOLVED: all slide URLs removed from the paper. No mirror needed --
+     blind review only requires the submitted PDF not identify the author.
+     Supplementary Material now says the deck is available on request and
+     will be archived on acceptance. Restore a URL there at acceptance.
+  -> scrub_slides.py in this directory anonymizes a rendered reveal.js deck
+     if a public anonymous copy is ever wanted.
 
 # Strength
 
 # Style guide
 https://files.taylorandfrancis.com/asa-style-guide.pdf
+
+
+################################################################################
+# READING SHORTLIST -- statistics-education references (to close the last gap)
+#
+# Status: metadata verified via Crossref. Items 1 and 5 summarized from
+# abstracts only (tandfonline returned 403 on full text) -- READ BEFORE CITING.
+# None of these are in bibliography.bib yet.
+#
+# Gap being closed: the paper's pedagogical mechanism (generative rule vs
+# memorized formula list, and the retention claim in 7.2) is currently
+# uncited. Items 1-3 + 5 would close it properly.
+################################################################################
+
+[1] PRIORITY -- read this one first
+    Mocko, M., Wagler, A. E., Lesser, L. M., Francis, W. S., Blush, J. M.,
+    Schleicher, K. & Barrientos, P. S. (2024).
+    "What They Remember May Not Be What They Understand: A Study of Mnemonic
+    Recall and Performance by Introductory Statistics Students."
+    Journal of Statistics and Data Science Education 32(4):416-431.
+    https://doi.org/10.1080/26939169.2024.2334905
+
+    n=1323, 14 mnemonics. Acronym-type mnemonics were RECALLED more often, but
+    longer phrase-type mnemonics were EXPLAINED and APPLIED more often. They
+    recommend scaffolding students from recalling a mnemonic to using one.
+
+    Why it matters: cuts against a naive version of our claim (remembering a
+    device is not understanding it) -- engaging with that is what makes the
+    paper look literate rather than promotional. But it also SUPPORTS our
+    design: ours is not an acronym to recall but a procedure to execute, i.e.
+    the elaborated end of their spectrum where application was strongest.
+    Target section: 7.1 (What the Approach Achieves).
+
+[2] Mocko, M., Lesser, L. M., Wagler, A. E. & Francis, W. S. (2017).
+    "Assessing Effectiveness of Mnemonics for Tertiary Students in a Hybrid
+    Introductory Statistics Course."
+    Journal of Statistics Education 25(1):2-11.
+    https://doi.org/10.1080/10691898.2017.1294879
+
+    An actual effectiveness assessment. Use as a design template for the study
+    7.2 says is needed, so we can say what would be measured instead of
+    gesturing at "a controlled study".
+
+[3] Lesser, L. M. (2011).
+    "On the use of mnemonics for teaching statistics."
+    Model Assisted Statistics and Applications 6(2):151-160.
+    https://doi.org/10.3233/mas-2011-0183
+
+    Framework/typology of mnemonics in statistics teaching. Lets us position
+    our device within an existing classification instead of presenting it as
+    sui generis. Target section: 1.2 or 4.2.
+
+[4] OPTIONAL -- lightweight
+    Hunt, N. (2010). "Using Mnemonics in Teaching Statistics."
+    Teaching Statistics 32(3):73-75.
+    https://doi.org/10.1111/j.1467-9639.2009.00402.x
+
+[5] FOR THE RETENTION ARGUMENT (7.2)
+    Tintle, N., Topliff, K. & VanderStoep, J. (2012).
+    "Retention of Statistical Concepts in a Preliminary Randomization-Based
+    Introductory Statistics Curriculum."
+    Statistics Education Research Journal 11(1).
+    https://doi.org/10.52041/serj.v11i1.340
+
+    Compared two cohorts on POST-COURSE conceptual retention. Structurally the
+    study 7.2 describes, on a different topic -- a citable precedent for the
+    design.
+
+--------------------------------------------------------------------------------
+SEARCH FINDING WORTH USING IN THE PAPER:
+A search of JSDSE, JSE, Teaching Statistics and SERJ found NOTHING on teaching
+derivations in mathematical statistics specifically. The stats-education
+literature skews heavily to introductory, data-centric courses. That is a real
+gap rather than a search failure, and stating it is a point in our favour.
+
+DELIBERATELY NOT CITED:
+GAISE College Report -- addresses introductory, data-centric curricula. Citing
+it for a higher-secondary mathematical-statistics derivation would be
+decorative, and JSDSE reviewers know GAISE well enough to notice.
+
+ORPHANED .bib ENTRIES (uncited since the reframe, do not print):
+andrews2000, bish:fien:1975, dinardo2008, pearson2020, pebay2008, terriberry2007
