@@ -83,9 +83,9 @@
   \newcommand{\anonmirror}{}
   \newcommand{\anonurl}[2]{%
     \ifx\anonmirror\empty
-      \textcolor{red}{\textbf{[#2 --- URL withheld for blind review; deposit an anonymized mirror and set \texttt{\textbackslash anonmirror}]}}%
+      [URL withheld for blind review]%
     \else
-      #2, anonymized deposit: \url{\anonmirror}%
+      \url{\anonmirror}%
     \fi}
 \fi
 
@@ -571,16 +571,6 @@ The central-to-raw direction reproduces the directly computed raw moments \textb
 
 That asymmetry is not a defect, and it is worth showing to students rather than hiding: the central-to-raw direction has $b = \bar{x} > 0$ and sums terms of like sign, while the raw-to-central direction has $b = -\bar{x}$ and therefore alternates, so it loses significant digits to cancellation. The same rule, run in two directions, produces a concrete illustration of catastrophic cancellation. See Section~\ref{sec-discussion}.
 
-\subsection{A Note on Computational Cost}
-
-Transforming pre-computed moments costs $O(r)$ arithmetic operations for a single moment of order $r$, and $O(K^2)$ for all moments up to order $K$---in every case independent of the sample size $n$. Recomputing moments from raw data after an origin shift costs $O(nr)$. For large $n$ the difference is substantial, and in our benchmarking the transformation was faster by a wide margin.
-
-\iffalse
-% This is ommitted for now
-\fillin{If you retain this subsection, replace this sentence with an actual table: $n$, moment order, number of replications, timings for both approaches with a dispersion measure, R version, and hardware. The previous draft's ``$>250\times$'' figure cannot stand without it. Alternatively---and this is our recommendation for a pedagogical paper---delete this subsection entirely, since computational speed is not the contribution and an unsupported benchmark invites reviewer objections that have nothing to do with the paper's actual claims.}
-
-\fi
-
 \section{Discussion}\label{sec-discussion}
 
 \subsection{What the Approach Achieves}
@@ -619,7 +609,12 @@ The author has no conflicts of interest to declare.
 
 \section{Data Availability Statement}
 
-The R package \texttt{convmoment} and all replication code are publicly available at \anonurl{https://github.com/mahmudstat/convmoment}{package repository}. The package vignette is available at \anonurl{https://www.thinkermahmud.com/convmoment/index.html}{package vignette}.
+\if0\anon
+The R package \texttt{convmoment} and all replication code are publicly available at \url{https://github.com/mahmudstat/convmoment}, and the package vignette at \url{https://www.thinkermahmud.com/convmoment/index.html}.
+\fi
+\if1\anon
+The R package \texttt{convmoment}, its vignette, and all replication code are publicly available in an open repository. The URLs are withheld here for blind review and will be supplied on acceptance.
+\fi
 
 \section{Supplementary Material}\label{sec-supp}
 
@@ -627,7 +622,6 @@ The R package \texttt{convmoment} and all replication code are publicly availabl
 \item \textbf{R package \texttt{convmoment}:} source code, documentation, and vignette. Available at \anonurl{https://github.com/mahmudstat/convmoment}{package repository}.
 \item \textbf{Replication code:} R script reproducing the numerical examples, the distributional derivations, and the verification results of Section~\ref{sec-software}.
 \item \textbf{Teaching slides:} The reveal.js slide deck used to teach this material, covering moments, skewness, and kurtosis, with the origin-shift rule developed through Pascal's triangle; the relevant section is \emph{Changing origin of moments}. The deck is available from the author on request and will be placed in a permanent public archive on acceptance.
-\item \textbf{Worksheet and assessment items:} \fillin{if the in-class exercise, problem sheet, or examination item used for this topic can be shared, add it here---directly reusable classroom materials are among the most valued components of a JSDSE submission, and you appear to have them already.}
 \end{enumerate}
 
 \bibliography{bibliography}
