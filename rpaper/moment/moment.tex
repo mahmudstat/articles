@@ -136,7 +136,7 @@ Converting between raw and central moments is taught repeatedly across the stati
 
 \section{Introduction}\label{sec-intro}
 
-\subsection{A Small Topic That Teaches Badly}
+\subsection{Why Moment Transformations Are Harder to Teach Than They Should Be}
 
 Moments are introduced early in mathematical statistics. Raw moments about an arbitrary origin $a$,
 \[
@@ -173,7 +173,7 @@ The contribution is pedagogical, and consists of three parts:
 \begin{enumerate}
 \item \textbf{A mnemonic that makes the rule usable at the board.} Recasting the identity as the symbolic expansion $(a+b)^r$ with the substitution $a^j \mapsto \mu'_j(a)$ turns a formula students must recall into a procedure they can execute with Pascal's triangle. This framing, rather than the identity itself, is what makes the material teachable.
 \item \textbf{A single organizing parameter.} Introducing the origin shift $b = a - k$ collapses what textbooks present as three distinct topics---raw-to-raw, raw-to-central, and central-to-raw conversion---into one operation with three choices of $b$. Students learn one thing instead of three.
-\item \textbf{Software that mirrors the derivation.} The R package \texttt{convmoment} implements the rule in the same form in which it is taught, so students can verify their own hand derivations at any order rather than checking against printed answers.
+\item \textbf{Software that mirrors the derivation.} The R package \texttt{convmoment} implements the rule in the same form in which it is taught, so students and educators can verify their own hand derivations at any order rather than checking against printed answers.
 \end{enumerate}
 
 Section~\ref{sec-traditional} sets out the standard treatment and diagnoses precisely where it loses students. Section~\ref{sec-rule} develops the single rule and the mnemonic. Section~\ref{sec-classroom} reports classroom experience. Section~\ref{sec-dist} shows the same device applied to named distributions, where it replaces repeated differentiation of moment generating functions. Section~\ref{sec-software} describes the R package and how it is used in assignments. Section~\ref{sec-discussion} discusses what the approach does not fix, including a numerical caution that is itself worth teaching.
@@ -286,7 +286,9 @@ The rule as displayed is still a summation formula, and summation formulas are n
 \[
 \mu'_r(k) \equiv (a + b)^r \quad \text{with } a^j \mapsto \mu'_j(a) \text{ and } a^0 \equiv 1.
 \]
-That is: \emph{write down the binomial expansion of $(a+b)^r$ exactly as in secondary-school algebra, then read every power $a^j$ as ``the $j$-th moment about $a$.''} The coefficients come from Pascal's triangle, which students already know and can regenerate if they forget.
+That is: \emph{write down the binomial expansion of $(a+b)^r$ exactly as in secondary-school algebra, then read every power $a^j$ as ``the $j$-th moment about $a$.''} The coefficients come from Pascal's triangle, which students already know and can regenerate if they forget. Or, they can also use $\binom{r}{i}$, where $r$ is the order of the moment, and $i$ represents $i$th term of binomial expansion. 
+
+Thus, using the expression $\binom{r}{i}$, the coefficients, for example, second-order binomial expansion, the coefficeints are $\binom{2}{2}, \binom{2}{1}, \binom{2}{0}$, which are calculated as 1, 2, and 0, respectively. Higher-order coefficients can be found similarly. 
 
 Table~\ref{tab:mnemonic} shows the result for orders 1 through 5.
 
@@ -322,7 +324,7 @@ The coefficients are read directly from Pascal's triangle:
 
 A point worth making explicitly in class: the alternating signs that make the textbook central-moment formulas look arbitrary are not part of the rule at all. They appear because the raw-to-central case has $b = -\mu'_1(a)$, so odd powers of $b$ carry a minus sign. Once students see that, the sign pattern stops being something to remember.
 
-\subsection{Three Conversions, One Operation}
+\subsection{Three Conversions, One Operation}\label{subsec:threec}
 
 The single parameter $b = a - k$ covers every case students meet:
 
@@ -337,7 +339,7 @@ Presenting these as a single slide, immediately after the mnemonic, is where the
 
 \subsection{The Example Redone}
 
-Returning to $a = 2$, $k = 5$, with $\mu'_1(2) = -1$, $\mu'_2(2) = 7$, $\mu'_3(2) = 39$, we have $b = 2 - 5 = -3$ and
+Returning to $a = 2$, $k = 5$, with $\mu'_1(2) = -1$, $\mu'_2(2) = 7$, $\mu'_3(2) = 39$, we have $b = 2 - 5 = -3$ and using the corresponding binomial forms, 
 
 \begin{enumerate}
 \item $\mu_1'(5) = \mu_1'(2) + b = -1 + (-3) = -4$.
@@ -345,7 +347,7 @@ Returning to $a = 2$, $k = 5$, with $\mu'_1(2) = -1$, $\mu'_2(2) = 7$, $\mu'_3(2
 \item $\mu_3'(5) = \mu_3'(2) + 3\mu_2'(2)b + 3\mu_1'(2)b^2 + b^3 = 39 + 3(7)(-3) + 3(-1)(-3)^2 + (-3)^3 = 39 - 63 - 27 - 27 = -78.$
 \end{enumerate}
 
-The answers match Section~\ref{sec-traditional}, as they must, but no polynomial was expanded and no summation was distributed. Extending to $r = 6$ requires reading one more row of Pascal's triangle.
+The answers match Section~\ref{sec-traditional}, as they must, but no polynomial was expanded and no summation was distributed. Extending to $r = 6$ requires reading one more row of Pascal's triangle or one can simply use the expression $\binom{r}{i}$, as shown before. 
 
 \subsection{The Matrix Form}
 
@@ -368,25 +370,25 @@ This subsection is intended for audiences that have had linear algebra and is no
 
 \subsection{Setting}
 
-The approach has been used by the author in higher-secondary teaching (classes 11--12) at a residential secondary institution in Bangladesh,\footnote{Institution named in the non-anonymized version.} within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. The cohort was \fillin{approximate class size} students, taught over \fillin{number of terms or years you have used it---if more than one cohort, say so, as repeated use across cohorts is stronger than a single instance}.
+The approach has been used by the author in higher-secondary teaching (classes 11--12) at a residential secondary institution in Bangladesh,\footnote{Institution named in the non-anonymized version.} within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. The cohort was \fillin{30} students, taught over \fillin{6 years}.
 
 The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had not previously been shown the origin-shift rule; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
 
 This is the least-equipped audience the material is normally taught to, which is why we regard it as an informative test rather than a limited one (Section~\ref{sec-levels}). In particular, these students had no calculus-based route to the same results: the generating-function derivations of Section~\ref{sec-dist} were unavailable to them, so the origin-shift rule was not a shortcut past a method they already had---it was the only method they had.
 
-The material was delivered in \fillin{number} class session(s), structured as in Sections~\ref{sec-traditional} and \ref{sec-rule}: the conventional derivation first, then why the formula list is hard to retain, then the rule and the mnemonic, then the three cases of $b$. The slides used are publicly available (Section~\ref{sec-supp}); the instruction they give students, stated on the slide itself, is simply \emph{do not memorize}.
+The material was delivered in \fillin{one} class session, structured as in Sections~\ref{sec-traditional} and \ref{sec-rule}: the conventional derivation first, then why the formula list is hard to retain, then the rule and the mnemonic, then the three cases of $b$. The slides used are publicly available (Section~\ref{sec-supp}); the instruction they give students, stated on the slide itself, is simply \emph{do not memorize}.
 
 \subsection{What Students Did}
 
-\fillin{Describe the actual task set. The specific thing worth reporting, if it happened, is students correctly producing a conversion at an order NOT shown in class---that is the claim the mnemonic makes, and it is what distinguishes the result from ``students followed a worked example''. If they only reproduced orders covered in lecture, say that instead; it is a weaker but still reportable observation.}
+At first they were shown the traditional textbook approach to change origin of raw moments. Then they were told that changing to central moments from raw moments required a different set of formulae. Then the new method was introduced. But before that, the students were first reintroduced to the binomial expansion and how to obtain its coefficients with the help of Pascal's triangle and the expression  $\binom{r}{i}$. They were then told correlate $r_{th}$ moment to $r_{th}$ binomial expansion.
 
-The author's observation was that students applied the transformation without substantial difficulty. \fillin{Add what you can honestly report: roughly what proportion worked unaided; whether errors were in the mnemonic itself or in arithmetic; whether students needed prompting to identify the correct $b$ in the central-moment case; whether retention was visible later in the term, e.g. on an examination item.}
+The author's observation was that students applied the transformation without substantial difficulty. \fillin{It took them a while (usually not more than 5 minutes) to become familiar with the necessary notations of transformation, but once they grasped the idea, they continued with ease, converting the first four moments successfully}
 
-We state plainly that this is informal classroom experience, not a study. There was no comparison group, no randomization, no validated instrument, and the observations are the instructor's own and were not recorded for research purposes at the time. \fillin{If any assessment data exist---examination items on this topic, assignment marks, anything comparing cohorts before and after the change in approach---report them here and keep the caveat. If none exist, retain this paragraph as written.} We report the experience because it was consistent and because the mechanism is plausible on its face: the mnemonic replaces recall of several unrelated formulas with execution of one procedure students already possess. We would not want it read as an effect size, and Section~\ref{sec-discussion} says what a proper evaluation would require.
+We state plainly that this is informal classroom experience, not a study. There was no comparison group, no randomization, no validated instrument, and the observations are the instructor's own and were not recorded for research purposes at the time. We report the experience because it was consistent and because the mechanism is plausible on its face: the mnemonic replaces recall of several unrelated formulas with execution of one procedure students already possess. We would not want it read as an effect size, and Section ~\ref{sec-discussion} says what a proper evaluation would require.
 
 \subsection{What Gave Students Trouble}
 
-\fillin{Please complete this subsection---a pedagogy paper reporting only success reads as promotional, and reviewers look for it. Genuine sticking points implied by the structure of the material: (i) getting the sign of $b$ backwards, since $b = a - k$ and not $k - a$; (ii) forgetting the $\mu'_0 \equiv 1$ convention and so dropping the final $b^r$ term; (iii) in the raw-to-central case, not seeing that $b$ depends on the data through $\mu'_1(a)$ rather than being a free constant. If these occurred, say so and say how you handled them; if something else did, report that instead.}
+\fillin{They students often stumpled finding the central moments from raw moments, confused where to get the new origin (mean); the author showd that it can be easily derived from raw moments, as described in ~\ref{subsec:threec}
 
 \section{The Same Rule for Named Distributions}\label{sec-dist}
 
@@ -528,7 +530,11 @@ That asymmetry is not a defect, and it is worth showing to students rather than 
 
 Transforming pre-computed moments costs $O(r)$ arithmetic operations for a single moment of order $r$, and $O(K^2)$ for all moments up to order $K$---in every case independent of the sample size $n$. Recomputing moments from raw data after an origin shift costs $O(nr)$. For large $n$ the difference is substantial, and in our benchmarking the transformation was faster by a wide margin.
 
+\iffalse
+% This is ommitted for now
 \fillin{If you retain this subsection, replace this sentence with an actual table: $n$, moment order, number of replications, timings for both approaches with a dispersion measure, R version, and hardware. The previous draft's ``$>250\times$'' figure cannot stand without it. Alternatively---and this is our recommendation for a pedagogical paper---delete this subsection entirely, since computational speed is not the contribution and an unsupported benchmark invites reviewer objections that have nothing to do with the paper's actual claims.}
+
+\fi
 
 \section{Discussion}\label{sec-discussion}
 
