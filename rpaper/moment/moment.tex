@@ -63,8 +63,11 @@
 \addtolength{\topmargin}{-1in}
 
 % ---------------------------------------------------------------------------
-% Anonymization switch: \anon=1 for blind review, \anon=0 for the author version.
-% NOTE: this now also governs PDF metadata, so the blind version leaks no name.
+% Anonymization switch -- follows the official JSDSE template convention:
+%   \anon = 0  -> anonymized version for double-anonymous review
+%   \anon = 1  -> full version with author details
+% This also governs PDF metadata and identifying URLs, so the anonymized
+% build leaks no name. Both files must be submitted (see build.sh).
 % ---------------------------------------------------------------------------
 \newcommand{\anon}{1}
 
@@ -74,10 +77,10 @@
 
 % Identifying URLs: shown in the author version, replaced by a neutral
 % placeholder under blind review so the PDF text carries no author handle.
-\if0\anon
+\if1\anon
   \newcommand{\anonurl}[2]{\url{#1}}
 \fi
-\if1\anon
+\if0\anon
   % Set \anonmirror to the anonymized deposit URL (e.g. an OSF view-only link)
   % once created; leave empty to print a reminder instead.
   \newcommand{\anonmirror}{}
@@ -89,14 +92,14 @@
     \fi}
 \fi
 
-\if0\anon
+\if1\anon
 \hypersetup{
   pdftitle={One Rule Instead of Five: A Binomial Mnemonic for Teaching Moment Transformations},
   pdfauthor={Abdullah Al Mahmud},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \fi
-\if1\anon
+\if0\anon
 \hypersetup{
   pdftitle={One Rule Instead of Five: A Binomial Mnemonic for Teaching Moment Transformations},
   pdfauthor={},
@@ -111,7 +114,7 @@
 
 \def\spacingset#1{\renewcommand{\baselinestretch}{#1}\small\normalsize} \spacingset{1}
 
-\if0\anon
+\if1\anon
 {
   \title{\bf One Rule Instead of Five: A Binomial Mnemonic for Teaching Moment Transformations}
   \author{Abdullah Al Mahmud \\
@@ -119,7 +122,7 @@
   \maketitle
 } \fi
 
-\if1\anon
+\if0\anon
 {
   \bigskip
   \bigskip
@@ -132,11 +135,11 @@
 
 \bigskip
 \begin{abstract}
-Converting between raw and central moments is taught repeatedly across the statistics curriculum---from higher-secondary syllabi through graduate distribution theory---and is, at every level, taught in much the same unrewarding way: as four or five separate, order-specific algebraic formulas to be memorized or looked up, with no visible structure connecting them. This paper describes a teaching approach that replaces the whole collection with a single rule. The underlying identity---that an origin shift from $a$ to $k$ acts on moments as a binomial expansion in $b = a - k$---is classical and appears in the advanced literature \citep{kendall1977}, but it is rarely taught as the organizing principle it is. We present it as a symbolic mnemonic: write $(a + b)^r$, expand it with Pascal's triangle, and read $a^j$ as ``the $j$-th moment about $a$.'' One device then covers raw-to-raw, raw-to-central, and central-to-raw conversion at any order, for sample data and for named distributions alike. Because the rule requires only the binomial theorem and linearity of expectation, it is usable from secondary level upward without modification. We report classroom experience with higher-secondary students (classes 11--12), who applied it successfully despite having no calculus-based alternative available---the most demanding audience for the material rather than the narrowest. An accompanying R package, \texttt{convmoment}, implements the rule directly and lets students check derivations against software rather than against an answer key.
+Converting between raw and central moments is taught repeatedly across the statistics curriculum, from higher-secondary syllabi through graduate distribution theory, and at every level in much the same unrewarding way: as four or five separate, order-specific formulas to be memorized, with no visible structure connecting them. This paper describes a teaching approach that replaces the whole collection with a single rule. The underlying identity, that a change of origin acts on moments as a binomial expansion in the size of the shift, is classical, but it is rarely taught as the organizing principle it is. We present it as a symbolic mnemonic: expand the binomial, read each power as the corresponding moment, and take the coefficients from Pascal's triangle. One device then covers raw-to-raw, raw-to-central, and central-to-raw conversion at any order, for sample data and for named distributions alike. Because the rule needs only the binomial theorem and linearity of expectation, it is usable from secondary level upward without modification. We report classroom experience with higher-secondary students, who applied it successfully despite having no calculus-based alternative available. An accompanying R package implements the rule so that students can verify their own derivations.
 \end{abstract}
 
 \noindent%
-{\it Keywords:} statistics education, moment transformation, central moments, mnemonics, R, mathematical statistics
+{\it Keywords:} statistics education, mathematical statistics, Pascal's triangle, origin shift, statistical computing
 \vfill
 
 \newpage
@@ -294,9 +297,11 @@ The rule as displayed is still a summation formula, and summation formulas are n
 \[
 \mu'_r(k) \equiv (a + b)^r \quad \text{with } a^j \mapsto \mu'_j(a) \text{ and } a^0 \equiv 1.
 \]
-That is: \emph{write down the binomial expansion of $(a+b)^r$ exactly as in secondary-school algebra, then read every power $a^j$ as ``the $j$-th moment about $a$.''} The coefficients come from Pascal's triangle, which students already know and can regenerate if they forget. Or, they can also use $\binom{r}{i}$, where $r$ is the order of the moment, and $i$ represents $i$th term of binomial expansion. 
+That is: \emph{write down the binomial expansion of $(a+b)^r$ exactly as in secondary-school algebra, then read every power $a^j$ as ``the $j$-th moment about $a$.''} The coefficients come from Pascal's triangle, which students already know and can regenerate if they forget. Students who prefer an explicit formula can compute them directly as $\binom{r}{j}$, where $r$ is the order of the moment and $j$ indexes the term---matching the coefficient of $\mu'_j(a)$ in the rule above.
 
-Thus, using the expression $\binom{r}{i}$, the coefficients, for example, second-order binomial expansion, the coefficeints are $\binom{2}{2}, \binom{2}{1}, \binom{2}{0}$, which are calculated as 1, 2, and 0, respectively. Higher-order coefficients can be found similarly. 
+For example, at $r = 2$ the coefficients are $\binom{2}{0}$, $\binom{2}{1}$, and $\binom{2}{2}$, that is $1$, $2$, and $1$: the third row of Pascal's triangle. Higher orders follow in the same way, and the two routes agree by construction.
+
+Mnemonics have an established place in statistics teaching, and their design and effectiveness have been studied directly \citep{lesser2011, hunt2010, mocko2017}. What distinguishes the device proposed here is that it is not a phrase to be recalled but a procedure to be executed: it returns the required formula rather than reminding the student of one.
 
 Table~\ref{tab:mnemonic} shows the result for orders 1 through 5.
 
@@ -378,7 +383,7 @@ This subsection is intended for audiences that have had linear algebra and is no
 
 \subsection{Setting}
 
-The approach has been used by the author in higher-secondary teaching (classes 11--12) at a residential secondary institution in Bangladesh,\footnote{Institution named in the non-anonymized version.} within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. Each cohort was approximately 30 students, and the approach has been used with successive cohorts over six years.
+The approach has been used by the author in higher-secondary teaching (classes 11--12) at a residential secondary institution in Bangladesh (named in the non-anonymized version), within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. Each cohort was approximately 30 students, and the approach has been used with successive cohorts over six years.
 
 The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had not previously been shown the origin-shift rule; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
 
@@ -470,7 +475,7 @@ The rule needs only the raw moments already tabulated and the shift. Here $a = 0
       &= \mu'_4(0) - 4mp\,\mu'_3(0) + 6m^2p^2\,\mu'_2(0) - 4m^3p^3\,\mu'_1(0) + m^4p^4 \\
       &= mp(1-p)\left[1 + 3(m-2)p(1-p)\right],
 \end{align*}
-where the last step is routine collection of terms. Writing down the substitution is immediate; only the simplification is laborious, and that labour belongs to the distribution rather than to the method.
+where the last step is routine collection of terms. Writing down the substitution is immediate; only the simplification is laborious, and that labor belongs to the distribution rather than to the method.
 \end{enumerate}
 
 Each central moment of order $r$ draws on the tabulated raw moments of orders $1$ through $r$, and on nothing else---the same triangular dependence recorded by the lower-triangular matrix $\mathbf{C}_b$ of Section~\ref{sec-matrix}. Every entry of the central column of Table~\ref{tab:binom} has now been recovered from the raw column, using no property of the Binomial distribution beyond the raw moments themselves.
@@ -563,7 +568,7 @@ The arguments follow the notation of Section~\ref{sec-rule}: \texttt{x} is the v
 
 The package changes what can be asked of students. Because the rule extends to any order at no extra cost, an assignment can require a derivation at an order that appears in no textbook table---order 6, 8, or 10---and students can check their own work with a single call rather than waiting for marked scripts. This closes the feedback loop within the session, and it removes the incentive to pattern-match against a printed answer.
 
-The division of labour matters here. The computation does not perform the derivation; it adjudicates one the student has already done by hand. That is the use of computing tools that the education literature supports---supporting conceptual work rather than substituting for it \citep{zavez2025}---and it is the reason the package is written to mirror the taught rule rather than to be fast.
+The division of labor matters here. The computation does not perform the derivation; it adjudicates one the student has already done by hand. That is the use of computing tools that the education literature supports---supporting conceptual work rather than substituting for it \citep{zavez2025}---and it is the reason the package is written to mirror the taught rule rather than to be fast.
 
 \subsection{Verification}
 
@@ -581,9 +586,15 @@ The gain is not that a difficult result becomes available---the result was never
 
 There is a secondary benefit worth naming. Because the rule is derived in three lines from the binomial theorem, it models the habit we want students to have---that a forgotten formula should be re-derived rather than looked up. The formula-list presentation actively teaches the opposite.
 
+A caution from the literature is worth taking seriously here. \citet{mocko2024}, surveying 1,323 introductory statistics students across 14 mnemonics, found that recalling a mnemonic and being able to use it are not the same achievement: acronym-type mnemonics were recalled most often, whereas longer phrase-type mnemonics were more often explained and correctly applied. Their recommendation is that instructors scaffold students from recall to use.
+
+We read that as broadly favorable to the present device, but it sets the right test. The origin-shift mnemonic is at the elaborated end of their spectrum---it is not a string to be retrieved but a short procedure that must be carried out, and carrying it out is precisely what produces the answer. There is no state in which a student has ``remembered'' it without being able to apply it, because the remembering and the applying are the same act. That is a structural argument, however, not an empirical one, and \citet{mocko2024} is a reminder that the distinction between recall and use is exactly what our own observations (Section~\ref{sec-classroom}) were not designed to separate.
+
 \subsection{Limitations}
 
 The approach does not remove the need for raw moments: something must still supply $\mu'_j(a)$, whether from data, from a generating function, or from a table of known distributional moments. For a distribution whose raw moments are themselves awkward, the origin shift is the easy half of the problem.
+
+The evaluation we have not done has a clear template. \citet{mocko2017} assessed statistics mnemonics at scale, examining how students rate their usefulness and how usage relates to anxiety and to learning outcomes; an analogous study here would ask whether students taught the rule can apply it at orders withheld from instruction, and whether that ability survives a delay.
 
 Nor does the mnemonic help with conversions that are not origin shifts. Moments to cumulants, in particular, is a different operation with a different combinatorial structure, and students who over-generalize the binomial device to that case will get it wrong. We flag this explicitly in class.
 
@@ -605,16 +616,24 @@ In classroom use with higher-secondary students, the rule proved learnable and u
 
 For instructors wanting to adopt the approach, the minimum viable version is short: derive the rule from the binomial theorem, present Table~\ref{tab:mnemonic}, and give the three cases of $b$ on one slide. That is a single lecture segment, and it replaces material that is otherwise spread across several chapters.
 
+\section{Ethics Statement}
+
+The classroom work described in Section~\ref{sec-classroom} was ordinary instruction delivered as part of the regular higher-secondary syllabus, not a research intervention. The origin-shift rule was taught as a convenient method for a topic already prescribed in the course, and students undertook no activity beyond their normal coursework.
+
+No data were collected from students for research purposes. No surveys or instruments were administered, no assessment was conducted beyond the ordinary work of the course, no individually identifiable student information was recorded, and none is reported here. The observations described are the instructor's own, reported retrospectively and in aggregate. The students were minors, and no material identifying any individual student appears in this paper or in its supplementary materials.
+
+Because the activity involved no research procedure and no collection of personal data, ethics-committee approval was not sought. The teaching was carried out under the institution's normal arrangements and, to the author's knowledge, contravened no applicable national or international standard.
+
 \section{Disclosure Statement}
 
 The author has no conflicts of interest to declare.
 
 \section{Data Availability Statement}
 
-\if0\anon
+\if1\anon
 The R package \texttt{convmoment} and all replication code are publicly available at \url{https://github.com/mahmudstat/convmoment}, and the package vignette at \url{https://www.thinkermahmud.com/convmoment/index.html}.
 \fi
-\if1\anon
+\if0\anon
 The R package \texttt{convmoment}, its vignette, and all replication code are publicly available in an open repository. The URLs are withheld here for blind review and will be supplied on acceptance.
 \fi
 

@@ -40,6 +40,11 @@ Hu, M.-K. (1962).
 \newblock Visual pattern recognition by moment invariants.
 \newblock {\em IRE Transactions on Information Theory}, 8(2):179--187.
 
+\bibitem[Hunt, 2010]{hunt2010}
+Hunt, N. (2010).
+\newblock Using mnemonics in teaching statistics.
+\newblock {\em Teaching Statistics}, 32(3):73--75.
+
 \bibitem[Johnson et~al., 1994]{johnson1994}
 Johnson, N.~L., Kotz, S., and Balakrishnan, N. (1994).
 \newblock {\em Continuous Univariate Distributions, Volume 1}.
@@ -49,6 +54,21 @@ Johnson, N.~L., Kotz, S., and Balakrishnan, N. (1994).
 Kendall, M.~G. and Stuart, A. (1977).
 \newblock {\em The Advanced Theory of Statistics: Vol. 1. Distribution Theory}.
 \newblock Charles Griffin \& Company, London, 4th edition.
+
+\bibitem[Lesser, 2011]{lesser2011}
+Lesser, L.~M. (2011).
+\newblock On the use of mnemonics for teaching statistics.
+\newblock {\em Model Assisted Statistics and Applications}, 6(2):151--160.
+
+\bibitem[Mocko et~al., 2017]{mocko2017}
+Mocko, M., Lesser, L.~M., Wagler, A.~E., and Francis, W.~S. (2017).
+\newblock Assessing effectiveness of mnemonics for tertiary students in a hybrid introductory statistics course.
+\newblock {\em Journal of Statistics Education}, 25(1):2--11.
+
+\bibitem[Mocko et~al., 2024]{mocko2024}
+Mocko, M., Wagler, A.~E., Lesser, L.~M., Francis, W.~S., Blush, J.~M., Schleicher, K., and Barrientos, P.~S. (2024).
+\newblock What they remember may not be what they understand: A study of mnemonic recall and performance by introductory statistics students.
+\newblock {\em Journal of Statistics and Data Science Education}, 32(4):416--431.
 
 \bibitem[Mood et~al., 1974]{mood1974}
 Mood, A.~M., Graybill, F.~A., and Boes, D.~C. (1974).
