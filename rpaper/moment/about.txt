@@ -148,3 +148,94 @@ decorative, and JSDSE reviewers know GAISE well enough to notice.
 
 ORPHANED .bib ENTRIES (uncited since the reframe, do not print):
 andrews2000, bish:fien:1975, dinardo2008, pearson2020, pebay2008, terriberry2007
+
+
+# Data Science Relavance
+
+Your binomial framework for moment transformations is useful in data science for three key reasons: it provides a unified foundation for describing data distributions, enables efficient feature engineering, and supports robust model development.
+
+## 1. Foundation for Understanding Data Distributions
+
+Moments are fundamental for describing data distributions in data science—they quantify central tendency, spread, and shape, and are essential for tasks like model evaluation and feature scaling .
+
+Your approach unifies raw, central, and factorial moment conversions into a single binomial rule. This is especially valuable with **factorial moments**, which serve as "building blocks" for many discrete distributions . For a Poisson distribution, the k-th factorial moment is simply λ^k—an astonishing simplification that lets you generate any raw or central moment effortlessly . Similarly, Binomial and Hypergeometric distributions have clean factorial moment forms .
+
+Without your unified framework, data scientists must handle separate, order-specific formulas for each conversion. With it, any conversion is just a binomial expansion.
+
+## 2. Efficient Feature Engineering
+
+In machine learning pipelines, moments are used extensively for:
+- **Feature Scaling**: Normalizing data via Z-score standardization requires mean and variance 
+- **Feature Engineering**: Log-transforming right-skewed data improves model performance 
+- **Detecting Heavy-Tailed Distributions**: For risk modeling in finance 
+
+Your rule enables **order-independent transformations**. Data scientists can convert moments across origins for any order without manual derivation, making feature engineering pipelines more maintainable and less error-prone.
+
+## 3. Support for Advanced Methods
+
+The broader data science literature relies on moment transformations in several areas:
+- **Generalized Method of Moments (GMM)**: Used for financial valuation models and benchmarking machine learning models 
+- **Dimension Reduction**: Recent work introduces "moment deviation subspaces" for high-dimensional clustering 
+- **Image Processing and Computer Vision**: Moment invariants are used in pattern detection, classification, and machine learning 
+- **Normalization Transformations**: Moment-targeting methods use skewness and kurtosis corrections for normalizing non-Gaussian data 
+
+Your framework provides a clean, pedagogical foundation for all these applications—making it easier to teach and implement moment-based methods.
+
+## Citations to Use in Your Paper
+
+Here are relevant references organized by the applications above:
+
+### Data Distributions and Factorial Moments
+- Factorial moments as "building blocks" for Poisson, Binomial, Hypergeometric distributions 
+- Foundations of moments, skewness, and kurtosis for describing data shape 
+
+### Image Processing and Computer Vision
+- Moment invariants for pattern detection and classification 
+- Moment invariants in computer vision applications 
+- 3D rotation moment invariants for neural networks 
+
+### Advanced Methods
+- Moment deviation subspaces for high-dimensional clustering 
+- Generalized Method of Moments (GMM) for financial modeling 
+
+### Normalization and Transformation
+- Moment-targeting normality transformations using skewness and kurtosis 
+- Exponential normal transformations based on first three moments 
+
+# List of Links on Data Science
+
+**Link:** https://ui.adsabs.harvard.edu/abs/2025arXiv250321939B/abstract
+**Topic/Application:** Moment invariants in pattern detection, classification, and machine learning 
+
+**Link:** https://www3.stat.sinica.edu.tw/statistica/J35N2/J35N202/J35N202.html
+**Topic/Application:** Moment deviation subspaces for dimension reduction and high-dimensional data clustering 
+
+**Link:** https://scipedia.bohrium.com/en/sciencepedia/feynman/keyword/factorial_moments
+**Topic/Application:** Factorial moments as "building blocks" for Poisson, Binomial, Hypergeometric distributions; conversion from factorial to raw moments 
+
+**Link:** https://invenio.nusl.cz/record/364404
+**Topic/Application:** Moment invariants for pattern detection in scalar and vector fields 
+
+**Link:** https://openurl.ebsco.com/EPDB%3Agcd%3A13%3A5641021/detailv2?sid=ebsco%3Aplink%3Aresult-item&id=ebsco%3Adoi%3A10.5705%2Fss.202022.0384&bquery=DE%20%22CLUSTERING%20algorithms%22&page=1&link_origin=none&searchDescription=CLUSTERING%20algorithms&crl=f
+**Topic/Application:** Moment deviation subspaces for dimension reduction, change point detection, and clustering 
+
+**Link:** https://ebooks.mpdl.mpg.de/ebooks/Record/EB002329647
+**Topic/Application:** Generalized Method of Moments (GMM) for econometric and financial models 
+
+**Link:** https://mirrors.cstcloud.cn/CRAN/web/packages/osktnorm/index.html
+**Topic/Application:** Moment-targeting normality transformations using skewness and kurtosis (OSKT method) 
+
+**Link:** https://fhb-muenster.digibib.net/search/eds/record/edsbas:edsbas.E17C12E3?be-eds-expander=fulltext&be-eds-facetfilter=1%2CCollectionLibrary%3AUniversidad+De+Las+Palmas+De+Gran+Canaria%5C%3A+Acceda&be-eds-sort=relevance&q-ky=%22Sample+Size%22&start=1&count=20&hitcount=5&pos=1
+**Topic/Application:** Factorial moments in Binomial, Hypergeometric distributions 
+
+**Link:** https://scirate.com/arxiv/2503.21939
+**Topic/Application:** Moment invariants for machine learning and pattern detection 
+
+**Link:** https://www3.stat.sinica.edu.tw/ss_newpaper/SS-2022-0384_na.pdf#8#1
+**Topic/Application:** Moment deviation subspaces for dimension reduction and clustering 
+
+**Link:** https://books.google.com.sg/books?id=hfEeAQAAMAAJ&newbks=1&newbks_redir=0&hl=pt-BR&redir_esc=y
+**Topic/Application:** Generalized Method of Moments (GMM) in econometrics and financial modeling 
+
+**Link:** https://avesis.cu.edu.tr/yayin/89f50336-5149-498e-bf23-90d8da365403/a-moment-targeting-normality-transformation-based-on-simultaneous-optimization-of-tukey-gh-distribution-parameters
+**Topic/Application:** Moment-targeting normality transformations using Tukey g-h distribution 

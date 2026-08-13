@@ -161,7 +161,7 @@ carry the structural information behind location, scale, skewness, and kurtosis,
 
 That recurrence matters for what follows. The conversion is taught more than once, to audiences with very different mathematical equipment, and---as we argue below---it is taught badly in much the same way each time.
 
-The topic is elementary, but in the author's experience it teaches poorly. The standard presentation gives a list:
+The standard presentation of moment transformations gives a list of formulas; students remember the list poorly, and when they forget one, they have no route back to it. The standard presentation gives a list:
 \begin{align*}
 \mu_2 &= \mu_2'(a) - \left[\mu_1'(a)\right]^2 \\[4pt]
 \mu_3 &= \mu_3'(a) - 3\mu_2'(a)\mu_1'(a) + 2\left[\mu_1'(a)\right]^3 \\[4pt]
@@ -169,7 +169,7 @@ The topic is elementary, but in the author's experience it teaches poorly. The s
 \mu_5 &= \mu_5'(a) - 5\mu_4'(a)\mu_1'(a) + 10\mu_3'(a)\left[\mu_1'(a)\right]^2 \\[2pt]
       &\qquad - 10\mu_2'(a)\left[\mu_1'(a)\right]^3 + 4\left[\mu_1'(a)\right]^5.
 \end{align*}
-Nothing in this display tells a student where the coefficients $3, 2$ or $4, 6, 3$ or $5, 10, 10, 4$ come from, why the signs alternate, or how to write down the next line. The formulas are typically presented in this form in widely used texts \citep{cramer1946, mood1974, johnson1994}. A student who forgets one has no route back to it except a table. A student who needs $\mu_6$, or who needs to shift to an origin that is not the mean, is simply stuck.
+Nothing in this display tells a student where the coefficients $3, 2$ or $4, 6, 3$ or $5, 10, 10, 4$ come from, why the signs alternate, or how to write down the next line. The formulas are typically presented in this form in widely used texts \citep{cramer1946, mood1974, johnson1994}. A student who forgets one has no route back to it except a table. A student who needs $\mu_6$, or who needs to shift to an origin that is not the mean, is simply stuck. Although the formulae bear a resemblance to the binomial theorem, the fact that there is on eless term in each formula and the notation of moments make the relationship less obvious. 
 
 This is a familiar failure mode: a set of results that are individually correct, collectively unmemorable, and presented without the structure that generates them. The predictable consequences are that students treat moment conversion as lookup rather than derivation, that algebra errors in the higher-order expansions go undetected, and that the connection between ``shifting the origin'' and ``re-expanding a polynomial'' is never made explicit.
 
