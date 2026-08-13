@@ -383,11 +383,11 @@ This subsection is intended for audiences that have had linear algebra and is no
 
 \subsection{Setting}
 
-The approach has been used by the author in higher-secondary teaching (classes 11--12) at a residential secondary institution in Bangladesh (named in the non-anonymized version), within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. Each cohort was approximately 30 students, and the approach has been used with successive cohorts over six years.
+The approach has been used by the author in higher-secondary teaching (classes 11--12) at \if1\anon Mymensingh Girls' Cadet College, Mymensingh, Bangladesh\fi\if0\anon a residential secondary institution in Bangladesh\fi, within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. Each cohort was approximately 30 students, and the approach has been used with successive cohorts over six years.
 
 The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had not previously been shown the origin-shift rule; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
 
-This is the least-equipped audience the material is normally taught to, which is why we regard it as an informative test rather than a limited one (Section~\ref{sec-levels}). In particular, these students had no calculus-based route to the same results: the generating-function derivations of Section~\ref{sec-dist} were unavailable to them, so the origin-shift rule was not a shortcut past a method they already had---it was the only method they had.
+This is the least-equipped audience the material is normally taught to, which is why we regard it as an informative test rather than a limited one (Section~\ref{sec-levels}). In particular, although these students had met calculus elsewhere in their mathematics course, they had not applied it to moments: the generating-function derivations of Section~\ref{sec-dist} were unavailable to them, so the origin-shift rule was not a shortcut past a method they already had---it was the only method they had.
 
 The material was delivered in a single class session, structured as in Sections~\ref{sec-traditional} and \ref{sec-rule}: the conventional derivation first, then why the formula list is hard to retain, then the rule and the mnemonic, then the three cases of $b$. The slides used are described in Section~\ref{sec-supp}; the instruction they give students, stated on the slide itself, is simply \emph{do not memorize}.
 
@@ -405,7 +405,7 @@ We state plainly that this is informal classroom experience, not a study. There 
 
 One difficulty was consistent enough to be worth reporting. Students stumbled when moving from raw moments to central moments, and the sticking point was not the expansion but the origin: they were unsure where the new origin was supposed to come from. The mean is not given separately in this setting, and students did not initially see that it is already available from the moments they hold, as $\bar{x} = \mu'_1(a) + a$. Once it was shown that the target origin can be derived from the raw moments themselves---the raw-to-central case of Section~\ref{subsec:threec}---the difficulty resolved.
 
-This is worth flagging for anyone adopting the approach, because it is a predictable consequence of how the rule is presented. In the raw-to-raw case $b$ is a constant the student chooses; in the raw-to-central case $b = -\mu'_1(a)$ depends on the data. Students who have met only the first case reasonably expect the second to supply an origin from outside. Making that dependence explicit when the three cases are introduced, rather than leaving it implicit in the algebra, appears to prevent the confusion rather than merely fix it afterwards.
+This is worth flagging for anyone adopting the approach, because it is a predictable consequence of how the rule is presented. In the raw-to-raw case $b$ is a constant the student chooses; in the raw-to-central case $b = -\mu'_1(a)$ depends on the data. Students who have met only the first case reasonably expect the second to supply an origin from outside. We would suggest making that dependence explicit when the three cases are introduced, rather than leaving it implicit in the algebra, though we can report only that the confusion was resolved once it arose, not that stating it in advance prevents it.
 
 \section{The Same Rule for Named Distributions}\label{sec-dist}
 
