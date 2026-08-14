@@ -4,6 +4,9 @@
 %
 \documentclass[
   12pt]{article}
+\usepackage{tabularx}
+% Define a compact centered column type that defaults to math mode
+\newcolumntype{Y}{>{\centering\arraybackslash$}X<{$}}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{iftex}
@@ -118,8 +121,13 @@
 {
   \title{\bf One Rule Instead of Five: A Binomial Mnemonic for Teaching Moment Transformations}
   \author{Abdullah Al Mahmud \\
-  Mymensingh Girls' Cadet College, Mymensingh, Bangladesh}
+  Mymensingh Girls' Cadet College, Mymensingh, Bangladesh \\
+  \texttt{almahmud.sbi@gmail.com}}
   \maketitle
+  \begin{center}
+  \textit{Corresponding author:} Abdullah Al Mahmud, Mymensingh Girls' Cadet College,
+  Mymensingh, Bangladesh. Email: \texttt{almahmud.sbi@gmail.com}
+  \end{center}
 } \fi
 
 \if0\anon
@@ -135,7 +143,7 @@
 
 \bigskip
 \begin{abstract}
-Converting between raw and central moments is taught repeatedly across the statistics curriculum, from higher-secondary syllabi through graduate distribution theory, and at every level in much the same unrewarding way: as four or five separate, order-specific formulas to be memorized, with no visible structure connecting them. This paper describes a teaching approach that replaces the whole collection with a single rule. The underlying identity, that a change of origin acts on moments as a binomial expansion in the size of the shift, is classical, but it is rarely taught as the organizing principle it is. We present it as a symbolic mnemonic: expand the binomial, read each power as the corresponding moment, and take the coefficients from Pascal's triangle. One device then covers raw-to-raw, raw-to-central, and central-to-raw conversion at any order, for sample data and for named distributions alike. Because the rule needs only the binomial theorem and linearity of expectation, it is usable from secondary level upward without modification. We report classroom experience with higher-secondary students, who applied it successfully despite having no calculus-based alternative available. An accompanying R package implements the rule so that students can verify their own derivations.
+Converting between raw and central moments is taught repeatedly across the statistics curriculum, from higher-secondary syllabi through graduate distribution theory, and at every level in much the same unrewarding way: as four or five separate, order-specific formulas to be memorized, with no visible structure connecting them. This paper describes a teaching approach that replaces the whole collection with a single rule. The underlying identity, that a change of origin acts on moments as a binomial expansion in the size of the shift, is classical, but it is rarely taught as the organizing principle it is. We present it as a symbolic mnemonic: expand the binomial, read each power as the corresponding moment, and take the coefficients from Pascal's triangle or a combination rule. One device then covers raw-to-raw, raw-to-central, and central-to-raw conversion at any order, for sample data and for named distributions alike. Because the rule needs only the binomial theorem and linearity of expectation, it is usable from secondary level upward without modification. We report classroom experience with higher-secondary students, who applied it successfully despite having no calculus-based alternative available on the material. An accompanying R package implements the rule so that students of any level can verify their own derivations.
 \end{abstract}
 
 \noindent%
@@ -151,17 +159,17 @@ Converting between raw and central moments is taught repeatedly across the stati
 
 Moments are introduced early in mathematical statistics. Raw moments about an arbitrary origin $a$,
 \[
-\mu'_r(a) = \mathbb{E}[(X - a)^r],
+\mu'_r(a) = \mathbb{E}[(X - a)^r] or \quad \frac{1}{n} \sum_{i=1}^n (x_i - a)^r, 
 \]
 and central moments about the mean $\mu$,
 \[
-\mu_r = \mathbb{E}[(X - \mu)^r],
+\mu_r = \mathbb{E}[(X - \mu)^r] or \quad \frac{1}{n} \sum_{i=1}^n (x_i - \bar x)^r,
 \]
 carry the structural information behind location, scale, skewness, and kurtosis, and moving between them is a routine operation. The topic recurs across the curriculum at very different levels of sophistication. It appears in secondary and higher-secondary syllabi wherever moments, skewness, and kurtosis are taught descriptively; it reappears in undergraduate distribution theory in expectation form; and it is used without comment in graduate work whenever variance is obtained from $\mathbb{E}[X^2]$, whenever skewness or kurtosis is formed, or whenever moment-based estimators are derived.
 
 That recurrence matters for what follows. The conversion is taught more than once, to audiences with very different mathematical equipment, and---as we argue below---it is taught badly in much the same way each time.
 
-The standard presentation of moment transformations gives a list of formulas; students remember the list poorly, and when they forget one, they have no route back to it. The standard presentation gives a list:
+The standard presentation of moment transformations for converting raw moments to central ones gives a list of formulas; students remember the list poorly, and when they forget one, they have no route back to it. The standard presentation gives a list:
 \begin{align*}
 \mu_2 &= \mu_2'(a) - \left[\mu_1'(a)\right]^2 \\[4pt]
 \mu_3 &= \mu_3'(a) - 3\mu_2'(a)\mu_1'(a) + 2\left[\mu_1'(a)\right]^3 \\[4pt]
@@ -169,7 +177,7 @@ The standard presentation of moment transformations gives a list of formulas; st
 \mu_5 &= \mu_5'(a) - 5\mu_4'(a)\mu_1'(a) + 10\mu_3'(a)\left[\mu_1'(a)\right]^2 \\[2pt]
       &\qquad - 10\mu_2'(a)\left[\mu_1'(a)\right]^3 + 4\left[\mu_1'(a)\right]^5.
 \end{align*}
-Nothing in this display tells a student where the coefficients $3, 2$ or $4, 6, 3$ or $5, 10, 10, 4$ come from, why the signs alternate, or how to write down the next line. The formulas are typically presented in this form in widely used texts \citep{cramer1946, mood1974, johnson1994}. A student who forgets one has no route back to it except a table. A student who needs $\mu_6$, or who needs to shift to an origin that is not the mean, is simply stuck. Although the formulae bear a resemblance to the binomial theorem, the fact that there is on eless term in each formula and the notation of moments make the relationship less obvious. 
+Nothing in this display tells a student where the coefficients $3, 2$ or $4, 6, 3$ or $5, 10, 10, 4$ come from, why the signs alternate, or how to write down the next line. The formulas are typically presented in this form in widely used texts \citep{cramer1946, mood1974, johnson1994}. A student who forgets one has no route back to it except a table. A student who needs $\mu_6$, or who needs to shift to an origin that is not the mean, is simply stuck. Although the formulae bear a resemblance to the binomial theorem, the fact that there is on eless term in each formula and the notation of moments make the relationship less obvious. The raw-to-raw conversion mechanism doesn't have a unified method as well; the moment of each order has to be converted separately. 
 
 This is a familiar failure mode: a set of results that are individually correct, collectively unmemorable, and presented without the structure that generates them. The predictable consequences are that students treat moment conversion as lookup rather than derivation, that algebra errors in the higher-order expansions go undetected, and that the connection between ``shifting the origin'' and ``re-expanding a polynomial'' is never made explicit.
 
@@ -182,7 +190,7 @@ We want to be clear at the outset about the status of the underlying mathematics
 The contribution is pedagogical, and consists of three parts:
 
 \begin{enumerate}
-\item \textbf{A mnemonic that makes the rule usable at the board.} Recasting the identity as the symbolic expansion $(a+b)^r$ with the substitution $a^j \mapsto \mu'_j(a)$ turns a formula students must recall into a procedure they can execute with Pascal's triangle. This framing, rather than the identity itself, is what makes the material teachable.
+\item \textbf{A mnemonic that makes the rule usable at the board.} Recasting the identity as the symbolic expansion $(a+b)^r$ with the substitution $a^r \mapsto \mu'_r(a)$ turns a formula students must recall into a procedure they can execute with Pascal's triangle or a combination formula. This framing, rather than the identity itself, is what makes the material teachable.
 \item \textbf{A single organizing parameter.} Introducing the origin shift $b = a - k$ collapses what textbooks present as three distinct topics---raw-to-raw, raw-to-central, and central-to-raw conversion---into one operation with three choices of $b$. Students learn one thing instead of three.
 \item \textbf{Software that mirrors the derivation.} The R package \texttt{convmoment} implements the rule in the same form in which it is taught, so students and educators can verify their own hand derivations at any order rather than checking against printed answers.
 \end{enumerate}
@@ -211,7 +219,7 @@ For more advanced audiences, origin shifts on moments recur throughout applied s
 
 \subsection{The Derivation as Usually Presented}
 
-Consider transforming raw moments from an initial origin $a$ to a target origin $k$. The textbook route writes $(x_i - k)$ as $[(x_i - a) + (a - k)]$, expands for the specific order required, and distributes the summation.
+Consider transforming raw moments from an initial origin $a$ to a target origin $k$. The textbook route writes $(x_i - k)$ as $[(x_i - a) + (a - k)]$, expands for the specific order required, and distributes the summation, requiring a different and tedious approach to finding each new moment. 
 
 \subsubsection{A Worked Example}
 
@@ -299,29 +307,35 @@ The rule as displayed is still a summation formula, and summation formulas are n
 \]
 That is: \emph{write down the binomial expansion of $(a+b)^r$ exactly as in secondary-school algebra, then read every power $a^j$ as ``the $j$-th moment about $a$.''} The coefficients come from Pascal's triangle, which students already know and can regenerate if they forget. Students who prefer an explicit formula can compute them directly as $\binom{r}{j}$, where $r$ is the order of the moment and $j$ indexes the term---matching the coefficient of $\mu'_j(a)$ in the rule above.
 
-For example, at $r = 2$ the coefficients are $\binom{2}{0}$, $\binom{2}{1}$, and $\binom{2}{2}$, that is $1$, $2$, and $1$: the third row of Pascal's triangle. Higher orders follow in the same way, and the two routes agree by construction.
+For example, at $r = 2$ the coefficients are $\binom{2}{0}$, $\binom{2}{1}$, and $\binom{2}{2}$, that is $1$, $2$, and $1$, respectively: the third row of Pascal's triangle. Higher orders follow in the same way, and the two routes agree by construction.
 
 Mnemonics have an established place in statistics teaching, and their design and effectiveness have been studied directly \citep{lesser2011, hunt2010, mocko2017}. What distinguishes the device proposed here is that it is not a phrase to be recalled but a procedure to be executed: it returns the required formula rather than reminding the student of one.
 
 Table~\ref{tab:mnemonic} shows the result for orders 1 through 5.
 
+
 \begin{table}[htbp]
 \centering
-\footnotesize
-\begin{tabular}{@{}ccl@{}}
+\small
+\begin{tabularx}{\textwidth}{@{} c Y Y Y @{}}
 \toprule
-Moment Order ($r$) & Symbolic Binomial Form & Explicit Moment Formula ($\mu'_r(k)$) \\
+Order ($r$) & \text{Binomial Form} & \text{Binomial Expansion} & \text{Explicit Moment Formula } (\mu'_r(k)) \\
 \midrule
-1 & $(a + b)^1$ & $\mu'_1(a) + b$ \\
-2 & $(a + b)^2$ & $\mu'_2(a) + 2\mu'_1(a)b + b^2$ \\
-3 & $(a + b)^3$ & $\mu'_3(a) + 3\mu'_2(a)b + 3\mu'_1(a)b^2 + b^3$ \\
-4 & $(a + b)^4$ & $\mu'_4(a) + 4\mu'_3(a)b + 6\mu'_2(a)b^2 + 4\mu'_1(a)b^3 + b^4$ \\
-5 & $(a + b)^5$ & $\mu'_5(a) + 5\mu'_4(a)b + 10\mu'_3(a)b^2 + 10\mu'_2(a)b^3 + 5\mu'_1(a)b^4 + b^5$ \\
+1 & (a + b)^1 & a+b & \mu'_1(a) + b \\
+\addlinespace
+2 & (a + b)^2 & a^2+2ab+b^2 & \mu'_2(a) + 2\mu'_1(a)b + b^2 \\
+\addlinespace
+3 & (a + b)^3 & a^3+3a^2b+3ab^2+b^3 & \mu'_3(a) + 3\mu'_2(a)b + 3\mu'_1(a)b^2 + b^3 \\
+\addlinespace
+4 & (a + b)^4 & a^4+4a^3b+6a^2b^2+4ab^3+b^4 & \mu'_4(a) + 4\mu'_3(a)b + 6\mu'_2(a)b^2 + 4\mu'_1(a)b^3 + b^4 \\
+\addlinespace
+5 & (a + b)^5 & a^5+5a^4b+10a^3b^2+10a^2b^3+5ab^4+b^5 & \mu'_5(a) + 5\mu'_4(a)b + 10\mu'_3(a)b^2 + 10\mu'_2(a)b^3 + 5\mu'_1(a)b^4 + b^5 \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \caption{The symbolic mnemonic for moment orders 1--5. Students write the middle column from Pascal's triangle and translate it into the right column by reading $a^j$ as $\mu'_j(a)$.}
 \label{tab:mnemonic}
 \end{table}
+
 
 The coefficients are read directly from Pascal's triangle:
 \[
@@ -336,6 +350,8 @@ The coefficients are read directly from Pascal's triangle:
 \]
 
 A point worth making explicitly in class: the alternating signs that make the textbook central-moment formulas look arbitrary are not part of the rule at all. They appear because the raw-to-central case has $b = -\mu'_1(a)$, so odd powers of $b$ carry a minus sign. Once students see that, the sign pattern stops being something to remember.
+
+Also worth noting is that, while expanding the binomial theorem, the first power of a is equal to the order of the expression, such as $a^3$ for $(a+b)^3$ and then the power of $a$ succesively decreases and the power of $b$ keeps on increasing one by one, until it matches the order of the expression. Thus, the last power of $b$ in the expansion of $(a+b)^3$ is $b^3$.
 
 \subsection{Three Conversions, One Operation}\label{subsec:threec}
 
@@ -383,9 +399,9 @@ This subsection is intended for audiences that have had linear algebra and is no
 
 \subsection{Setting}
 
-The approach has been used by the author in higher-secondary teaching (classes 11--12) at \if1\anon Mymensingh Girls' Cadet College, Mymensingh, Bangladesh\fi\if0\anon a residential secondary institution in Bangladesh\fi, within the first Statistics paper, in the chapter on moments, skewness, and kurtosis. Each cohort was approximately 30 students, and the approach has been used with successive cohorts over six years.
+The approach has been used by the author in higher-secondary teaching (classes 11--12) at \if1\anon Mymensingh Girls' Cadet College, Mymensingh, Bangladesh\fi\if0\anon a residential secondary institution in Bangladesh\fi, within the first Statistics paper, in the chapter on \textbf{Moments, Skewness, and Kurtosis}. Each cohort was approximately 20 students, and the approach has been used with successive cohorts over six years.
 
-The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had not previously been shown the origin-shift rule; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
+The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had not been familiar with the concept of change of origin and scale; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
 
 This is the least-equipped audience the material is normally taught to, which is why we regard it as an informative test rather than a limited one (Section~\ref{sec-levels}). In particular, although these students had met calculus elsewhere in their mathematics course, they had not applied it to moments: the generating-function derivations of Section~\ref{sec-dist} were unavailable to them, so the origin-shift rule was not a shortcut past a method they already had---it was the only method they had.
 

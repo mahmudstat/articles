@@ -5,6 +5,7 @@ the affiliation: Mymensingh Girls' Cadet College
 city: Mymensingh, Bangladesh
 (Alma mater: University of Dhaka -- NOT an affiliation; use only in a biographical note if the journal provides one.)
 email: almahmud.sbi@gmail.com
+orcid: 0000-0003-2814-8798
 Acknowledgment: None
 Disclosure: No funding
 
@@ -153,10 +154,11 @@ andrews2000, bish:fien:1975, dinardo2008, pearson2020, pebay2008, terriberry2007
 1. By students, I don't necessarily mean my direct students.
 2. I wished to say they didn't apply calculus for moments; applied elsewhere.
 3. I don't understand
-4. Yes that is not the way I wished it, and perhaps nor the way you indicated. I intend to show direct applications to data science, and for that I am collecting references. A list is included in about.txt (# List of Links on Data Science).
+4. Yes that is not the way I wished it, and perhaps nor the way you indicated. I intend to show direct applications to data science, and for that I am collecting references. A list is included in about.txt (# List of Links on Data Science). But don't do anything about it now. I'm reading more on that.
 5. I don't see much disagreement.
 
 Another thing: "named in the non-anonymized version" is seen in non-anonymized version (moment-full).
+I have more comments. Coming up with them shortly.
 
 # Data Science Relavance
 
