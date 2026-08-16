@@ -332,7 +332,7 @@ Order ($r$) & \text{Binomial Form} & \text{Binomial Expansion} & \text{Explicit 
 5 & (a + b)^5 & a^5+5a^4b+10a^3b^2+10a^2b^3+5ab^4+b^5 & \mu'_5(a) + 5\mu'_4(a)b + 10\mu'_3(a)b^2 + 10\mu'_2(a)b^3 + 5\mu'_1(a)b^4 + b^5 \\
 \bottomrule
 \end{tabularx}
-\caption{The symbolic mnemonic for moment orders 1--5. Students write the middle column from Pascal's triangle and translate it into the right column by reading $a^j$ as $\mu'_j(a)$. $a$ is written as $a^1$ to make the power explicit and the equivalence with $\mu'_1(a)$ clearer.}
+\caption{The symbolic mnemonic for moment orders 1--5. Students write the binomial expansion (third column) from Pascal's triangle, then translate it into the explicit moment formula (fourth column) by reading $a^j$ as $\mu'_j(a)$. $a$ is written as $a^1$ to make the power explicit and the equivalence with $\mu'_1(a)$ clearer.}
 \label{tab:mnemonic}
 \end{table}
 
@@ -401,7 +401,7 @@ This subsection is intended for audiences that have had linear algebra and is no
 
 The approach has been used by the author in higher-secondary teaching (classes 11--12) at \if1\anon Mymensingh Girls' Cadet College, Mymensingh, Bangladesh\fi\if0\anon a residential secondary institution in Bangladesh\fi, within the first Statistics paper, in the chapter on \textbf{Moments, Skewness, and Kurtosis}. Each cohort was approximately 20 students, and the approach has been used with successive cohorts over six years.
 
-The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had not been familiar with the concept of change of origin and scale; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
+The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had been familiar with the concept of change of origin and scale; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
 
 This is the least-equipped audience the material is normally taught to, which is why we regard it as an informative test rather than a limited one (Section~\ref{sec-levels}). In particular, although these students had met calculus elsewhere in their mathematics course, they had not applied it to moments: the generating-function derivations of Section~\ref{sec-dist} were unavailable to them, so the origin-shift rule was not a shortcut past a method they already had---it was the only method they had.
 
@@ -421,7 +421,7 @@ We state plainly that this is informal classroom experience, not a study. There 
 
 One difficulty was consistent enough to be worth reporting. Students stumbled when moving from raw moments to central moments, and the sticking point was not the expansion but the origin: they were unsure where the new origin was supposed to come from. The mean is not given separately in this setting, and students did not initially see that it is already available from the moments they hold, as $\bar{x} = \mu'_1(a) + a$. Once it was shown that the target origin can be derived from the raw moments themselves---the raw-to-central case of Section~\ref{subsec:threec}---the difficulty resolved.
 
-This is worth flagging for anyone adopting the approach, because it is a predictable consequence of how the rule is presented. In the raw-to-raw case $b$ is a constant the student chooses; in the raw-to-central case $b = -\mu'_1(a)$ [since $b = a - k = a - \mu'_1(a) + a = - \mu'_1(a)$] depends on the data. Students who have met only the first case reasonably expect the second to supply an origin from outside. We would suggest making that dependence explicit when the three cases are introduced, rather than leaving it implicit in the algebra, though we can report only that the confusion was resolved once it arose, not that stating it in advance prevents it.
+This is worth flagging for anyone adopting the approach, because it is a predictable consequence of how the rule is presented. In the raw-to-raw case $b$ is a constant the student chooses; in the raw-to-central case $b = -\mu'_1(a)$ [since $b = a - k = a - \left(\mu'_1(a) + a\right) = -\mu'_1(a)$] depends on the data. Students who have met only the first case reasonably expect the second to supply an origin from outside. We would suggest making that dependence explicit when the three cases are introduced, rather than leaving it implicit in the algebra, though we can report only that the confusion was resolved once it arose, not that stating it in advance prevents it.
 
 \section{The Same Rule for Named Distributions}\label{sec-dist}
 
@@ -558,6 +558,10 @@ That the same device runs in both directions, with only the sign of $b$ changed,
 We provide an R package, \texttt{convmoment}, implementing the rule in R \citep{rcore2024}; the package was developed following standard practice for R package structure and documentation \citep{wickham2015}. The primary design goal is pedagogical rather than computational: the code is written to look like the rule as taught, so that a student reading the source sees the same three ingredients---binomial coefficients, moments, powers of $b$---that they used by hand. The package, its vignette, and the replication script are distributed together so that the materials can be re-run and adapted by other instructors \citep{dogucu2022}.
 
 \begin{verbatim}
+get_moments <- function(x, a = 0, K) {
+  data.frame(Order = 1:K, Moment = sapply(1:K, function(r) mean((x - a)^r)))
+}
+
 conv_moment <- function(x, a, k, r) {
   b <- a - k
   mu_from <- c(1, x[1:r]) # mu_0 = 1, followed by moments 1..r
@@ -581,7 +585,7 @@ central2raw <- function(central_moments, mean_val) {
 }
 \end{verbatim}
 
-The arguments follow the notation of Section~\ref{sec-rule}: \texttt{x} is the vector of moments of orders $1, \dots, K$ about the initial origin \texttt{a}, and \texttt{k} is the target origin. Note that \texttt{central2raw()} expects its input to begin with $\mu_1 = 0$, so that the vector indexing matches the orders.
+The arguments follow the notation of Section~\ref{sec-rule}: \texttt{x} is the vector of moments of orders $1, \dots, K$ about the initial origin \texttt{a}, and \texttt{k} is the target origin. Note that \texttt{central2raw()} expects its input to begin with $\mu_1 = 0$, so that the vector indexing matches the orders. \texttt{get\_moments()} sits upstream of the rest: given raw data rather than already-computed moments, it returns the raw moments of orders $1$ through $K$ about a chosen origin \texttt{a}, in the form the other functions expect as input.
 
 \subsection{Use in Assignments}
 
@@ -662,9 +666,7 @@ For instructors wanting to adopt the approach, the minimum viable version is sho
 
 The classroom work described in Section~\ref{sec-classroom} was ordinary instruction delivered as part of the regular higher-secondary syllabus, not a research intervention. The origin-shift rule was taught as a convenient method for a topic already prescribed in the course, and students undertook no activity beyond their normal coursework.
 
-No data were collected from students for research purposes. No surveys or instruments were administered, no assessment was conducted beyond the ordinary work of the course, no individually identifiable student information was recorded, and none is reported here. The observations described are the instructor's own, reported retrospectively and in aggregate. The students were minors, and no material identifying any individual student appears in this paper or in its supplementary materials.
-
-Because the activity involved no research procedure and no collection of personal data, ethics-committee approval was not sought. The teaching was carried out under the institution's normal arrangements and, to the author's knowledge, contravened no applicable national or international standard.
+No data were collected from students for research purposes. No surveys or instruments were administered, and no assessment was conducted beyond the ordinary work of the course. The observations described are the instructor's own, reported retrospectively and in aggregate. The students were minors, and no material identifying any individual student appears in this paper or in its supplementary materials. Because the activity involved no research procedure and no collection of personal data, ethics-committee approval was not sought. The teaching was carried out under the institution's normal arrangements and, to the author's knowledge, contravened no applicable national or international standard.
 
 \section{Disclosure Statement}
 
