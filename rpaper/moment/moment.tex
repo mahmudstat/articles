@@ -169,7 +169,7 @@ carry the structural information behind location, scale, skewness, and kurtosis,
 
 That recurrence matters for what follows. The conversion is taught more than once, to audiences with very different mathematical equipment, and---as we argue below---it is taught badly in much the same way each time.
 
-The standard presentation of moment transformations for converting raw moments to central ones gives a list of formulas; students remember the list poorly, and when they forget one, they have no route back to it. The standard presentation gives a list:
+The standard presentation of moment transformations from raw to central moments gives a list of order-specific formulas:
 \begin{align*}
 \mu_2 &= \mu_2'(a) - \left[\mu_1'(a)\right]^2 \\[4pt]
 \mu_3 &= \mu_3'(a) - 3\mu_2'(a)\mu_1'(a) + 2\left[\mu_1'(a)\right]^3 \\[4pt]
@@ -177,7 +177,7 @@ The standard presentation of moment transformations for converting raw moments t
 \mu_5 &= \mu_5'(a) - 5\mu_4'(a)\mu_1'(a) + 10\mu_3'(a)\left[\mu_1'(a)\right]^2 \\[2pt]
       &\qquad - 10\mu_2'(a)\left[\mu_1'(a)\right]^3 + 4\left[\mu_1'(a)\right]^5.
 \end{align*}
-Nothing in this display tells a student where the coefficients $3, 2$ or $4, 6, 3$ or $5, 10, 10, 4$ come from, why the signs alternate, or how to write down the next line. The formulas are typically presented in this form in widely used texts \citep{cramer1946, mood1974, johnson1994}. A student who forgets one has no route back to it except a table. A student who needs $\mu_6$, or who needs to shift to an origin that is not the mean, is simply stuck. Although the formulae bear a resemblance to the binomial theorem, the fact that there is on eless term in each formula and the notation of moments make the relationship less obvious. The raw-to-raw conversion mechanism doesn't have a unified method as well; the moment of each order has to be converted separately. 
+Nothing in this display tells a student where the coefficients $3, 2$ or $4, 6, 3$ or $5, 10, 10, 4$ come from, why the signs alternate, or how to write down the next line. The formulas are typically presented in this form in widely used texts \citep{cramer1946, mood1974, johnson1994}. A student who forgets one has no route back to it except a table. A student who needs $\mu_6$, or who needs to shift to an origin that is not the mean, is simply stuck. Although the formulae bear a resemblance to the binomial theorem, the fact that there is one less term in each formula and the notation of moments make the relationship less obvious. The raw-to-raw conversion mechanism does not have a unified method either; the moment of each order has to be converted separately.
 
 This is a familiar failure mode: a set of results that are individually correct, collectively unmemorable, and presented without the structure that generates them. The predictable consequences are that students treat moment conversion as lookup rather than derivation, that algebra errors in the higher-order expansions go undetected, and that the connection between ``shifting the origin'' and ``re-expanding a polynomial'' is never made explicit.
 
@@ -351,7 +351,7 @@ The coefficients are read directly from Pascal's triangle:
 
 A point worth making explicitly in class: the alternating signs that make the textbook central-moment formulas look arbitrary are not part of the rule at all. They appear because the raw-to-central case has $b = -\mu'_1(a)$, so odd powers of $b$ carry a minus sign. Once students see that, the sign pattern stops being something to remember.
 
-Also worth noting is that, while expanding the binomial theorem, the first power of a is equal to the order of the expression, such as $a^3$ for $(a+b)^3$ and then the power of $a$ succesively decreases and the power of $b$ keeps on increasing one by one, until it matches the order of the expression. Thus, the last power of $b$ in the expansion of $(a+b)^3$ is $b^3$.
+Also worth noting is that, while expanding the binomial theorem, the first power of a is equal to the order of the expression, such as $a^3$ for $(a+b)^3$ and then the power of $a$ successively decreases and the power of $b$ keeps on increasing one by one, until it matches the order of the expression. Thus, the last power of $b$ in the expansion of $(a+b)^3$ is $b^3$.
 
 \subsection{Three Conversions, One Operation}\label{subsec:threec}
 
@@ -399,7 +399,7 @@ This subsection is intended for audiences that have had linear algebra and is no
 
 \subsection{Setting}
 
-The approach has been used by the author in higher-secondary teaching (classes 11--12) at \if1\anon Mymensingh Girls' Cadet College, Mymensingh, Bangladesh\fi\if0\anon a residential secondary institution in Bangladesh\fi, within the first Statistics paper, in the chapter on \textbf{Moments, Skewness, and Kurtosis}. Each cohort was approximately 20 students, and the approach has been used with successive cohorts over six years.
+The approach has been used by the author in higher-secondary teaching (classes 11--12) at \if1\anon Cadet Colleges in Pabna (2019-2022), Sylhet (2022-2025), and Mymensingh (2025-onward) in Bangladesh\fi\if0\anon three residential secondary institutions in Bangladesh\fi, within the first Statistics paper, in the chapter on \textbf{Moments, Skewness, and Kurtosis}. Each cohort was approximately 20 students, and the approach has been used with successive cohorts over six years.
 
 The prerequisites the rule needs were already in place. Students had met the binomial theorem and Pascal's triangle in algebra, and were familiar with expectation and variance. They had been familiar with the concept of change of origin and scale; the conventional treatment in the prescribed textbook is the formula list reproduced in Section~\ref{sec-intro}.
 
@@ -666,7 +666,7 @@ For instructors wanting to adopt the approach, the minimum viable version is sho
 
 The classroom work described in Section~\ref{sec-classroom} was ordinary instruction delivered as part of the regular higher-secondary syllabus, not a research intervention. The origin-shift rule was taught as a convenient method for a topic already prescribed in the course, and students undertook no activity beyond their normal coursework.
 
-No data were collected from students for research purposes. No surveys or instruments were administered, and no assessment was conducted beyond the ordinary work of the course. The observations described are the instructor's own, reported retrospectively and in aggregate. The students were minors, and no material identifying any individual student appears in this paper or in its supplementary materials. Because the activity involved no research procedure and no collection of personal data, ethics-committee approval was not sought. The teaching was carried out under the institution's normal arrangements and, to the author's knowledge, contravened no applicable national or international standard.
+No data were collected from students for research purposes. No surveys or instruments were administered, and no assessment was conducted beyond the ordinary work of the course. The observations described are the instructor's own, reported retrospectively and in aggregate. The students were minors, and no material identifying any individual student appears in this paper or in its supplementary materials. Because the activity involved no research procedure and no collection of personal data, ethics-committee approval was not sought. The teaching was carried out under the institutions' normal arrangements and, to the author's knowledge, contravened no applicable national or international standard.
 
 \section{Disclosure Statement}
 

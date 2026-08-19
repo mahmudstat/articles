@@ -26,7 +26,7 @@ done
 
 echo
 echo "leak check on the ANONYMOUS file (must report 0):"
-hits=$(pdftotext moment-anonymous.pdf - | grep -icE "mahmud|statmania|bishwo|thinker|mymensingh|dhaka" || true)
+hits=$(pdftotext moment-anonymous.pdf - | grep -icE "mahmud|statmania|bishwo|thinker|mymensingh|dhaka|pabna|sylhet" || true)
 meta=$(pdfinfo moment-anonymous.pdf | awk -F: '/^Author/{gsub(/ /,"",$2); print $2}')
 echo "  identifying strings in text : $hits"
 echo "  PDF Author metadata         : '${meta:-}'"
